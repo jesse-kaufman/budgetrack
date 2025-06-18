@@ -37,9 +37,10 @@ Enum TransactionType {
 }
 
 Enum Frequency {
-  1m
-  1y
-  6m
+  payPeriod
+  monthly
+  biannually
+  yearly
 }
 
 Enum TransactionCategory {

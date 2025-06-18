@@ -1,0 +1,123 @@
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap");
+@import "tailwindcss";
+
+@config "../../tailwind.config.js";
+
+@theme {
+  --font-roboto: "Roboto", sans-serif;
+}
+
+/** BASE LAYER **/
+@layer base {
+  html {
+    font-size: 16px !important;
+  }
+  #constructionLoanApp p {
+    @apply mb-0;
+  }
+}
+
+/** UTILITY LAYER **/
+@layer utilities {
+  .border-r-dashed {
+    border-style: solid dashed solid solid !important;
+  }
+  #constructionLoanApp .input.invalid-input {
+    @apply text-red-900 border-red-500 font-bold bg-red-800! ring-red-800 ring-3 border-2 accent-amber-700;
+  }
+}
+
+/** COMPONENT LAYER **/
+@layer components {
+  /**
+   * Input styles
+   */
+  #constructionLoanApp .input {
+    @apply px-2 py-0.5 bg-white border border-gray-400/50 rounded  focus:outline-blue-500;
+  }
+
+  /**
+   * Styles for table row marked complete
+   */
+  #constructionLoanApp .complete td,
+  #constructionLoanApp .complete th {
+    @apply text-gray-800!;
+  }
+  #constructionLoanApp .complete {
+    @apply transition-opacity ease-in-out even:bg-gray-300 odd:bg-gray-400 even:opacity-50 odd:opacity-45 hover:bg-violet-300 duration-600 transition-normal;
+  }
+  #constructionLoanApp .complete input {
+    @apply bg-gray-200;
+  }
+
+  /** 
+   * Base table styles
+   */
+  #constructionLoanApp th,
+  #constructionLoanApp td {
+    @apply px-3 py-0.5 border-gray-400/30 border-r-1 last:border-r-0;
+  }
+
+  /** 
+   * Table header styles
+   */
+  #constructionLoanApp thead th {
+    @apply py-1 font-bold text-left text-gray-500;
+  }
+  #constructionLoanApp thead {
+    @apply text-xs text-center text-gray-700 bg-gray-200;
+  }
+  #constructionLoanApp thead th {
+    @apply text-center first:rounded-tl-lg last:rounded-tr-lg border-b-1;
+  }
+
+  /**
+   * Table body styles
+   */
+  #constructionLoanApp tbody tr {
+    @apply border-y-1 border-gray-500/50 odd:bg-white even:bg-gray-100 last:border-b-0 hover:bg-violet-100;
+  }
+  #constructionLoanApp tbody tr:last-child th,
+  #constructionLoanApp tbody tr:last-child td {
+    @apply pb-1;
+  }
+
+  /**
+   * Table footer styles
+   */
+  #constructionLoanApp tfoot {
+    @apply h-2 bg-gray-200 border-t-1 border-gray-400/30 last:rounded-br-lg first:rounded-bl-lg;
+  }
+  #constructionLoanApp tfoot tr td {
+    @apply h-2 bg-gray-200 border-t-1 border-gray-400/30;
+  }
+  #constructionLoanApp tfoot td {
+    @apply last:rounded-br-lg first:rounded-bl-lg;
+  }
+
+  /**
+   * Button styles
+   */
+  #constructionLoanApp .button-sm,
+  #constructionLoanApp .button {
+    @apply select-none px-4 shrink-1 grow-0 py-0.5 text-base font-bold text-white rounded cursor-pointer text-shadow-2xs leading-normal;
+    @apply bg-linear-to-t to-gray-400/80 from-gray-700/80;
+    @apply hover:to-gray-400/80 hover:from-gray-800/80 hover:no-underline;
+    @apply active:to-gray-500 active:from-gray-600;
+  }
+  #constructionLoanApp .button-sm {
+    @apply text-sm;
+  }
+  #constructionLoanApp .button-primary {
+    @apply bg-linear-to-t to-sky-500 via-blue-500 from-indigo-500;
+    @apply hover:to-sky-600/80 hover:via-blue-600 hover:from-indigo-600/80;
+    @apply active:to-sky-600/70 active:via-blue-700 active:from-indigo-600/70;
+  }
+
+  /**
+   * Skeleton styles
+   */
+  #constructionLoanApp .skeleton {
+    @apply h-2 mt-2.5 mb-2 bg-gray-400/40 rounded-md animate-pulse block;
+  }
+}

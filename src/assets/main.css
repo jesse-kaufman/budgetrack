@@ -22,10 +22,17 @@
 /** COMPONENT LAYER **/
 @layer components {
   /**
-   * Input styles
+   * Form element styles
    */
   .input {
-    @apply px-2 py-0.5 bg-white/40 border border-gray-800/70 rounded  focus:outline-blue-500;
+    @apply py-0.5 bg-gray-600/30 border border-gray-800/70 focus:bg-gray-700/70;
+  }
+  .input,
+  select {
+    @apply px-2 py-0.5 rounded focus:outline-2 focus:outline-blue-300 focus:ring-0;
+  }
+  select option {
+    @apply text-sm rounded-lg bg-gray-800 border-gray-700 placeholder-gray-400;
   }
 
   /** 

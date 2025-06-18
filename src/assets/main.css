@@ -60,7 +60,15 @@
    * Table body styles
    */
   tbody tr {
-    @apply border-y-1 border-gray-500/50 odd:bg-zinc-500/70 even:bg-zinc-700/70 last:border-b-0 hover:bg-violet-100;
+    @apply border-y-1 border-gray-500/50 odd:bg-zinc-500/70 even:bg-zinc-700/70 last:border-b-0;
+  }
+  tbody tr:hover,
+  tbody tr:hover {
+    @apply bg-violet-500/20!;
+  }
+  tbody tr.income th,
+  tbody tr.income td {
+    @apply bg-lime-400/10;
   }
   tbody tr:last-child th,
   tbody tr:last-child td {

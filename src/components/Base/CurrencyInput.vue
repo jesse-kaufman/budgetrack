@@ -19,7 +19,7 @@
       />
       <div
         v-show="!edit"
-        class="font-semibold text-right text-blue-800 underline cursor-pointer"
+        class="font-semibold text-right underline cursor-pointer"
       >
         {{ formatCurrency(modelValue, true, false) || "&nbsp;" }}
       </div>

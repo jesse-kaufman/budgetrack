@@ -1,9 +1,9 @@
 <template>
-  <tr :class="rowClass">
+  <tr :class="item.type">
     <th scope="row" class="px-2 min-w-55">
       <Input
         v-if="!loading"
-        :model-value="cost.name"
+        :model-value="item.name"
         class="w-full"
         @update:model-value="(val) => updateField('name', val)"
       />
@@ -11,97 +11,74 @@
         <div class="skeleton"></div>
       </template>
     </th>
-    <td class="text-right min-w-30 border-r-dashed bg-blue-100/50">
-      <template v-if="!loading">
-        <CurrencyInput
-          :model-value="cost.projectedCost"
-          type="number"
-          class="text-right"
-          min="0"
-          :decimals="2"
-          @update:model-value="(val) => updateField('projectedCost', val)"
-          @error="(msg) => emit('error', msg)"
-        />
-      </template>
-      <template v-else>
-        <div class="skeleton"></div>
-      </template>
-    </td>
-    <td class="text-right bg-blue-100/50 min-w-12">
-      <template v-if="!loading">
-        {{ calculatePercent(cost.projectedCost, totalProjectedCost) }}
-      </template>
-      <template v-else>
-        <div class="skeleton"></div>
-      </template>
-    </td>
-    <td class="text-right border-r-dashed bg-lime-200/50 min-w-30">
-      <template v-if="!loading">
-        <CurrencyInput
-          :model-value="cost.actualCost"
-          type="number"
-          class="text-right"
-          min="0"
-          :decimals="2"
-          @update:model-value="(val) => updateField('actualCost', val)"
-          @error="(msg) => emit('error', msg)"
-        />
-      </template>
-      <template v-else>
-        <div class="skeleton"></div>
-      </template>
-    </td>
-    <td class="text-right bg-lime-200/50 min-w-12">
-      <template v-if="!loading">
-        {{ calculatePercent(cost.actualCost, totalActualCost) }}
-      </template>
-      <template v-else>
-        <div class="skeleton"></div>
-      </template>
-    </td>
-    <td class="text-right min-w-25">
-      <template v-if="!loading">{{ variation }}</template>
-      <template v-else>
-        <div class="skeleton"></div>
-      </template>
-    </td>
-    <td class="text-center min-w-30">
-      <template v-if="!loading">
-        <Input
-          type="date"
-          :model-value="cost.inspectedOn ? cost.inspectedOn.split('T')[0] : ''"
-          @update:model-value="(val) => updateField('inspectedOn', val)"
-        />
-      </template>
-      <template v-else>
-        <div class="skeleton"></div>
-      </template>
-    </td>
+
     <td class="px-2 text-center min-w-30">
       <template v-if="!loading">
-        <Input
-          type="date"
-          :model-value="
-            cost.drawRequestedOn ? cost.drawRequestedOn.split('T')[0] : ''
-          "
-          @update:model-value="(val) => updateField('inspectedOn', val)"
+        <select id="countries" class="w-full text-sm">
+          <option disabled>-- Select One --</option>
+          <option>Income</option>
+          <option>Bill</option>
+          <option>Variable Expense</option>
+          <option>Credit Card Payment</option>
+          <option>Savings Transfer</option>
+          <option>Investment Transfer</option>
+        </select>
+      </template>
+      <template v-else>
+        <div class="skeleton"></div>
+      </template>
+    </td>
+    <td class="text-right border-r-dashed min-w-30">
+      <template v-if="!loading">
+        <select id="countries" class="w-full text-sm">
+          <option disabled>-- Select One --</option>
+          <option value="payPeriod">Pay period</option>
+          <option value="1m">Monthly</option>
+          <option value="6m">6 Months</option>
+          <option value="1y">Yearly</option>
+        </select>
+      </template>
+      <template v-else>
+        <div class="skeleton"></div>
+      </template>
+    </td>
+    <td class="text-right min-w-12">
+      <Input
+        v-if="!loading"
+        :model-value="item.dueOn"
+        class="w-full"
+        @update:model-value="(val) => updateField('dueOn', val)"
+      />
+      <template v-else>
+        <div class="skeleton"></div>
+      </template>
+    </td>
+    <td class="px-2 text-right whitespace-nowrap bg-fuchsia-300/30 min-w-30">
+      <template v-if="!loading">
+        <CurrencyInput
+          :model-value="item.amount"
+          type="number"
+          class="text-right"
+          min="0"
+          :decimals="2"
+          @update:model-value="(val) => updateField('amount', val)"
+          @error="(msg) => emit('error', msg)"
         />
       </template>
       <template v-else>
         <div class="skeleton"></div>
       </template>
     </td>
-    <td class="px-2 text-right whitespace-nowrap bg-fuchsia-200/30 min-w-30">
+    <td class="px-2 text-right whitespace-nowrap bg-fuchsia-300/30 min-w-30">
       <template v-if="!loading">
-        <CurrencyInput
-          :model-value="cost.drawnAmount"
-          type="number"
-          class="text-right"
-          min="0"
-          :decimals="2"
-          @update:model-value="(val) => updateField('drawnAmount', val)"
-          @error="(msg) => emit('error', msg)"
-        />
+        <div
+          class="flex flex-row items-center justify-between space-x-1 cursor-pointer h-7"
+        >
+          <span>$</span>
+          <div class="font-semibold text-right">
+            {{ formatCurrency(perPayPeriodAmount, true, false) || "&nbsp;" }}
+          </div>
+        </div>
       </template>
       <template v-else>
         <div class="skeleton"></div>
@@ -115,24 +92,15 @@ import { computed } from "vue"
 import Input from "@/components/Base/BaseInput.vue"
 import CurrencyInput from "@/components/Base/CurrencyInput.vue"
 import { formatCurrency } from "@/utils/currencyUtils.js"
-import { calculatePercent } from "@/utils/numberUtils.js"
 
 // Define the emits for the component
-const emit = defineEmits(["update:cost-item", "error"])
+const emit = defineEmits(["update:item-item", "error"])
 
 // Define the props for the component
-const { cost, totalProjectedCost, totalActualCost } = defineProps({
-  cost: {
+const { item } = defineProps({
+  item: {
     type: Object,
     required: true,
-  },
-  totalProjectedCost: {
-    type: [Number, null],
-    default: null,
-  },
-  totalActualCost: {
-    type: [Number, null],
-    default: null,
   },
   loading: {
     type: Boolean,
@@ -140,31 +108,22 @@ const { cost, totalProjectedCost, totalActualCost } = defineProps({
   },
 })
 
-// Computed property to hold the difference between actual and projected costs
-const variation = computed(() => {
-  const actualCost = parseFloat(cost.actualCost)
-  const projectedCost = parseFloat(cost.projectedCost)
-
-  // Return "N/A" if projected or actual cost is not a number
-  if (isNaN(projectedCost) || isNaN(actualCost)) {
-    return ""
+// Computed property to hold the per-pay-period amount
+const perPayPeriodAmount = computed(() => {
+  const divisors = {
+    payPeriod: 1,
+    monthly: 2,
+    biannually: 12,
+    yearly: 24,
   }
 
-  const difference = actualCost - projectedCost
+  if (!divisors[item.frequency]) throw new Error("Invalid frequency")
 
-  if (difference === 0) return "--"
-
-  // Calculate the variation as the difference between actual and projected costs and format as currency
-  return formatCurrency(difference)
+  return parseFloat(item.amount) / divisors[item.frequency]
 })
 
-// Computed property to determine if row is complete
-const rowClass = computed(() =>
-  cost?.drawnAmount && cost.drawnAmount >= cost.actualCost ? "complete" : ""
-)
-
-// When the cost item is updated, emit the update event with the new cost object
+// When the item item is updated, emit the update event with the new item object
 function updateField(field, value) {
-  emit("update:cost-item", { ...cost, [field]: value })
+  emit("update:item-item", { ...item, [field]: value })
 }
 </script>

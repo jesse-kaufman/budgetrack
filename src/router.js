@@ -1,13 +1,11 @@
 /** @file Vue router. */
 import { createRouter, createWebHistory } from "vue-router"
 
-import LoanList from "./views/LoanList.vue"
-import LoanView from "./views/LoanView.vue"
+import BudgetView from "./views/BudgetView.vue"
 
 const routes = [
-  { path: "/", redirect: "/ConstructionLoans" },
-  { path: "/ConstructionLoans", component: LoanList },
-  { path: "/ConstructionLoans/:id", component: LoanView },
+  { path: "/", redirect: "/transactions" },
+  { path: "/transactions", component: BudgetView },
 ]
 
 const router = createRouter({

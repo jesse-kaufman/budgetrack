@@ -3,8 +3,8 @@
     <thead>
       <tr>
         <th scope="col"></th>
-        <th scope="col" colspan="2" class="bg-blue-200">Projected</th>
-        <th scope="col" colspan="2" class="bg-lime-200">Actual</th>
+        <th scope="col" colspan="2" class="bg-blue-300/50">Projected</th>
+        <th scope="col" colspan="2" class="bg-lime-300/50">Actual</th>
         <th scope="col">Variation</th>
         <th scope="col">Inspected</th>
         <th scope="col">Draw Req.</th>
@@ -13,7 +13,7 @@
     </thead>
     <tbody>
       <template v-if="!loading">
-        <CostTableRow
+        <BudgetTableRow
           v-for="cost in costs"
           :key="cost.id"
           :cost="cost"
@@ -30,7 +30,7 @@
       </template>
       <template v-else>
         <template v-for="n in 10" :key="n">
-          <CostTableRow :cost="{}" :loading="loading" />
+          <BudgetTableRow :cost="{}" :loading="true" />
         </template>
       </template>
     </tbody>
@@ -44,7 +44,7 @@
 
 <script setup>
 import Table from "@/components/Base/Table/BaseTable.vue"
-import CostTableRow from "@/components/LoanView/LoanCostTableRow.vue"
+import BudgetTableRow from "@/components/BudgetView/BudgetTableRow.vue"
 
 const emit = defineEmits(["update:cost-item", "error"])
 

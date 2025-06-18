@@ -1,3 +1,6 @@
 {
-  "cSpell.words": ["DBML", "roboto", "varchar"]
+  "cSpell.words": ["DBML", "roboto", "varchar"],
+  "files.associations": {
+    "*.css": "tailwindcss"
+  }
 }

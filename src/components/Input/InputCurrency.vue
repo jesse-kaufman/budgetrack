@@ -6,8 +6,8 @@
       @click="enableEdit"
     >
       <span>$</span>
-      <div v-if="isIncome">+</div>
-      <div>
+      <div class="flex flex-row space-x-1">
+        <div v-if="isIncome">+</div>
         <BaseInput
           v-show="edit"
           v-bind="$attrs"

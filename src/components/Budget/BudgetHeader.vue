@@ -3,29 +3,6 @@
     class="flex flex-row flex-wrap align-items-start sm:flex-nowrap mt-8 mb-8 leading-4.5"
   >
     <div class="w-full m-2 sm:w-fit">
-      <div class="ml-1 font-bold">Monthly</div>
-      <div
-        class="flex flex-wrap overflow-hidden border border-collapse divide-x divide-y shadow-sm rounded-xl divide-gray-800/80 grow border-gray-800/50 divide-solid"
-      >
-        <BudgetHeaderItem
-          name="Income"
-          class="bg-lime-300/50"
-          :value="formatCurrency(budgetStore.totalMonthlyIncome)"
-        />
-        <BudgetHeaderItem
-          name="Expenses"
-          class="bg-purple-300/50 w-fit"
-          :value="formatCurrency(budgetStore.totalMonthlyExpenses)"
-        />
-        <BudgetHeaderItem
-          name="Difference"
-          class="bg-blue-300/50 w-fit"
-          :value="formatCurrency(budgetStore.totalMonthlyDifference)"
-        />
-      </div>
-    </div>
-
-    <div class="w-full m-2 sm:w-fit">
       <div class="ml-1 font-bold">Per Paycheck</div>
       <div
         class="flex flex-wrap overflow-hidden border border-collapse divide-x divide-y shadow-sm rounded-xl divide-gray-800/80 grow border-gray-800/50 divide-solid"
@@ -44,6 +21,29 @@
           name="Difference"
           class="bg-blue-300/50"
           :value="formatCurrency(budgetStore.totalPayPeriodDifference)"
+        />
+      </div>
+    </div>
+
+    <div class="w-full m-2 sm:w-fit">
+      <div class="ml-1 font-bold">Monthly</div>
+      <div
+        class="flex flex-wrap overflow-hidden border border-collapse divide-x divide-y shadow-sm rounded-xl divide-gray-800/80 grow border-gray-800/50 divide-solid"
+      >
+        <BudgetHeaderItem
+          name="Income"
+          class="bg-lime-300/50"
+          :value="formatCurrency(budgetStore.totalMonthlyIncome)"
+        />
+        <BudgetHeaderItem
+          name="Expenses"
+          class="bg-purple-300/50 w-fit"
+          :value="formatCurrency(budgetStore.totalMonthlyExpenses)"
+        />
+        <BudgetHeaderItem
+          name="Difference"
+          class="bg-blue-300/50 w-fit"
+          :value="formatCurrency(budgetStore.totalMonthlyDifference)"
         />
       </div>
     </div>

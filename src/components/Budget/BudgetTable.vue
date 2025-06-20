@@ -53,6 +53,7 @@
 </template>
 
 <script setup>
+import { computed } from "vue"
 import BudgetTableRow from "./BudgetTableRow.vue"
 import { useBudgetStore } from "@/stores/budgetStore"
 import Table from "@/components/Base/BaseTable.vue"
@@ -65,6 +66,11 @@ defineProps({
     default: false,
   },
 })
+
+const totalClass = computed(() =>
+  budgetStore.totalMonthlyDifference < 0 ? "text-red-400" : "text-green-400"
+)
+
 const handleUpdate = (eventData) =>
   budgetStore.updateItem(eventData.index, eventData.data)
 </script>

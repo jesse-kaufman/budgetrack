@@ -34,7 +34,7 @@
           <template v-if="!loading">
             <div class="flex flex-row items-center justify-between space-x-1">
               <span>$</span>
-              <div class="font-semibold text-right {{ totalClass }}">
+              <div :class="`font-semibold text-right ${totalClass}`">
                 {{
                   formatCurrency(
                     budgetStore.totalPayPeriodDifference,
@@ -53,7 +53,7 @@
           <template v-if="!loading">
             <div class="flex flex-row items-center justify-between space-x-1">
               <span>$</span>
-              <div class="font-semibold text-right {{ totalClass }}">
+              <div :class="`font-semibold text-right ${totalClass}`">
                 {{
                   formatCurrency(
                     budgetStore.totalMonthlyDifference,

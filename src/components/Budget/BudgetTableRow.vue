@@ -79,6 +79,10 @@ import {
   calculatePayPeriodAmount,
   formatCurrency,
 } from "@/utils/currencyUtils.js"
+import {
+  validBudgetItemFrequencies,
+  validBudgetItemTypes,
+} from "@/config/budgetConfig"
 
 // Define the emits for the component
 const emit = defineEmits(["update:item", "error"])

@@ -36,7 +36,7 @@
         @update:model-value="(val) => updateField('dueOn', val)"
       />
     </td>
-    <td class="px-2 text-right whitespace-nowrap bg-fuchsia-300/30 min-w-30">
+    <td class="px-2 text-right whitespace-nowrap min-w-30">
       <InputCurrency
         :model-value="item.amount"
         :loading="loading"

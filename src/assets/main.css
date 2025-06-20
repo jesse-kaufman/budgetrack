@@ -122,12 +122,12 @@
   }
 
   .needs .category-indicator {
-    @apply bg-amber-300;
+    @apply bg-amber-400;
   }
   .future .category-indicator {
-    @apply bg-green-500;
+    @apply bg-green-400;
   }
   .wants .category-indicator {
-    @apply bg-red-500;
+    @apply bg-red-400;
   }
 }

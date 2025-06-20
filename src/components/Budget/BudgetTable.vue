@@ -8,6 +8,7 @@
         <th scope="col">Due</th>
         <th scope="col">Amount</th>
         <th class="bg-fuchsia-300/40" scope="col">Per Paycheck</th>
+        <th class="bg-cyan-300/40" scope="col">Per Month</th>
       </tr>
     </thead>
     <tbody>
@@ -36,6 +37,25 @@
                 {{
                   formatCurrency(
                     budgetStore.totalPayPeriodDifference,
+                    true,
+                    false
+                  ) || "&nbsp;"
+                }}
+              </div>
+            </div>
+          </template>
+          <template v-else>
+            <div class="skeleton"></div>
+          </template>
+        </td>
+        <td class="bg-gray-700">
+          <template v-if="!loading">
+            <div class="flex flex-row items-center justify-between space-x-1">
+              <span>$</span>
+              <div class="font-semibold text-right {{ totalClass }}">
+                {{
+                  formatCurrency(
+                    budgetStore.totalMonthlyDifference,
                     true,
                     false
                   ) || "&nbsp;"

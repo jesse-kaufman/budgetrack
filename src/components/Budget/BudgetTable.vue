@@ -39,8 +39,8 @@
 </template>
 
 <script setup>
-import Table from "@/components/Base/Table/BaseTable.vue"
-import BudgetTableRow from "@/components/BudgetView/BudgetTableRow.vue"
+import BudgetTableRow from "./BudgetTableRow.vue"
+import Table from "@/components/Base/BaseTable.vue"
 
 const emit = defineEmits(["update:item", "error"])
 

@@ -5,13 +5,53 @@ import { API_BASE } from "@/config/api"
  * Gets budget from repository.
  * @returns {object} Object containing budget.
  */
-export const getBudget = async () => {
-  const res = await fetch(`${API_BASE}/budget`, {
-    credentials: "include",
-  })
+// eslint-disable-next-line max-lines-per-function
+export const getBudget = () => {
+  const budget = {
+    lastUpdated: new Date(),
+    items: [
+      {
+        name: "Paycheck",
+        type: "income",
+        amount: 2000,
+        frequency: "payPeriod",
+      },
+      {
+        name: "Electricity",
+        type: "bill",
+        amount: 190,
+        dueOn: "15th of month",
+        frequency: "monthly",
+      },
+      {
+        name: "Natural Gas",
+        type: "bill",
+        amount: 90,
+        dueOn: "7th of month",
+        frequency: "monthly",
+      },
+      {
+        name: "Christmas savings",
+        type: "savingsTransfer",
+        amount: 10,
+        frequency: "payPeriod",
+      },
+      {
+        name: "Safety Net",
+        type: "investmentTransfer",
+        amount: 10,
+        frequency: "payPeriod",
+      },
+    ],
+  }
 
-  if (!res.ok) throw new Error("Failed to fetch budget")
-  return res.json()
+  //  const res = await fetch(`${API_BASE}/budget`, {
+  //    credentials: "include",
+  //  })
+
+  // if (!res.ok) throw new Error("Failed to fetch budget")
+  // return res.json()
+  return budget
 }
 
 /**

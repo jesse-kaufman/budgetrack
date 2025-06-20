@@ -1,5 +1,6 @@
 /** @file Loan services. */
 import { API_BASE } from "@/config/api"
+import { validBudgetItemTypes } from "@/config/budgetConfig"
 
 /**
  * Gets budget from repository.
@@ -17,17 +18,36 @@ export const getBudget = () => {
         frequency: "payPeriod",
       },
       {
+        name: "Mortgage",
+        type: "loanPayment",
+        amount: 565,
+        frequency: "monthly",
+      },
+      {
+        name: "Student Loan",
+        type: "loanPayment",
+        amount: 264,
+        frequency: "monthly",
+      },
+      {
         name: "Electricity",
         type: "bill",
-        amount: 190,
+        amount: 216,
         dueOn: "15th of month",
         frequency: "monthly",
       },
       {
         name: "Natural Gas",
         type: "bill",
-        amount: 90,
+        amount: 81,
         dueOn: "7th of month",
+        frequency: "monthly",
+      },
+      {
+        name: "City Utilities",
+        type: "bill",
+        amount: 130,
+        dueOn: "1st of month",
         frequency: "monthly",
       },
       {
@@ -41,6 +61,13 @@ export const getBudget = () => {
         type: "investmentTransfer",
         amount: 10,
         frequency: "payPeriod",
+      },
+      {
+        name: "Car Insurance",
+        type: "bill",
+        amount: 250,
+        frequency: "semiannually",
+        dueOn: "May / Nov",
       },
     ],
   }

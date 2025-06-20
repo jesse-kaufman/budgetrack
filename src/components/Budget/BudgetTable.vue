@@ -14,9 +14,10 @@
     <tbody>
       <template v-if="!loading">
         <BudgetTableRow
-          v-for="item in budgetStore.items"
+          v-for="(item, index) in budgetStore.items"
           :key="item.name"
           :item="item"
+          :index="index"
           @update:item="budgetStore.updateItem"
         />
       </template>

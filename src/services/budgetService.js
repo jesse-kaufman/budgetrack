@@ -51,6 +51,9 @@ export const getBudget = () => {
 
   // if (!res.ok) throw new Error("Failed to fetch budget")
   // return res.json()
+
+  budget.items = sortItemsByTypeOrder(budget.items)
+
   return budget
 }
 
@@ -71,4 +74,19 @@ export const saveBudget = async (budget) => {
 
   if (!res.ok) throw new Error("Failed to save budget")
   return res.json()
+}
+
+/**
+ * Sorts items in the same order as validBudgetItemTypes.
+ * @param {Array} items - Items to sort.
+ * @returns {Array} Items sorted by type matching validBudgetItemTypes.
+ */
+function sortItemsByTypeOrder(items) {
+  const typeOrder = Object.keys(validBudgetItemTypes)
+
+  return [...items].sort((a, b) => {
+    const aIndex = typeOrder.indexOf(a.type)
+    const bIndex = typeOrder.indexOf(b.type)
+    return aIndex - bIndex
+  })
 }

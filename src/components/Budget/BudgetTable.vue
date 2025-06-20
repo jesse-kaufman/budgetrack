@@ -3,9 +3,7 @@
     <thead>
       <tr>
         <th scope="col"></th>
-        <th scope="col">Type</th>
-        <th scope="col">Frequency</th>
-        <th scope="col">Due</th>
+        <th scope="col">Freq.</th>
         <th scope="col">Amount</th>
         <th class="bg-fuchsia-300/40" scope="col">Per Paycheck</th>
         <th class="bg-cyan-300/40" scope="col">Per Month</th>
@@ -29,7 +27,7 @@
     </tbody>
     <tfoot>
       <tr>
-        <td colspan="5"></td>
+        <td colspan="3"></td>
         <td class="bg-gray-700">
           <template v-if="!loading">
             <div class="flex flex-row items-center justify-between space-x-1">

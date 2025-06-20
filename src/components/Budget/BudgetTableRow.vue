@@ -43,7 +43,7 @@
       </template>
     </td>
     <td class="text-right min-w-12">
-      <TextInput
+      <InputText
         :model-value="item.dueOn"
         class="max-w-35"
         :loading="loading"
@@ -51,7 +51,7 @@
       />
     </td>
     <td class="px-2 text-right whitespace-nowrap bg-fuchsia-300/30 min-w-30">
-      <CurrencyInput
+      <InputCurrency
         :model-value="item.amount"
         :loading="loading"
         type="number"
@@ -86,8 +86,8 @@
 
 <script setup>
 import Input from "@/components/Base/BaseInput.vue"
-import CurrencyInput from "@/components/Base/CurrencyInput.vue"
-import TextInput from "@/components/Base/TextInput.vue"
+import InputCurrency from "@/components/Input/InputCurrency.vue"
+import InputText from "@/components/Input/InputText.vue"
 import {
   calculatePayPeriodAmount,
   formatCurrency,

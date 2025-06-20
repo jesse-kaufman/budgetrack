@@ -1,32 +1,39 @@
 <template>
-  <template v-if="loading">
-    <div class="skeleton"></div>
-  </template>
+  <template v-if="loading"></template>
   <template v-else>
-    <BaseInput
-      v-show="edit"
-      v-bind="$attrs"
-      ref="inputRef"
-      type="text"
-      :invalid="invalidInput"
-      :model-value="modelValue"
-      @input="emitIfValid"
-      @blur="handleLeave"
-      @keyup.enter="handleLeave"
-    />
     <div
-      v-show="!edit"
-      class="font-semibold text-right underline cursor-pointer"
+      class="flex flex-row items-center justify-between space-x-1 cursor-pointer h-7"
       @click="enableEdit"
     >
-      {{ modelValue || "&nbsp;" }}
+      <span>$</span>
+      <div>
+        <BaseInput
+          v-show="edit"
+          v-bind="$attrs"
+          ref="inputRef"
+          class="w-25"
+          type="number"
+          :invalid="invalidInput"
+          :model-value="modelValue"
+          @input="emitIfValid"
+          @blur="handleLeave"
+          @keyup.enter="handleLeave"
+        />
+        <div
+          v-show="!edit"
+          class="font-semibold text-right underline cursor-pointer"
+        >
+          {{ formatCurrency(modelValue, true, false) || "&nbsp;" }}
+        </div>
+      </div>
     </div>
   </template>
 </template>
 
 <script setup>
 import { nextTick, ref } from "vue"
-import BaseInput from "./BaseInput.vue"
+import BaseInput from "@/components/Base/BaseInput.vue"
+import { formatCurrency, validateCurrency } from "@/utils/currencyUtils.js"
 
 const { modelValue } = defineProps({
   modelValue: {
@@ -38,8 +45,6 @@ const { modelValue } = defineProps({
     default: true,
   },
 })
-
-console.log(modelValue)
 
 const emit = defineEmits(["update:modelValue", "error"])
 
@@ -61,11 +66,14 @@ function emitIfValid(e) {
 function validateInput(e) {
   const htmlValidity = e.target.checkValidity()
   e.target.reportValidity()
+  const validCurrency = validateCurrency(e.target.value, { allowEmpty: true })
 
-  invalidInput.value = !htmlValidity
+  invalidInput.value = !htmlValidity || !validCurrency
 
   if (!htmlValidity) {
     emit("error", e.target.validationMessage)
+  } else if (!validCurrency) {
+    emit("error", "Invalid currency format")
   }
 }
 

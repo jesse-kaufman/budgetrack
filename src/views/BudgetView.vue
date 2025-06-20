@@ -6,8 +6,8 @@
 </template>
 
 <script setup>
-import BudgetHeader from "@/components/BudgetView/BudgetHeader.vue"
-import BudgetTable from "@/components/BudgetView/BudgetTable.vue"
+import BudgetHeader from "@/components/Budget/BudgetHeader.vue"
+import BudgetTable from "@/components/Budget/BudgetTable.vue"
 
 const budget = {
   monthlyIncome: 1234,

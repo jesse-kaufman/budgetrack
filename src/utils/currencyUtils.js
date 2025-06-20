@@ -72,7 +72,7 @@ export const calculatePayPeriodAmount = (amount, frequency) => {
   const divisors = {
     payPeriod: 1,
     monthly: 2,
-    biannually: 12,
+    semiannually: 12,
     yearly: 24,
   }
 

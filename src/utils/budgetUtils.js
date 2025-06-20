@@ -1,18 +1,6 @@
 /** @file Budget utils. */
-import { calculatePayPeriodAmount } from "./currencyUtils"
-
-const typeToCategory = {
-  bill: "needs",
-  ccPayment: "needs",
-  loanPayment: "needs",
-  variableExpense: "needs",
-  shopping: "wants",
-  takeout: "wants",
-  entertainment: "wants",
-  savingsTransfer: "future",
-  investmentTransfer: "future",
-  income: null,
-}
+import { calculatePayPeriodAmount } from "./currencyUtils.js"
+import { categoryMap } from "@/config/budgetConfig.js"
 
 /**
  * Gets category totals for needs, wants, and savings.
@@ -23,7 +11,7 @@ const typeToCategory = {
 export const getBudgetCategoryTotal = (items, category) =>
   items
     // Filter by category
-    .filter((i) => typeToCategory[i.type] === category)
+    .filter((i) => categoryMap[i.type] === category)
     // Add to total
     .reduce(
       (sum, i) => sum + calculatePayPeriodAmount(i.amount, i.frequency) * 2,

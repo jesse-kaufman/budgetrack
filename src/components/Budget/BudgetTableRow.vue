@@ -98,9 +98,13 @@ import {
 const emit = defineEmits(["update:item", "error"])
 
 // Define the props for the component
-const { item } = defineProps({
+const { item, index } = defineProps({
   item: {
     type: Object,
+    required: true,
+  },
+  index: {
+    type: Number,
     required: true,
   },
   loading: {
@@ -110,7 +114,6 @@ const { item } = defineProps({
 })
 
 // When the item item is updated, emit the update event with the new item object
-function updateField(field, value) {
-  emit("update:item", { ...item, [field]: value })
-}
+const updateField = (field, value) =>
+  emit("update:item", { index, data: { ...item, [field]: value } })
 </script>

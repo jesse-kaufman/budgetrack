@@ -17,7 +17,9 @@ export const validBudgetItemTypes = {
 /** Stores list of valid budget item frequencies. */
 export const validBudgetItemFrequencies = {
   payPeriod: "Pay Period",
-  "1m": "Monthly",
-  "6m": "6 Months",
-  "1y": "Yearly",
+  monthly: "Monthly",
+  semiannually: "6 Months",
+  yearly: "Yearly",
+}
+
 }

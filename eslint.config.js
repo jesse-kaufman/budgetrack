@@ -130,7 +130,7 @@ const config = [
       "no-loop-func": "error",
       "no-magic-numbers": [
         "warn",
-        { ignoreArrayIndexes: true, ignore: [-1, 0, 1], enforceConst: true },
+        { ignoreArrayIndexes: true, ignore: [-1, 0, 1, 2], enforceConst: true },
       ],
       "no-multi-assign": "error",
       "no-multi-str": "error",

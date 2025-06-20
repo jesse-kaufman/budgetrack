@@ -22,4 +22,30 @@ export const validBudgetItemFrequencies = {
   yearly: "Yearly",
 }
 
+/** Stores the mapping of budget item types to categories. */
+export const categoryMap = {
+  bill: "needs",
+  ccPayment: "needs",
+  loanPayment: "needs",
+  variableExpense: "needs",
+  shopping: "wants",
+  takeout: "wants",
+  entertainment: "wants",
+  savingsTransfer: "future",
+  investmentTransfer: "future",
+  income: null,
+}
+
+/** Stores mapping of budget item types to icons. */
+export const budgetItemTypeIconMap = {
+  income: "💵",
+  bill: "🧾",
+  ccPayment: "💳",
+  loanPayment: "🏛️",
+  variableExpense: "🚗",
+  shopping: "🛍️",
+  takeout: "🍟",
+  entertainment: "🍿",
+  savingsTransfer: "💰",
+  investmentTransfer: "📈",
 }

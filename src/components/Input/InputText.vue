@@ -4,7 +4,7 @@
   </template>
   <template v-else>
     <BaseInput
-      v-show="edit"
+      v-show="edit || alwaysShowInput"
       v-bind="$attrs"
       ref="inputRef"
       type="text"
@@ -15,7 +15,7 @@
       @keyup.enter="handleLeave"
     />
     <div
-      v-show="!edit"
+      v-show="!edit && !alwaysShowInput"
       class="font-semibold underline cursor-pointer"
       @click="enableEdit"
     >
@@ -36,6 +36,10 @@ const { modelValue } = defineProps({
   loading: {
     type: Boolean,
     default: true,
+  },
+  alwaysShowInput: {
+    type: Boolean,
+    default: false,
   },
 })
 

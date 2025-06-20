@@ -49,18 +49,27 @@
         @error="(msg) => emit('error', msg)"
       />
     </td>
-    <td class="px-2 text-right whitespace-nowrap bg-fuchsia-300/30 min-w-30">
+    <td class="px-2 text-right whitespace-nowrap bg-fuchsia-300/20 min-w-30">
       <template v-if="!loading">
         <div class="flex flex-row items-center justify-between space-x-1">
           <span>$</span>
+          <div v-if="item.type === 'income'">+</div>
           <div class="font-semibold text-right">
-            {{
-              formatCurrency(
-                calculatePayPeriodAmount(item.amount, item.frequency),
-                true,
-                false
-              ) || "&nbsp;"
-            }}
+            {{ formatCurrency(perPayPeriodAmount, true, false) || "&nbsp;" }}
+          </div>
+        </div>
+      </template>
+      <template v-else>
+        <div class="skeleton"></div>
+      </template>
+    </td>
+    <td class="px-2 text-right whitespace-nowrap bg-cyan-300/20 min-w-30">
+      <template v-if="!loading">
+        <div class="flex flex-row items-center justify-between space-x-1">
+          <span>$</span>
+          <div v-if="item.type === 'income'">+</div>
+          <div class="font-semibold text-right">
+            {{ formatCurrency(monthlyAmount, true, false) || "&nbsp;" }}
           </div>
         </div>
       </template>

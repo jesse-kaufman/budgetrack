@@ -22,7 +22,7 @@
     </td>
     <td class="border-r-dashed min-w-30">
       <Select
-        :model-value="item.type"
+        :model-value="item.frequency"
         :options="validBudgetItemFrequencies"
         :loading="loading"
         @update:model-value="(val) => updateField('frequency', val)"

@@ -27,7 +27,26 @@
     </tbody>
     <tfoot>
       <tr>
-        <td colspan="9"></td>
+        <td colspan="5"></td>
+        <td class="bg-gray-700">
+          <template v-if="!loading">
+            <div class="flex flex-row items-center justify-between space-x-1">
+              <span>$</span>
+              <div class="font-semibold text-right {{ totalClass }}">
+                {{
+                  formatCurrency(
+                    budgetStore.totalPayPeriodDifference,
+                    true,
+                    false
+                  ) || "&nbsp;"
+                }}
+              </div>
+            </div>
+          </template>
+          <template v-else>
+            <div class="skeleton"></div>
+          </template>
+        </td>
       </tr>
     </tfoot>
   </Table>

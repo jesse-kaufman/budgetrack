@@ -13,7 +13,7 @@
     </thead>
     <tbody>
       <template v-if="!loading">
-        <BudgetTableRow
+        <BudgetItem
           v-for="(item, index) in budgetStore.items"
           :key="item.name"
           :item="item"
@@ -23,7 +23,7 @@
       </template>
       <template v-else>
         <template v-for="n in 10" :key="n">
-          <BudgetTableRow :item="{}" :loading="true" />
+          <BudgetItem :item="{}" :loading="true" />
         </template>
       </template>
     </tbody>
@@ -75,7 +75,7 @@
 
 <script setup>
 import { computed } from "vue"
-import BudgetTableRow from "./BudgetTableRow.vue"
+import BudgetItem from "./BudgetItem.vue"
 import { useBudgetStore } from "@/stores/budgetStore"
 import Table from "@/components/Base/BaseTable.vue"
 import { formatCurrency } from "@/utils/currencyUtils"

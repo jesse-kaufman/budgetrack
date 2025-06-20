@@ -19,12 +19,6 @@ const budget = {
     {
       name: "Paycheck",
       type: "income",
-      dueOn: "",
-      frequency: "payPeriod",
-    },
-    {
-      name: "Paycheck 2",
-      type: "income",
       amount: 150,
       dueOn: "1st of month",
       frequency: "biannually",

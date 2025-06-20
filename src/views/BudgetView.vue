@@ -29,6 +29,13 @@ const budget = {
       dueOn: "1st of month",
       frequency: "biannually",
     },
+    {
+      name: "Electricity",
+      type: "bill",
+      amount: 190,
+      dueOn: "15th of month",
+      frequency: "monthly",
+    },
   ],
 }
 </script>

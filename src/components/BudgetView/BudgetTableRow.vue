@@ -85,7 +85,6 @@
 </template>
 
 <script setup>
-import { computed } from "vue"
 import Input from "@/components/Base/BaseInput.vue"
 import CurrencyInput from "@/components/Base/CurrencyInput.vue"
 import TextInput from "@/components/Base/TextInput.vue"

@@ -42,7 +42,7 @@ Enum TransactionType {
 Enum Frequency {
   payPeriod
   monthly
-  biannually
+  semiannually
   yearly
 }
 

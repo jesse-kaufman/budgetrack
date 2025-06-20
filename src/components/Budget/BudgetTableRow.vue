@@ -81,6 +81,7 @@
 </template>
 
 <script setup>
+import { computed } from "vue"
 import Select from "@/components/Base/BaseSelect.vue"
 import Input from "@/components/Base/BaseInput.vue"
 import InputCurrency from "@/components/Input/InputCurrency.vue"
@@ -92,6 +93,8 @@ import {
 import {
   validBudgetItemFrequencies,
   validBudgetItemTypes,
+  categoryMap,
+  budgetItemTypeIconMap,
 } from "@/config/budgetConfig"
 
 // Define the emits for the component
@@ -112,6 +115,16 @@ const { item, index } = defineProps({
     default: false,
   },
 })
+
+const perPayPeriodAmount = computed(() =>
+  calculatePayPeriodAmount(item.amount, item.frequency)
+)
+
+const monthlyAmount = computed(() => perPayPeriodAmount.value * 2)
+
+const category = computed(() => categoryMap[item.type])
+
+const icon = computed(() => budgetItemTypeIconMap[item.type])
 
 // When the item item is updated, emit the update event with the new item object
 const updateField = (field, value) =>

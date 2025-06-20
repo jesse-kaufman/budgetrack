@@ -1,12 +1,19 @@
 <template>
   <div id="constructionLoanApp">
-    <router-view v-slot="{ Component }">
-      <transition name="fade" mode="out-in">
-        <component :is="Component" />
-      </transition>
-    </router-view>
+    <router-view></router-view>
   </div>
 </template>
+
+<script setup>
+import { onMounted } from "vue"
+import { useBudgetStore } from "@/stores/budgetStore"
+
+const budgetStore = useBudgetStore()
+
+onMounted(() => {
+  budgetStore.load()
+})
+</script>
 
 <style scoped>
 .fade-enter-active,

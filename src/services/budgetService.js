@@ -69,6 +69,34 @@ export const getBudget = () => {
         frequency: "semiannually",
         dueOn: "May / Nov",
       },
+      {
+        name: "Car Gas",
+        type: "variableExpense",
+        amount: 250,
+        frequency: "monthly",
+        dueOn: "",
+      },
+      {
+        name: "Credit Card",
+        type: "ccPayment",
+        amount: 250,
+        frequency: "monthly",
+        dueOn: "",
+      },
+      {
+        name: "Fast Food",
+        type: "takeout",
+        amount: 250,
+        frequency: "monthly",
+        dueOn: "",
+      },
+      {
+        name: "Shopping",
+        type: "shopping",
+        amount: 200,
+        frequency: "monthly",
+        dueOn: "",
+      },
     ],
   }
 

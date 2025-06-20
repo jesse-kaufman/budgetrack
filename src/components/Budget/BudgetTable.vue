@@ -7,7 +7,7 @@
         <th scope="col">Frequency</th>
         <th scope="col">Due</th>
         <th scope="col">Amount</th>
-        <th scope="col">Per Paycheck</th>
+        <th class="bg-fuchsia-300/40" scope="col">Per Paycheck</th>
       </tr>
     </thead>
     <tbody>

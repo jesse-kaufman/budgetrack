@@ -13,15 +13,10 @@
     <tbody>
       <template v-if="!loading">
         <BudgetTableRow
-          v-for="item in items"
+          v-for="item in budgetStore.items"
           :key="item.name"
           :item="item"
-          @update:item-item="(val) => emit('update:item', val)"
-          @error="
-            (msg) => {
-              emit('error', msg)
-            }
-          "
+          @update:item="budgetStore.updateItem"
         />
       </template>
       <template v-else>
@@ -42,13 +37,9 @@
 import BudgetTableRow from "./BudgetTableRow.vue"
 import Table from "@/components/Base/BaseTable.vue"
 
-const emit = defineEmits(["update:item", "error"])
+const budgetStore = useBudgetStore()
 
-const { items } = defineProps({
-  items: {
-    type: Array,
-    default: () => [],
-  },
+defineProps({
   loading: {
     type: Boolean,
     default: false,

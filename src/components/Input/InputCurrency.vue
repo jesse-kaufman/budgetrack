@@ -6,6 +6,7 @@
       @click="enableEdit"
     >
       <span>$</span>
+      <div v-if="isIncome">+</div>
       <div>
         <BaseInput
           v-show="edit"
@@ -39,6 +40,10 @@ const { modelValue } = defineProps({
   modelValue: {
     type: [Number, String],
     default: "",
+  },
+  isIncome: {
+    type: Boolean,
+    default: false,
   },
   loading: {
     type: Boolean,

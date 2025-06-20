@@ -65,4 +65,6 @@ defineProps({
     default: false,
   },
 })
+const handleUpdate = (eventData) =>
+  budgetStore.updateItem(eventData.index, eventData.data)
 </script>

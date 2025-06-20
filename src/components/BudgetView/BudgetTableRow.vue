@@ -67,7 +67,13 @@
         <div class="flex flex-row items-center justify-between space-x-1">
           <span>$</span>
           <div class="font-semibold text-right">
-            {{ formatCurrency(perPayPeriodAmount, true, false) || "&nbsp;" }}
+            {{
+              formatCurrency(
+                calculatePayPeriodAmount(item.amount, item.frequency),
+                true,
+                false
+              ) || "&nbsp;"
+            }}
           </div>
         </div>
       </template>
@@ -82,7 +88,11 @@
 import { computed } from "vue"
 import Input from "@/components/Base/BaseInput.vue"
 import CurrencyInput from "@/components/Base/CurrencyInput.vue"
-import { formatCurrency } from "@/utils/currencyUtils.js"
+import TextInput from "@/components/Base/TextInput.vue"
+import {
+  calculatePayPeriodAmount,
+  formatCurrency,
+} from "@/utils/currencyUtils.js"
 
 // Define the emits for the component
 const emit = defineEmits(["update:item-item", "error"])

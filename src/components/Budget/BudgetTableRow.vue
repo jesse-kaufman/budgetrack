@@ -20,7 +20,7 @@
         @update:model-value="(val) => updateField('type', val)"
       />
     </td>
-    <td class="text-right border-r-dashed min-w-30">
+    <td class="border-r-dashed min-w-30">
       <Select
         :model-value="item.type"
         :options="validBudgetItemFrequencies"
@@ -28,7 +28,7 @@
         @update:model-value="(val) => updateField('frequency', val)"
       />
     </td>
-    <td class="text-right min-w-12">
+    <td class="min-w-12">
       <InputText
         :model-value="item.dueOn"
         class="max-w-35"

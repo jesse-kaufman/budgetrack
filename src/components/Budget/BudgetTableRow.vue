@@ -1,15 +1,15 @@
 <template>
-  <tr :class="item.type">
-    <th scope="row" class="px-2 min-w-55">
-      <Input
-        v-if="!loading"
-        :model-value="item.name"
-        class="w-full"
-        @update:model-value="(val) => updateField('name', val)"
-      />
-      <template v-else>
-        <div class="skeleton"></div>
-      </template>
+  <tr :class="[item.type, category]">
+    <th scope="row" class="px-2 text-left min-w-55">
+      <div class="flex flex-row space-x-1">
+        <div class="category-indicator"></div>
+        <div>{{ icon }}</div>
+        <InputText
+          :model-value="item.name"
+          :loading="loading"
+          @update:model-value="(val) => updateField('name', val)"
+        />
+      </div>
     </th>
 
     <td class="px-2 text-center min-w-30">

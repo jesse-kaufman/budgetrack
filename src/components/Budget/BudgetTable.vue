@@ -78,6 +78,7 @@ import { computed } from "vue"
 import BudgetTableRow from "./BudgetTableRow.vue"
 import { useBudgetStore } from "@/stores/budgetStore"
 import Table from "@/components/Base/BaseTable.vue"
+import { formatCurrency } from "@/utils/currencyUtils"
 
 const budgetStore = useBudgetStore()
 

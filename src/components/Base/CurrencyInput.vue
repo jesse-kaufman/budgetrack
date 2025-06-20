@@ -1,30 +1,33 @@
 <template>
-  <div
-    class="flex flex-row items-center justify-between space-x-1 cursor-pointer h-7"
-    @click="enableEdit"
-  >
-    <span>$</span>
-    <div>
-      <BaseInput
-        v-show="edit"
-        v-bind="$attrs"
-        ref="inputRef"
-        class="w-25"
-        type="number"
-        :invalid="invalidInput"
-        :model-value="modelValue"
-        @input="emitIfValid"
-        @blur="handleLeave"
-        @keyup.enter="handleLeave"
-      />
-      <div
-        v-show="!edit"
-        class="font-semibold text-right underline cursor-pointer"
-      >
-        {{ formatCurrency(modelValue, true, false) || "&nbsp;" }}
+  <template v-if="loading"></template>
+  <template v-else>
+    <div
+      class="flex flex-row items-center justify-between space-x-1 cursor-pointer h-7"
+      @click="enableEdit"
+    >
+      <span>$</span>
+      <div>
+        <BaseInput
+          v-show="edit"
+          v-bind="$attrs"
+          ref="inputRef"
+          class="w-25"
+          type="number"
+          :invalid="invalidInput"
+          :model-value="modelValue"
+          @input="emitIfValid"
+          @blur="handleLeave"
+          @keyup.enter="handleLeave"
+        />
+        <div
+          v-show="!edit"
+          class="font-semibold text-right underline cursor-pointer"
+        >
+          {{ formatCurrency(modelValue, true, false) || "&nbsp;" }}
+        </div>
       </div>
     </div>
-  </div>
+  </template>
 </template>
 
 <script setup>
@@ -36,6 +39,10 @@ const { modelValue } = defineProps({
   modelValue: {
     type: [Number, String],
     default: "",
+  },
+  loading: {
+    type: Boolean,
+    default: true,
   },
 })
 

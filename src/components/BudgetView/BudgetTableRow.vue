@@ -43,15 +43,12 @@
       </template>
     </td>
     <td class="text-right min-w-12">
-      <Input
-        v-if="!loading"
+      <TextInput
         :model-value="item.dueOn"
-        class="w-full"
+        class="max-w-35"
+        :loading="loading"
         @update:model-value="(val) => updateField('dueOn', val)"
       />
-      <template v-else>
-        <div class="skeleton"></div>
-      </template>
     </td>
     <td class="px-2 text-right whitespace-nowrap bg-fuchsia-300/30 min-w-30">
       <CurrencyInput

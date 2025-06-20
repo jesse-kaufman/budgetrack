@@ -54,20 +54,16 @@
       </template>
     </td>
     <td class="px-2 text-right whitespace-nowrap bg-fuchsia-300/30 min-w-30">
-      <template v-if="!loading">
-        <CurrencyInput
-          :model-value="item.amount"
-          type="number"
-          class="text-right"
-          min="0"
-          :decimals="2"
-          @update:model-value="(val) => updateField('amount', val)"
-          @error="(msg) => emit('error', msg)"
-        />
-      </template>
-      <template v-else>
-        <div class="skeleton"></div>
-      </template>
+      <CurrencyInput
+        :model-value="item.amount"
+        :loading="loading"
+        type="number"
+        class="text-right"
+        min="0"
+        :decimals="2"
+        @update:model-value="(val) => updateField('amount', val)"
+        @error="(msg) => emit('error', msg)"
+      />
     </td>
     <td class="px-2 text-right whitespace-nowrap bg-fuchsia-300/30 min-w-30">
       <template v-if="!loading">

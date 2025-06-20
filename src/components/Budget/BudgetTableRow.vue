@@ -17,7 +17,7 @@
         :model-value="item.type"
         :options="validBudgetItemTypes"
         :loading="loading"
-        @update:model-value="(val) => updateField('dueOn', val)"
+        @update:model-value="(val) => updateField('type', val)"
       />
     </td>
     <td class="text-right border-r-dashed min-w-30">
@@ -25,7 +25,7 @@
         :model-value="item.type"
         :options="validBudgetItemFrequencies"
         :loading="loading"
-        @update:model-value="(val) => updateField('dueOn', val)"
+        @update:model-value="(val) => updateField('frequency', val)"
       />
     </td>
     <td class="text-right min-w-12">

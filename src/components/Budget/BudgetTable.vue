@@ -18,7 +18,7 @@
           :key="item.name"
           :item="item"
           :index="index"
-          @update:item="budgetStore.updateItem"
+          @update:item="handleUpdate"
         />
       </template>
       <template v-else>

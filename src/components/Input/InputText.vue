@@ -51,7 +51,7 @@ function emitIfValid(e) {
   validateInput(e)
 
   if (!invalidInput.value) {
-    emit("update:modelValue", val === "" ? "" : Number(val))
+    emit("update:modelValue", val)
     emit("error", null)
   }
 }

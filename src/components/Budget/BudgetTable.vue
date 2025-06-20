@@ -35,6 +35,7 @@
 
 <script setup>
 import BudgetTableRow from "./BudgetTableRow.vue"
+import { useBudgetStore } from "@/stores/budgetStore"
 import Table from "@/components/Base/BaseTable.vue"
 
 const budgetStore = useBudgetStore()

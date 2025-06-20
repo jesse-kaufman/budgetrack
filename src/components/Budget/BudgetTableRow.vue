@@ -13,34 +13,20 @@
     </th>
 
     <td class="px-2 text-center min-w-30">
-      <template v-if="!loading">
-        <select id="countries" class="w-full text-sm">
-          <option disabled>-- Select One --</option>
-          <option>Income</option>
-          <option>Bill</option>
-          <option>Variable Expense</option>
-          <option>Credit Card Payment</option>
-          <option>Savings Transfer</option>
-          <option>Investment Transfer</option>
-        </select>
-      </template>
-      <template v-else>
-        <div class="skeleton"></div>
-      </template>
+      <Select
+        :model-value="item.type"
+        :options="validBudgetItemTypes"
+        :loading="loading"
+        @update:model-value="(val) => updateField('dueOn', val)"
+      />
     </td>
     <td class="text-right border-r-dashed min-w-30">
-      <template v-if="!loading">
-        <select id="countries" class="w-full text-sm">
-          <option disabled>-- Select One --</option>
-          <option value="payPeriod">Pay period</option>
-          <option value="1m">Monthly</option>
-          <option value="6m">6 Months</option>
-          <option value="1y">Yearly</option>
-        </select>
-      </template>
-      <template v-else>
-        <div class="skeleton"></div>
-      </template>
+      <Select
+        :model-value="item.type"
+        :options="validBudgetItemFrequencies"
+        :loading="loading"
+        @update:model-value="(val) => updateField('dueOn', val)"
+      />
     </td>
     <td class="text-right min-w-12">
       <InputText
@@ -85,6 +71,7 @@
 </template>
 
 <script setup>
+import Select from "@/components/Base/BaseSelect.vue"
 import Input from "@/components/Base/BaseInput.vue"
 import InputCurrency from "@/components/Input/InputCurrency.vue"
 import InputText from "@/components/Input/InputText.vue"

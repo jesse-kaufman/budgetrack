@@ -3,6 +3,8 @@
 import { defineStore } from "pinia"
 import { ref, watch, computed } from "vue"
 import { calculatePayPeriodAmount } from "@/utils/currencyUtils"
+import { getBudget } from "@/services/budgetService"
+import { getBudgetCategoryTotal } from "@/utils/budgetUtils"
 
 /**
  * Budget store object.
@@ -10,10 +12,8 @@ import { calculatePayPeriodAmount } from "@/utils/currencyUtils"
 export const useBudgetStore = defineStore("budget", () => {
   /** Stores last updated date/time. */
   const lastUpdated = ref(null)
-
   /** Stores budget items. */
   const items = ref([])
-
   /** Stores total income per pay period. */
   const totalPayPeriodIncome = computed(() =>
     items.value
@@ -27,14 +27,30 @@ export const useBudgetStore = defineStore("budget", () => {
   /** Stores total expenses per pay period. */
   const totalPayPeriodExpenses = computed(() =>
     items.value
-      .filter((i) =>
-        ["bill", "ccPayment", "loanPayment", "variableExpense"].contains(i.type)
-      )
+      .filter((i) => i.type !== "income")
       .reduce(
         (sum, i) => sum + calculatePayPeriodAmount(i.amount, i.frequency),
         0
       )
   )
+  /** Stores total difference in income vs expenses per pay period. */
+  const totalPayPeriodDifference = computed(
+    () => totalPayPeriodIncome.value - totalPayPeriodExpenses.value
+  )
+  /** Stores estimated total income per month. */
+  const totalMonthlyIncome = computed(() => totalPayPeriodIncome.value * 2)
+  /** Stores estimated monthly expenses. */
+  const totalMonthlyExpenses = computed(() => totalPayPeriodExpenses.value * 2)
+  /** Stores estimated monthly difference between income and expenses. */
+  const totalMonthlyDifference = computed(
+    () => totalPayPeriodDifference.value * 2
+  )
+  /** Stores total expenses categorized as "needs" (e.g.: bills, variable expenses). */
+  const needs = computed(() => getBudgetCategoryTotal(items.value, "needs"))
+  /** Stores total expenses categorized as "wants" (e.g.: shopping). */
+  const wants = computed(() => getBudgetCategoryTotal(items.value, "wants"))
+  /** Stores total expenses categorized as "future" (e.g.: transfers to savings/investments). */
+  const future = computed(() => getBudgetCategoryTotal(items.value, "future"))
 
   // Setup watcher to auto-update lastUpdated value
   watch(
@@ -46,6 +62,12 @@ export const useBudgetStore = defineStore("budget", () => {
   )
 
   // ACTIONS
+
+  const load = () => {
+    const data = getBudget()
+    items.value = data.items || []
+    lastUpdated.value = data.lastUpdated || null
+  }
 
   /**
    * Adds item to budget store.
@@ -86,6 +108,14 @@ export const useBudgetStore = defineStore("budget", () => {
     items,
     totalPayPeriodIncome,
     totalPayPeriodExpenses,
+    totalPayPeriodDifference,
+    totalMonthlyIncome,
+    totalMonthlyExpenses,
+    totalMonthlyDifference,
+    needs,
+    wants,
+    future,
+    load,
     addItem,
     updateItem,
     removeItem,

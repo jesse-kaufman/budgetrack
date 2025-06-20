@@ -3,9 +3,9 @@
 /** Stores list of valid budget item types and their labels. */
 export const validBudgetItemTypes = {
   income: "Income",
-  bill: "Bill",
-  ccPayment: "Credit Card Payment",
   loanPayment: "Loan Payment",
+  ccPayment: "Credit Card Payment",
+  bill: "Bill",
   variableExpense: "Variable Expense",
   shopping: "Shopping",
   takeout: "Fast Food",

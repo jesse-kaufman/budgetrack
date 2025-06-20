@@ -76,7 +76,7 @@ export const calculatePayPeriodAmount = (amount, frequency) => {
     yearly: 24,
   }
 
-  if (!divisors[frequency]) throw new Error("Invalid frequency")
+  if (!divisors[frequency]) throw new Error(`Invalid frequency: ${frequency}`)
 
   return parseFloat(amount) / divisors[frequency]
 }

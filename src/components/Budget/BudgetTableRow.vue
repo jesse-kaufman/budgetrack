@@ -81,7 +81,7 @@ import {
 } from "@/utils/currencyUtils.js"
 
 // Define the emits for the component
-const emit = defineEmits(["update:item-item", "error"])
+const emit = defineEmits(["update:item", "error"])
 
 // Define the props for the component
 const { item } = defineProps({
@@ -97,6 +97,6 @@ const { item } = defineProps({
 
 // When the item item is updated, emit the update event with the new item object
 function updateField(field, value) {
-  emit("update:item-item", { ...item, [field]: value })
+  emit("update:item", { ...item, [field]: value })
 }
 </script>

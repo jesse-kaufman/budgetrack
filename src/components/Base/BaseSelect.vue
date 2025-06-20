@@ -1,6 +1,6 @@
 <template>
   <template v-if="!loading">
-    <select v-model="modelValue" class="w-full text-sm">
+    <select v-model="modelValue" class="w-full">
       <option disabled>-- Select One --</option>
       <option
         v-for="option in normalizedOptions"

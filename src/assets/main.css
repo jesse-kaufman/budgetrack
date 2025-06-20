@@ -113,4 +113,21 @@
   .skeleton {
     @apply h-2 mt-2.5 mb-2 bg-gray-400/40 rounded-md animate-pulse block;
   }
+
+  /**
+   * Category indicator styles
+   */
+  .category-indicator {
+    @apply h-2 w-2 rounded-full border-0 self-center;
+  }
+
+  .needs .category-indicator {
+    @apply bg-amber-300;
+  }
+  .future .category-indicator {
+    @apply bg-green-500;
+  }
+  .wants .category-indicator {
+    @apply bg-red-500;
+  }
 }

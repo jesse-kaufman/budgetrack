@@ -61,3 +61,22 @@ export const validateCurrency = (
   // If none of the ab} is valid`ove matches, return true
   return true
 }
+
+/**
+ * Calculates amount per pay period based on amount and frequency arguments.
+ * @param {number} amount - Amount to convert to per-pay-period.
+ * @param {string} frequency - Frequency of budget item.
+ * @returns {number} Amount per pay period.
+ */
+export const calculatePayPeriodAmount = (amount, frequency) => {
+  const divisors = {
+    payPeriod: 1,
+    monthly: 2,
+    biannually: 12,
+    yearly: 24,
+  }
+
+  if (!divisors[frequency]) throw new Error("Invalid frequency")
+
+  return parseFloat(amount) / divisors[frequency]
+}

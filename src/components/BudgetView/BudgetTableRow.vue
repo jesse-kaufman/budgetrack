@@ -108,20 +108,6 @@ const { item } = defineProps({
   },
 })
 
-// Computed property to hold the per-pay-period amount
-const perPayPeriodAmount = computed(() => {
-  const divisors = {
-    payPeriod: 1,
-    monthly: 2,
-    biannually: 12,
-    yearly: 24,
-  }
-
-  if (!divisors[item.frequency]) throw new Error("Invalid frequency")
-
-  return parseFloat(item.amount) / divisors[item.frequency]
-})
-
 // When the item item is updated, emit the update event with the new item object
 function updateField(field, value) {
   emit("update:item-item", { ...item, [field]: value })

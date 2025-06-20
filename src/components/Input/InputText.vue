@@ -16,7 +16,7 @@
     />
     <div
       v-show="!edit"
-      class="font-semibold text-right underline cursor-pointer"
+      class="font-semibold underline cursor-pointer"
       @click="enableEdit"
     >
       {{ modelValue || "&nbsp;" }}

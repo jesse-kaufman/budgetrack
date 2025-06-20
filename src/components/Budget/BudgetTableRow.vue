@@ -40,6 +40,7 @@
       <InputCurrency
         :model-value="item.amount"
         :loading="loading"
+        :is-income="item.type === 'income'"
         type="number"
         class="text-right"
         min="0"

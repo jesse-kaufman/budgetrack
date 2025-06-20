@@ -64,9 +64,7 @@
     </td>
     <td class="px-2 text-right whitespace-nowrap bg-fuchsia-300/30 min-w-30">
       <template v-if="!loading">
-        <div
-          class="flex flex-row items-center justify-between space-x-1 cursor-pointer h-7"
-        >
+        <div class="flex flex-row items-center justify-between space-x-1">
           <span>$</span>
           <div class="font-semibold text-right">
             {{ formatCurrency(perPayPeriodAmount, true, false) || "&nbsp;" }}

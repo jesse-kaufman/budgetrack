@@ -7,11 +7,11 @@ export const validBudgetItemTypes = {
   ccPayment: "Credit Card Payment",
   loanPayment: "Loan Payment",
   variableExpense: "Variable Expense",
-  savingsTransfer: "Savings Transfer",
-  investmentTransfer: "Investment Transfer",
   shopping: "Shopping",
   takeout: "Fast Food",
   entertainment: "Entertainment",
+  savingsTransfer: "Savings Transfer",
+  investmentTransfer: "Investment Transfer",
 }
 
 /** Stores list of valid budget item frequencies. */

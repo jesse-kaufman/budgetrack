@@ -22,6 +22,14 @@ export const validBudgetItemFrequencies = {
   yearly: "Yearly",
 }
 
+/** Stores list of valid budget item frequencies. */
+export const frequencyAbbrMap = {
+  payPeriod: "2W",
+  monthly: "M",
+  semiannually: "6M",
+  yearly: "Y",
+}
+
 /** Stores the mapping of budget item types to categories. */
 export const categoryMap = {
   bill: "needs",

@@ -27,13 +27,16 @@ Table transactions {
 }
 
 Enum TransactionType {
+  income
   bill
   ccPayment
   loanPayment
-  income
+  variableExpense
   savingsTransfer
   investmentTransfer
-  variableExpense
+  shopping
+  takeout
+  entertainment
 }
 
 Enum Frequency {

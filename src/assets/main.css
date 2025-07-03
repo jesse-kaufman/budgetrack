@@ -133,4 +133,8 @@
   .budget-item-config {
     @apply flex items-baseline px-2 py-1 space-x-2 text-xs;
   }
+
+  .frequency-badge {
+    @apply ml-auto text-[0.7em] bg-blue-600/70 text-white px-2 rounded-full py-0.5 text-shadow-sm;
+  }
 }

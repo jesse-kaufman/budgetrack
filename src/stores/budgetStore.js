@@ -2,6 +2,7 @@
 /** @file Budget store. */
 import { defineStore } from "pinia"
 import { ref, watch, computed } from "vue"
+import equal from "fast-deep-equal"
 import { calculatePayPeriodAmount } from "@/utils/currencyUtils"
 import { getBudget } from "@/services/budgetService"
 import { getBudgetCategoryTotal } from "@/utils/budgetUtils"
@@ -9,11 +10,26 @@ import { getBudgetCategoryTotal } from "@/utils/budgetUtils"
 /**
  * Budget store object.
  */
+// eslint-disable-next-line max-statements
 export const useBudgetStore = defineStore("budget", () => {
   /** Stores last updated date/time. */
   const lastUpdated = ref(null)
   /** Stores budget items. */
   const items = ref([])
+  /** Stores original budget items before edits; used to check if form is dirty. */
+  const originalItems = ref([])
+  /** Holds any form error messages or null for none. */
+  const formErrorMsg = ref(null)
+  /** Holds the loading state. */
+  const loading = ref(true)
+
+  /** Whether the current project has unsaved changes. */
+  const formIsDirty = computed(
+    () => !equal(JSON.parse(JSON.stringify(items)), originalItems.value)
+  )
+  /** Whether the current project form is valid. */
+  const formIsValid = computed(() => !formErrorMsg.value)
+
   /** Stores total income per pay period. */
   const totalPayPeriodIncome = computed(() =>
     items.value
@@ -23,7 +39,6 @@ export const useBudgetStore = defineStore("budget", () => {
         0
       )
   )
-
   /** Stores total expenses per pay period. */
   const totalPayPeriodExpenses = computed(() =>
     items.value
@@ -64,9 +79,11 @@ export const useBudgetStore = defineStore("budget", () => {
   // ACTIONS
 
   const load = () => {
+    loading.value = true
     const data = getBudget()
     items.value = data.items || []
     lastUpdated.value = data.lastUpdated || null
+    loading.value = false
   }
 
   /**
@@ -103,9 +120,16 @@ export const useBudgetStore = defineStore("budget", () => {
    */
   const clearItems = () => (items.value = [])
 
+  const setErrorMsg = (msg) => (formErrorMsg.value = msg)
+
   return {
     lastUpdated,
     items,
+    originalItems,
+    loading,
+    formErrorMsg,
+    formIsDirty,
+    formIsValid,
     totalPayPeriodIncome,
     totalPayPeriodExpenses,
     totalPayPeriodDifference,
@@ -120,5 +144,6 @@ export const useBudgetStore = defineStore("budget", () => {
     updateItem,
     removeItem,
     clearItems,
+    setErrorMsg,
   }
 })

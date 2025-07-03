@@ -1,10 +1,13 @@
 <template>
   <tr :class="[item.type, category]">
     <th scope="row" class="text-left">
-      <div class="flex flex-row items-center space-x-2.5 leading-tight">
+      <div
+        class="flex flex-row items-center space-x-2.5 leading-tight relative"
+        @click="toggleEdit"
+      >
         <div class="category-indicator"></div>
-        <div @click="toggleEdit">{{ icon }}</div>
-        <InputText
+        <div>{{ icon }}</div>
+        <TextField
           :model-value="item.name"
           :loading="loading"
           @update:model-value="(val) => updateField('name', val)"
@@ -14,9 +17,9 @@
         </div>
       </div>
     </th>
-    <td class="text-right whitespace-nowrap bg-fuchsia-300/20 min-w-30">
+    <td class="whitespace-nowrap bg-fuchsia-300/20 min-w-30 text-right">
       <template v-if="!loading">
-        <div class="flex flex-row justify-between items-center space-x-1">
+        <div class="flex flex-row items-center justify-between space-x-1">
           $
           <div class="flex flex-row space-x-1 font-semibold text-right">
             <div v-if="item.type === 'income'">+</div>
@@ -28,9 +31,9 @@
         <div class="skeleton"></div>
       </template>
     </td>
-    <td class="text-right whitespace-nowrap bg-cyan-300/20 min-w-30">
+    <td class="whitespace-nowrap bg-cyan-300/20 min-w-30 text-right">
       <template v-if="!loading">
-        <div class="flex flex-row justify-between items-center space-x-1">
+        <div class="flex flex-row items-center justify-between space-x-1">
           $
           <div class="flex flex-row space-x-1">
             <div v-if="item.type === 'income'">+</div>
@@ -49,28 +52,11 @@
       <div class="flex flex-row flex-wrap items-center space-x-5">
         <div class="budget-item-config">
           <strong>Amount:</strong>
-          <InputCurrency
+          <CurrencyField
             :model-value="item.amount"
-            :loading="loading"
             :is-income="item.type === 'income'"
-            type="number"
-            class="text-right"
-            min="0"
-            :decimals="2"
             @update:model-value="(val) => updateField('amount', val)"
-            @error="(msg) => emit('error', msg)"
           />
-        </div>
-        <div class="budget-item-config">
-          <strong>Type:</strong>
-          <div>
-            <Select
-              :model-value="item.type"
-              :options="validBudgetItemTypes"
-              :loading="loading"
-              @update:model-value="(val) => updateField('type', val)"
-            />
-          </div>
         </div>
         <div class="budget-item-config">
           <strong>Frequency:</strong>
@@ -84,9 +70,20 @@
           </div>
         </div>
         <div class="budget-item-config">
+          <strong>Type:</strong>
+          <div>
+            <Select
+              :model-value="item.type"
+              :options="validBudgetItemTypes"
+              :loading="loading"
+              @update:model-value="(val) => updateField('type', val)"
+            />
+          </div>
+        </div>
+        <div class="budget-item-config">
           <strong>Due on:</strong>
           <div>
-            <InputText
+            <TextField
               :model-value="item.dueOn"
               class="max-w-35"
               :loading="loading"
@@ -103,8 +100,8 @@
 <script setup>
 import { computed, ref } from "vue"
 import Select from "@/components/Base/BaseSelect.vue"
-import InputCurrency from "@/components/Input/InputCurrency.vue"
-import InputText from "@/components/Input/InputText.vue"
+import CurrencyField from "@/components/Fields/CurrencyField.vue"
+import TextField from "@/components/Fields/TextField.vue"
 import {
   calculatePayPeriodAmount,
   formatCurrency,

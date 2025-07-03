@@ -2,7 +2,8 @@
   <input
     ref="elementRef"
     v-model="model"
-    :class="['input', invalid ? 'invalid-input' : '']"
+    v-bind="$attrs"
+    :class="['input', isValid ? '' : 'invalid-input']"
   />
 </template>
 
@@ -10,9 +11,9 @@
 import { ref } from "vue"
 
 defineProps({
-  invalid: {
+  isValid: {
     type: Boolean,
-    default: false,
+    default: true,
   },
 })
 
@@ -24,9 +25,5 @@ const model = defineModel({
 
 const elementRef = ref(null)
 
-defineExpose({
-  focus() {
-    elementRef.value?.focus()
-  },
-})
+defineExpose({ elementRef })
 </script>

@@ -3,8 +3,6 @@
     <thead>
       <tr>
         <th scope="col"></th>
-        <th scope="col">Freq.</th>
-        <th scope="col">Amount</th>
         <th class="bg-fuchsia-300/40" scope="col">Per Paycheck</th>
         <th class="bg-cyan-300/40" scope="col">Per Month</th>
       </tr>
@@ -27,10 +25,10 @@
     </tbody>
     <tfoot>
       <tr>
-        <td colspan="3"></td>
+        <td></td>
         <td class="bg-gray-700">
           <template v-if="!loading">
-            <div class="flex flex-row items-center justify-between space-x-1">
+            <div class="flex flex-row justify-between items-center space-x-1">
               <span>$</span>
               <div :class="`font-semibold text-right ${totalClass}`">
                 {{
@@ -49,7 +47,7 @@
         </td>
         <td class="bg-gray-700">
           <template v-if="!loading">
-            <div class="flex flex-row items-center justify-between space-x-1">
+            <div class="flex flex-row justify-between items-center space-x-1">
               <span>$</span>
               <div :class="`font-semibold text-right ${totalClass}`">
                 {{

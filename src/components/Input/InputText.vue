@@ -19,7 +19,7 @@
       class="font-semibold underline cursor-pointer"
       @click="enableEdit"
     >
-      {{ modelValue || "&nbsp;" }}
+      {{ modelValue || "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" }}
     </div>
   </template>
 </template>

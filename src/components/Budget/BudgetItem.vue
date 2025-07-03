@@ -1,9 +1,8 @@
 <template>
-  <tr :class="[item.type, category]">
+  <tr :class="[item.type, category]" @click="toggleEdit">
     <th scope="row" class="text-left">
       <div
         class="flex flex-row items-center space-x-2.5 leading-tight relative"
-        @click="toggleEdit"
       >
         <div class="category-indicator"></div>
         <div>{{ icon }}</div>

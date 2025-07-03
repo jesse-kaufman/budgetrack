@@ -1,5 +1,5 @@
 <template>
-  <div id="constructionLoanApp">
+  <div class="w-fit mx-auto">
     <router-view></router-view>
   </div>
 </template>

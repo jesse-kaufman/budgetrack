@@ -2,17 +2,17 @@
   <template v-if="loading"></template>
   <template v-else>
     <div
-      class="flex flex-row items-center justify-between space-x-1 cursor-pointer h-7"
+      class="flex flex-row justify-between items-center space-x-1 h-7 cursor-pointer"
       @click="enableEdit"
     >
-      <span>$</span>
-      <div class="flex flex-row space-x-1">
+      $
+      <div class="flex flex-row items-center space-x-1">
         <div v-if="isIncome">+</div>
         <BaseInput
           v-show="edit"
           v-bind="$attrs"
           ref="inputRef"
-          class="w-25"
+          class="text-right w-25"
           type="number"
           :invalid="invalidInput"
           :model-value="modelValue"

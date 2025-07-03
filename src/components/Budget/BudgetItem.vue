@@ -1,7 +1,7 @@
 <template>
   <tr :class="[item.type, category]">
     <th scope="row" class="text-left">
-      <div class="flex flex-row items-baseline space-x-1 whitespace-nowrap">
+      <div class="flex flex-row items-center space-x-2.5 leading-tight">
         <div class="category-indicator"></div>
         <div @click="toggleEdit">{{ icon }}</div>
         <InputText
@@ -9,38 +9,18 @@
           :loading="loading"
           @update:model-value="(val) => updateField('name', val)"
         />
+        <div class="frequency-badge">
+          {{ frequencyAbbrMap[item.frequency] }}
+        </div>
       </div>
     </th>
-    <td class="text-center border-r-dashed">
-      <template v-if="!loading">
-        {{ frequencyAbbrMap[item.frequency] }}
-      </template>
-      <template v-else>
-        <div class="skeleton"></div>
-      </template>
-    </td>
-    <td class="text-right whitespace-nowrap min-w-30">
-      <InputCurrency
-        :model-value="item.amount"
-        :loading="loading"
-        :is-income="item.type === 'income'"
-        type="number"
-        class="text-right"
-        min="0"
-        :decimals="2"
-        @update:model-value="(val) => updateField('amount', val)"
-        @error="(msg) => emit('error', msg)"
-      />
-    </td>
     <td class="text-right whitespace-nowrap bg-fuchsia-300/20 min-w-30">
       <template v-if="!loading">
-        <div class="flex flex-row items-center justify-between space-x-1">
-          <span>$</span>
+        <div class="flex flex-row justify-between items-center space-x-1">
+          $
           <div class="flex flex-row space-x-1 font-semibold text-right">
             <div v-if="item.type === 'income'">+</div>
-            <div>
-              {{ formatCurrency(perPayPeriodAmount, true, false) || "&nbsp;" }}
-            </div>
+            <div>{{ formatCurrency(perPayPeriodAmount, true, false) }}</div>
           </div>
         </div>
       </template>
@@ -50,13 +30,11 @@
     </td>
     <td class="text-right whitespace-nowrap bg-cyan-300/20 min-w-30">
       <template v-if="!loading">
-        <div class="flex flex-row items-center justify-between space-x-1">
-          <span>$</span>
+        <div class="flex flex-row justify-between items-center space-x-1">
+          $
           <div class="flex flex-row space-x-1">
             <div v-if="item.type === 'income'">+</div>
-            <div>
-              {{ formatCurrency(monthlyAmount, true, false) || "&nbsp;" }}
-            </div>
+            <div>{{ formatCurrency(monthlyAmount, true, false) }}</div>
           </div>
         </div>
       </template>
@@ -67,10 +45,24 @@
   </tr>
   <!-- Edit budget item section start -->
   <tr :class="edit ? '' : 'hidden'">
-    <td colspan="6" class="border-t-1">
-      <div class="flex flex-row flex-wrap items-baseline space-x-5">
+    <td colspan="3" class="border-y-1">
+      <div class="flex flex-row flex-wrap items-center space-x-5">
         <div class="budget-item-config">
-          <div class="font-bold">Type:</div>
+          <strong>Amount:</strong>
+          <InputCurrency
+            :model-value="item.amount"
+            :loading="loading"
+            :is-income="item.type === 'income'"
+            type="number"
+            class="text-right"
+            min="0"
+            :decimals="2"
+            @update:model-value="(val) => updateField('amount', val)"
+            @error="(msg) => emit('error', msg)"
+          />
+        </div>
+        <div class="budget-item-config">
+          <strong>Type:</strong>
           <div>
             <Select
               :model-value="item.type"
@@ -81,7 +73,7 @@
           </div>
         </div>
         <div class="budget-item-config">
-          <div class="font-bold">Frequency:</div>
+          <strong>Frequency:</strong>
           <div>
             <Select
               :model-value="item.frequency"
@@ -92,13 +84,12 @@
           </div>
         </div>
         <div class="budget-item-config">
-          <div class="font-bold">Due on:</div>
+          <strong>Due on:</strong>
           <div>
             <InputText
               :model-value="item.dueOn"
               class="max-w-35"
               :loading="loading"
-              :always-show-input="true"
               @update:model-value="(val) => updateField('dueOn', val)"
             />
           </div>

@@ -43,7 +43,7 @@
    */
   th,
   td {
-    @apply px-3 py-0.5 border-gray-800/80 border-r-1 last:border-r-0;
+    @apply px-3 py-2 border-gray-800/80 border-r-1 last:border-r-0;
   }
 
   /** 

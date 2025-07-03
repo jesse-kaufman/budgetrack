@@ -117,7 +117,7 @@
    * Category indicator styles
    */
   .category-indicator {
-    @apply h-2 w-2 rounded-full border-0 self-center;
+    @apply h-2 w-2 rounded-full border-0 self-center shrink-0;
   }
 
   .needs .category-indicator {

@@ -4,17 +4,6 @@
   </div>
 </template>
 
-<script setup>
-import { onMounted } from "vue"
-import { useBudgetStore } from "@/stores/budgetStore"
-
-const budgetStore = useBudgetStore()
-
-onMounted(() => {
-  budgetStore.load()
-})
-</script>
-
 <style scoped>
 .fade-enter-active,
 .fade-leave-active {

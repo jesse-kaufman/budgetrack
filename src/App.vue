@@ -1,5 +1,5 @@
 <template>
-  <div class="w-fit mx-auto">
+  <div class="mx-auto w-fit">
     <router-view></router-view>
   </div>
 </template>

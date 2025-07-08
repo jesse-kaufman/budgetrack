@@ -1,4 +1,14 @@
 <template>
+  <template
+    v-if="previousType && previousType !== item.type && !budgetStore.loading"
+  >
+    <tr class="text-[0.7em] uppercase font-semibold text-left bg-gray-800/50">
+      <td colspan="3" class="px-2 py-0.5 space-x-2">
+        <span>{{ budgetItemTypeIconMap[item.type] }}</span>
+        <span class="text-white/50">{{ validBudgetItemTypes[item.type] }}</span>
+      </td>
+    </tr>
+  </template>
   <tr :class="[item.type, category]" @click="toggleEdit">
     <th scope="row" class="text-left">
       <template v-if="budgetStore.loading">
@@ -9,7 +19,6 @@
           class="flex relative flex-row items-center space-x-2.5 leading-tight"
         >
           <div class="category-indicator"></div>
-          <div>{{ icon }}</div>
           <TextField
             :model-value="item.name"
             @update:model-value="(val) => updateField('name', val)"
@@ -128,6 +137,10 @@ const { item, index } = defineProps({
     type: Number,
     required: true,
   },
+  previousType: {
+    type: String,
+    default: "",
+  },
 })
 
 const budgetStore = useBudgetStore()
@@ -139,7 +152,6 @@ const perPayPeriodAmount = computed(() =>
 )
 const monthlyAmount = computed(() => perPayPeriodAmount.value * 2)
 const category = computed(() => categoryMap[item.type])
-const icon = computed(() => budgetItemTypeIconMap[item.type])
 
 // When the item item is updated, emit the update event with the new item object
 const updateField = (field, value) =>

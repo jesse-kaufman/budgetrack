@@ -12,7 +12,7 @@
   <tr :class="[item.type, category]" @click="toggleEdit">
     <th scope="row" class="pl-2 text-left">
       <template v-if="budgetStore.loading">
-        <div class="w-40 skeleton"></div>
+        <div class="w-40 sm:mr-15 skeleton"></div>
       </template>
       <template v-else>
         <div
@@ -20,6 +20,7 @@
         >
           <div class="category-indicator"></div>
           <TextField
+            class="sm:mr-15"
             :model-value="item.name"
             @update:model-value="(val) => updateField('name', val)"
           />

@@ -9,16 +9,19 @@
       >
         <BudgetHeaderItem
           name="Income"
+          :loading="budgetStore.loading"
           class="bg-lime-300/50"
           :value="formatCurrency(budgetStore.totalPayPeriodIncome)"
         />
         <BudgetHeaderItem
           name="Expenses"
+          :loading="budgetStore.loading"
           class="bg-purple-300/50"
           :value="formatCurrency(budgetStore.totalPayPeriodExpenses)"
         />
         <BudgetHeaderItem
           name="Difference"
+          :loading="budgetStore.loading"
           class="bg-blue-300/50"
           :value="formatCurrency(budgetStore.totalPayPeriodDifference)"
         />
@@ -32,16 +35,19 @@
       >
         <BudgetHeaderItem
           name="Income"
+          :loading="budgetStore.loading"
           class="bg-lime-300/50"
           :value="formatCurrency(budgetStore.totalMonthlyIncome)"
         />
         <BudgetHeaderItem
           name="Expenses"
+          :loading="budgetStore.loading"
           class="bg-purple-300/50 w-fit"
           :value="formatCurrency(budgetStore.totalMonthlyExpenses)"
         />
         <BudgetHeaderItem
           name="Difference"
+          :loading="budgetStore.loading"
           class="bg-blue-300/50 w-fit"
           :value="formatCurrency(budgetStore.totalMonthlyDifference)"
         />
@@ -55,16 +61,19 @@
       >
         <BudgetHeaderItem
           name="Needs"
+          :loading="budgetStore.loading"
           class="bg-amber-300/50"
           :value="formatCurrency(budgetStore.needs)"
         />
         <BudgetHeaderItem
           name="Wants"
+          :loading="budgetStore.loading"
           class="bg-red-300/50"
           :value="formatCurrency(budgetStore.wants)"
         />
         <BudgetHeaderItem
           name="Future"
+          :loading="budgetStore.loading"
           class="bg-green-300/50"
           :value="formatCurrency(budgetStore.future)"
         />

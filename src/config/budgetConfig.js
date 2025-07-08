@@ -3,15 +3,14 @@
 /** Stores list of valid budget item types and their labels. */
 export const validBudgetItemTypes = {
   income: "Income",
-  loanPayment: "Loan Payment",
-  ccPayment: "Credit Card Payment",
-  bill: "Bill",
-  variableExpense: "Variable Expense",
+  loanPayment: "Loan Payments",
+  ccPayment: "Credit Card Payments",
+  bill: "Bills",
+  variableExpense: "Variable Expenses",
   shopping: "Shopping",
-  takeout: "Fast Food",
   entertainment: "Entertainment",
-  savingsTransfer: "Savings Transfer",
-  investmentTransfer: "Investment Transfer",
+  savingsTransfer: "Savings Transfers",
+  investmentTransfer: "Investment Transfers",
 }
 
 /** Stores list of valid budget item frequencies. */

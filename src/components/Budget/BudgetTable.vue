@@ -19,7 +19,7 @@
       </template>
       <template v-else>
         <template v-for="n in 10" :key="n">
-          <BudgetItem :item="{}" :loading="true" />
+          <BudgetItem :item="{}" :index="n" />
         </template>
       </template>
     </tbody>

@@ -1,20 +1,15 @@
 <template>
-  <template v-if="!loading">
-    <select v-model="modelValue" class="w-full">
-      <option disabled>-- Select One --</option>
-      <option
-        v-for="option in normalizedOptions"
-        :key="option.value ?? option"
-        :value="option.value ?? option"
-        :selected="modelValue === option.value"
-      >
-        {{ option.label ?? option }}
-      </option>
-    </select>
-  </template>
-  <template v-else>
-    <div class="skeleton"></div>
-  </template>
+  <select v-model="modelValue" class="w-full">
+    <option disabled>-- Select One --</option>
+    <option
+      v-for="option in normalizedOptions"
+      :key="option.value ?? option"
+      :value="option.value ?? option"
+      :selected="modelValue === option.value"
+    >
+      {{ option.label ?? option }}
+    </option>
+  </select>
 </template>
 
 <script setup>
@@ -22,10 +17,6 @@ import { computed } from "vue"
 const modelValue = defineModel({ type: String })
 
 const { options } = defineProps({
-  loading: {
-    type: Boolean,
-    default: true,
-  },
   options: {
     type: [Array, Object],
     required: true,

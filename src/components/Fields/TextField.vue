@@ -1,8 +1,4 @@
 <template>
-  <template v-if="budgetStore.loading">
-    <div class="skeleton"></div>
-  </template>
-  <template v-else>
     <div
       :class="{
         'flex flex-row items-center justify-between space-x-1': true,
@@ -32,7 +28,7 @@
         {{ modelValue }}
       </div>
     </div>
-  </template>
+  </div>
 </template>
 
 <script setup>

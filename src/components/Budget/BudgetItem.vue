@@ -8,7 +8,6 @@
         <div>{{ icon }}</div>
         <TextField
           :model-value="item.name"
-          :loading="loading"
           @update:model-value="(val) => updateField('name', val)"
         />
         <div class="frequency-badge">
@@ -63,7 +62,6 @@
             <Select
               :model-value="item.frequency"
               :options="validBudgetItemFrequencies"
-              :loading="loading"
               @update:model-value="(val) => updateField('frequency', val)"
             />
           </div>
@@ -74,7 +72,6 @@
             <Select
               :model-value="item.type"
               :options="validBudgetItemTypes"
-              :loading="loading"
               @update:model-value="(val) => updateField('type', val)"
             />
           </div>
@@ -85,7 +82,6 @@
             <TextField
               :model-value="item.dueOn"
               class="max-w-35"
-              :loading="loading"
               @update:model-value="(val) => updateField('dueOn', val)"
             />
           </div>

@@ -1,8 +1,12 @@
 <template>
   <tr :class="[item.type, category]" @click="toggleEdit">
     <th scope="row" class="text-left">
+      <template v-if="budgetStore.loading">
+        <div class="w-40 skeleton"></div>
+      </template>
+      <template v-else>
       <div
-        class="flex flex-row items-center space-x-2.5 leading-tight relative"
+          class="flex relative flex-row items-center space-x-2.5 leading-tight"
       >
         <div class="category-indicator"></div>
         <div>{{ icon }}</div>
@@ -14,10 +18,14 @@
           {{ frequencyAbbrMap[item.frequency] }}
         </div>
       </div>
+      </template>
     </th>
-    <td class="whitespace-nowrap bg-fuchsia-300/20 min-w-30 text-right">
-      <template v-if="!loading">
-        <div class="flex flex-row items-center justify-between space-x-1">
+    <td class="text-right whitespace-nowrap bg-fuchsia-300/20 min-w-30">
+      <template v-if="budgetStore.loading">
+        <div class="skeleton"></div>
+      </template>
+      <template v-else>
+        <div class="flex flex-row justify-between items-center space-x-1">
           $
           <div class="flex flex-row space-x-1 font-semibold text-right">
             <div v-if="item.type === 'income'">+</div>
@@ -25,13 +33,13 @@
           </div>
         </div>
       </template>
-      <template v-else>
+</td>
+    <td class="text-right whitespace-nowrap bg-cyan-300/20 min-w-30">
+      <template v-if="budgetStore.loading">
         <div class="skeleton"></div>
       </template>
-    </td>
-    <td class="whitespace-nowrap bg-cyan-300/20 min-w-30 text-right">
-      <template v-if="!loading">
-        <div class="flex flex-row items-center justify-between space-x-1">
+          <template v-else>
+        <div class="flex flex-row justify-between items-center space-x-1">
           $
           <div class="flex flex-row space-x-1">
             <div v-if="item.type === 'income'">+</div>
@@ -39,10 +47,7 @@
           </div>
         </div>
       </template>
-      <template v-else>
-        <div class="skeleton"></div>
-      </template>
-    </td>
+          </td>
   </tr>
   <!-- Edit budget item section start -->
   <tr :class="edit ? '' : 'hidden'">
@@ -108,6 +113,7 @@ import {
   frequencyAbbrMap,
   budgetItemTypeIconMap,
 } from "@/config/budgetConfig"
+import { useBudgetStore } from "@/stores/budgetStore"
 
 // Define the emits for the component
 const emit = defineEmits(["update:item", "error"])
@@ -122,11 +128,9 @@ const { item, index } = defineProps({
     type: Number,
     required: true,
   },
-  loading: {
-    type: Boolean,
-    default: false,
-  },
 })
+
+const budgetStore = useBudgetStore()
 
 const edit = ref(false)
 

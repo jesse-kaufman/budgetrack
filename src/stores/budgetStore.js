@@ -78,9 +78,9 @@ export const useBudgetStore = defineStore("budget", () => {
 
   // ACTIONS
 
-  const load = () => {
+  const load = async () => {
     loading.value = true
-    const data = getBudget()
+    const data = await getBudget()
     items.value = data.items || []
     lastUpdated.value = data.lastUpdated || null
     loading.value = false

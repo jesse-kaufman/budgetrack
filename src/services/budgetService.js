@@ -7,7 +7,7 @@ import { validBudgetItemTypes } from "@/config/budgetConfig"
  * @returns {object} Object containing budget.
  */
 // eslint-disable-next-line max-lines-per-function
-export const getBudget = () => {
+export const getBudget = async () => {
   const budget = {
     lastUpdated: new Date(),
     items: [
@@ -108,6 +108,8 @@ export const getBudget = () => {
   // return res.json()
 
   budget.items = sortItemsByTypeOrder(budget.items)
+
+  await new Promise((r) => setTimeout(r, 1000))
 
   return budget
 }

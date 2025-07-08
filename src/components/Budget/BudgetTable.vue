@@ -14,6 +14,7 @@
           :key="item.name"
           :item="item"
           :index="index"
+          :previous-type="index > 0 ? budgetStore.items[index - 1].type : null"
           @update:item="handleUpdate"
         />
       </template>

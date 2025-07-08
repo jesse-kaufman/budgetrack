@@ -20,6 +20,7 @@
     />
     <div
       v-show="!edit"
+      v-bind="$attrs"
       :class="{
         'text-left': true,
         'font-bold underline cursor-pointer': !viewOnly,

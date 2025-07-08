@@ -1,32 +1,31 @@
 <template>
+  <div
+    :class="{
+      'flex flex-row items-center justify-between space-x-1': true,
+      'cursor-pointer': !viewOnly,
+    }"
+    @click.stop="enableEdit"
+  >
+    <BaseInput
+      v-show="edit && !viewOnly"
+      v-bind="$attrs"
+      ref="inputRef"
+      :model-value="modelValue"
+      :is-valid="isValid"
+      @update:model-value="handleModelUpdate"
+      @blur="handleLeave"
+      @keyup.enter="handleLeave"
+      @keydown.escape="handleEscape"
+      @click.stop
+    />
     <div
+      v-show="!edit"
       :class="{
-        'flex flex-row items-center justify-between space-x-1': true,
-        'cursor-pointer': !viewOnly,
+        'text-left': true,
+        'font-bold underline cursor-pointer': !viewOnly,
       }"
-      @click.stop="enableEdit"
     >
-      <BaseInput
-        v-show="edit && !viewOnly"
-        v-bind="$attrs"
-        ref="inputRef"
-        :model-value="modelValue"
-        :is-valid="isValid"
-        @update:model-value="handleModelUpdate"
-        @blur="handleLeave"
-        @keyup.enter="handleLeave"
-        @keydown.escape="handleEscape"
-        @click.stop
-      />
-      <div
-        v-show="!edit"
-        :class="{
-          'text-left': true,
-          'font-bold underline cursor-pointer': !viewOnly,
-        }"
-      >
-        {{ modelValue }}
-      </div>
+      {{ modelValue === "" ? "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;" : modelValue }}
     </div>
   </div>
 </template>

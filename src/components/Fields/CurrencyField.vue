@@ -1,48 +1,43 @@
 <template>
-  <template v-if="budgetStore.loading">
-    <div class="skeleton"></div>
-  </template>
-  <template v-else>
-    <div
-      :class="{
-        'flex flex-row items-center justify-between space-x-1': true,
-        'cursor-pointer': !viewOnly && !editOnly,
-      }"
-      @click="enableEdit"
-    >
-      <span>$</span>
-      <div>
-        <BaseInput
-          v-show="edit && !viewOnly"
-          v-bind="$attrs"
-          ref="inputRef"
-          class="w-25 text-right"
-          type="number"
-          step="0.01"
-          min="0"
-          :is-valid="isValid"
-          :model-value="modelValue"
-          @update:model-value="handleModelUpdate"
-          @blur="handleLeave"
-          @keyup.enter="handleLeave"
-          @keydown.escape="handleEscape"
-        />
-        <div
-          v-show="!edit"
-          :class="{
-            'text-right ': true,
-            'font-bold underline cursor-pointer': !viewOnly,
-          }"
-        >
-          {{
-            validateCurrency(modelValue)
-              ? formatCurrency(modelValue, true, false) || "\u00A0"
-              : ""
-          }}
-        </div>
+  <div
+    :class="{
+      'flex flex-row items-center justify-between space-x-1': true,
+      'cursor-pointer': !viewOnly && !editOnly,
+    }"
+    @click="enableEdit"
+  >
+    <span>$</span>
+    <div>
+      <BaseInput
+        v-show="edit && !viewOnly"
+        v-bind="$attrs"
+        ref="inputRef"
+        class="text-right w-25"
+        type="number"
+        step="0.01"
+        min="0"
+        :is-valid="isValid"
+        :model-value="modelValue"
+        @update:model-value="handleModelUpdate"
+        @blur="handleLeave"
+        @keyup.enter="handleLeave"
+        @keydown.escape="handleEscape"
+      />
+      <div
+        v-show="!edit"
+        :class="{
+          'text-right ': true,
+          'font-bold underline cursor-pointer': !viewOnly,
+        }"
+      >
+        {{
+          validateCurrency(modelValue)
+            ? formatCurrency(modelValue, true, false) || "\u00A0"
+            : ""
+        }}
       </div>
     </div>
-  </template>
+  </div>
 </template>
 
 <script setup>

@@ -5,19 +5,19 @@
         <div class="w-40 skeleton"></div>
       </template>
       <template v-else>
-      <div
+        <div
           class="flex relative flex-row items-center space-x-2.5 leading-tight"
-      >
-        <div class="category-indicator"></div>
-        <div>{{ icon }}</div>
-        <TextField
-          :model-value="item.name"
-          @update:model-value="(val) => updateField('name', val)"
-        />
-        <div class="frequency-badge">
-          {{ frequencyAbbrMap[item.frequency] }}
+        >
+          <div class="category-indicator"></div>
+          <div>{{ icon }}</div>
+          <TextField
+            :model-value="item.name"
+            @update:model-value="(val) => updateField('name', val)"
+          />
+          <div class="frequency-badge">
+            {{ frequencyAbbrMap[item.frequency] }}
+          </div>
         </div>
-      </div>
       </template>
     </th>
     <td class="text-right whitespace-nowrap bg-fuchsia-300/20 min-w-30">
@@ -33,12 +33,12 @@
           </div>
         </div>
       </template>
-</td>
+    </td>
     <td class="text-right whitespace-nowrap bg-cyan-300/20 min-w-30">
       <template v-if="budgetStore.loading">
         <div class="skeleton"></div>
       </template>
-          <template v-else>
+      <template v-else>
         <div class="flex flex-row justify-between items-center space-x-1">
           $
           <div class="flex flex-row space-x-1">
@@ -47,7 +47,7 @@
           </div>
         </div>
       </template>
-          </td>
+    </td>
   </tr>
   <!-- Edit budget item section start -->
   <tr :class="edit ? '' : 'hidden'">

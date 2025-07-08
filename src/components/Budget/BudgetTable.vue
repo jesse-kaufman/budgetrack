@@ -8,7 +8,7 @@
       </tr>
     </thead>
     <tbody>
-      <template v-if="!loading">
+      <template v-if="!budgetStore.loading">
         <BudgetItem
           v-for="(item, index) in budgetStore.items"
           :key="item.name"
@@ -27,7 +27,7 @@
       <tr>
         <td></td>
         <td class="bg-gray-700">
-          <template v-if="!loading">
+          <template v-if="!budgetStore.loading">
             <div class="flex flex-row justify-between items-center space-x-1">
               <span>$</span>
               <div :class="`font-semibold text-right ${totalClass}`">
@@ -46,7 +46,7 @@
           </template>
         </td>
         <td class="bg-gray-700">
-          <template v-if="!loading">
+          <template v-if="!budgetStore.loading">
             <div class="flex flex-row justify-between items-center space-x-1">
               <span>$</span>
               <div :class="`font-semibold text-right ${totalClass}`">
@@ -77,13 +77,6 @@ import Table from "@/components/Base/BaseTable.vue"
 import { formatCurrency } from "@/utils/currencyUtils"
 
 const budgetStore = useBudgetStore()
-
-defineProps({
-  loading: {
-    type: Boolean,
-    default: false,
-  },
-})
 
 const totalClass = computed(() =>
   budgetStore.totalMonthlyDifference < 0 ? "text-red-400" : "text-green-400"

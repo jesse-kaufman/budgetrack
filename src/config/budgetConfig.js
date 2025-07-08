@@ -9,8 +9,8 @@ export const validBudgetItemTypes = {
   variableExpense: "Variable Expenses",
   shopping: "Shopping",
   entertainment: "Entertainment",
-  savingsTransfer: "Savings Transfers",
-  investmentTransfer: "Investment Transfers",
+  savings: "Savings",
+  investments: "Investments",
 }
 
 /** Stores list of valid budget item frequencies. */
@@ -38,8 +38,8 @@ export const categoryMap = {
   shopping: "wants",
   takeout: "wants",
   entertainment: "wants",
-  savingsTransfer: "future",
-  investmentTransfer: "future",
+  savings: "future",
+  investments: "future",
   income: null,
 }
 
@@ -53,6 +53,6 @@ export const budgetItemTypeIconMap = {
   shopping: "🛍️",
   takeout: "🍟",
   entertainment: "🍿",
-  savingsTransfer: "💰",
-  investmentTransfer: "📈",
+  savings: "💰",
+  investments: "📈",
 }

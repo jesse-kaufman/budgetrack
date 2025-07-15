@@ -29,7 +29,7 @@
         <td></td>
         <td class="bg-gray-700">
           <template v-if="!budgetStore.loading">
-            <div class="flex flex-row justify-between items-center space-x-1">
+            <div class="flex flex-row items-center justify-between space-x-1">
               <span>$</span>
               <div :class="`font-semibold text-right ${totalClass}`">
                 {{
@@ -48,7 +48,7 @@
         </td>
         <td class="bg-gray-700">
           <template v-if="!budgetStore.loading">
-            <div class="flex flex-row justify-between items-center space-x-1">
+            <div class="flex flex-row items-center justify-between space-x-1">
               <span>$</span>
               <div :class="`font-semibold text-right ${totalClass}`">
                 {{
@@ -74,7 +74,7 @@
 import { computed } from "vue"
 import BudgetItem from "./BudgetItem.vue"
 import { useBudgetStore } from "@/stores/budgetStore"
-import Table from "@/components/Base/BaseTable.vue"
+import Table from "@/components/base/BaseTable.vue"
 import { formatCurrency } from "@/utils/currencyUtils"
 
 const budgetStore = useBudgetStore()

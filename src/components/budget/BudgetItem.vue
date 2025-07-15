@@ -12,7 +12,7 @@
   <tr :class="[item.type, category]" @click="toggleEdit">
     <th scope="row" class="pl-2 text-left">
       <template v-if="budgetStore.loading">
-        <div class="w-40 sm:mr-15 skeleton"></div>
+        <div class="sm:mr-15 skeleton w-40"></div>
       </template>
       <template v-else>
         <div
@@ -30,12 +30,12 @@
         </div>
       </template>
     </th>
-    <td class="text-right whitespace-nowrap bg-fuchsia-300/20 min-w-30">
+    <td class="whitespace-nowrap bg-fuchsia-300/20 min-w-30 text-right">
       <template v-if="budgetStore.loading">
         <div class="skeleton"></div>
       </template>
       <template v-else>
-        <div class="flex flex-row justify-between items-center space-x-1">
+        <div class="flex flex-row items-center justify-between space-x-1">
           $
           <div class="flex flex-row space-x-1 font-semibold text-right">
             <div v-if="item.type === 'income'">+</div>
@@ -44,12 +44,12 @@
         </div>
       </template>
     </td>
-    <td class="text-right whitespace-nowrap bg-cyan-300/20 min-w-30">
+    <td class="whitespace-nowrap bg-cyan-300/20 min-w-30 text-right">
       <template v-if="budgetStore.loading">
         <div class="skeleton"></div>
       </template>
       <template v-else>
-        <div class="flex flex-row justify-between items-center space-x-1">
+        <div class="flex flex-row items-center justify-between space-x-1">
           $
           <div class="flex flex-row space-x-1">
             <div v-if="item.type === 'income'">+</div>
@@ -109,9 +109,9 @@
 
 <script setup>
 import { computed, ref } from "vue"
-import Select from "@/components/Base/BaseSelect.vue"
-import CurrencyField from "@/components/Fields/CurrencyField.vue"
-import TextField from "@/components/Fields/TextField.vue"
+import Select from "@/components/base/BaseSelect.vue"
+import CurrencyField from "@/components/ui/fields/CurrencyField.vue"
+import TextField from "@/components/ui/fields/TextField.vue"
 import {
   calculatePayPeriodAmount,
   formatCurrency,

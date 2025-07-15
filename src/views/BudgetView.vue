@@ -7,8 +7,8 @@
 
 <script setup>
 import { onMounted } from "vue"
-import BudgetHeader from "@/components/Budget/BudgetHeader.vue"
-import BudgetTable from "@/components/Budget/BudgetTable.vue"
+import BudgetHeader from "@/components/budget/BudgetHeader.vue"
+import BudgetTable from "@/components/budget/BudgetTable.vue"
 
 import { useBudgetStore } from "@/stores/budgetStore"
 

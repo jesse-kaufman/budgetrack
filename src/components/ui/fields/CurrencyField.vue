@@ -12,7 +12,7 @@
         v-show="edit && !viewOnly"
         v-bind="$attrs"
         ref="inputRef"
-        class="text-right w-25"
+        class="w-25 text-right"
         type="number"
         step="0.01"
         min="0"
@@ -42,7 +42,7 @@
 
 <script setup>
 import { nextTick, computed, ref } from "vue"
-import BaseInput from "@/components/Base/BaseInput.vue"
+import BaseInput from "@/components/base/BaseInput.vue"
 import { formatCurrency, validateCurrency } from "@/utils/currencyUtils"
 import { useBudgetStore } from "@/stores/budgetStore"
 

@@ -48,18 +48,20 @@ export const useBudgetStore = defineStore("budget", () => {
         0
       )
   )
-  /** Stores total difference in income vs expenses per pay period. */
-  const totalPayPeriodDifference = computed(
-    () => totalPayPeriodIncome.value - totalPayPeriodExpenses.value
-  )
+
   /** Stores estimated total income per month. */
   const totalMonthlyIncome = computed(() => totalPayPeriodIncome.value * 2)
   /** Stores estimated monthly expenses. */
   const totalMonthlyExpenses = computed(() => totalPayPeriodExpenses.value * 2)
+  /** Stores total difference in income vs expenses per pay period. */
+  const totalPayPeriodDifference = computed(
+    () => totalPayPeriodIncome.value - totalPayPeriodExpenses.value
+  )
   /** Stores estimated monthly difference between income and expenses. */
   const totalMonthlyDifference = computed(
     () => totalPayPeriodDifference.value * 2
   )
+
   /** Stores total expenses categorized as "needs" (e.g.: bills, variable expenses). */
   const needs = computed(() => getBudgetCategoryTotal(items.value, "needs"))
   /** Stores total expenses categorized as "wants" (e.g.: shopping). */

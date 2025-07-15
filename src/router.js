@@ -4,9 +4,9 @@ import { createRouter, createWebHistory } from "vue-router"
 import BudgetView from "./views/BudgetView.vue"
 
 const routes = [
-  { path: "/", redirect: "/transactions" },
+  { path: "/", redirect: "/budget" },
   {
-    path: "/transactions",
+    path: "/budget",
     component: BudgetView,
     meta: { title: "Budget" },
   },

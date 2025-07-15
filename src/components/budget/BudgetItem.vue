@@ -79,14 +79,6 @@
     <td colspan="4" class="border-y-1">
       <div class="flex flex-row flex-wrap items-center space-x-5">
         <div class="budget-item-config">
-          <strong>Amount:</strong>
-          <CurrencyField
-            :model-value="item.amount"
-            :is-income="item.type === 'income'"
-            @update:model-value="(val) => updateField('amount', val)"
-          />
-        </div>
-        <div class="budget-item-config">
           <strong>Frequency:</strong>
           <div>
             <Select

@@ -2,10 +2,10 @@
   <div
     class="flex flex-row flex-wrap mt-8 mb-8 align-items-start sm:flex-nowrap leading-4.5"
   >
-    <div class="m-2 w-full sm:w-fit">
+    <div class="sm:w-fit w-full m-2">
       <div class="ml-1 font-bold">Per Paycheck</div>
       <div
-        class="flex overflow-hidden flex-wrap rounded-xl border divide-x divide-y divide-solid shadow-sm border-collapse divide-gray-800/80 grow border-gray-800/50"
+        class="rounded-xl divide-solid divide-gray-800/80 grow border-gray-800/50 flex flex-wrap overflow-hidden border border-collapse divide-x divide-y shadow-sm"
       >
         <BudgetHeaderItem
           name="Income"
@@ -28,10 +28,10 @@
       </div>
     </div>
 
-    <div class="m-2 w-full sm:w-fit">
+    <div class="sm:w-fit w-full m-2">
       <div class="ml-1 font-bold">Monthly</div>
       <div
-        class="flex overflow-hidden flex-wrap rounded-xl border divide-x divide-y divide-solid shadow-sm border-collapse divide-gray-800/80 grow border-gray-800/50"
+        class="rounded-xl divide-solid divide-gray-800/80 grow border-gray-800/50 flex flex-wrap overflow-hidden border border-collapse divide-x divide-y shadow-sm"
       >
         <BudgetHeaderItem
           name="Income"
@@ -54,10 +54,10 @@
       </div>
     </div>
 
-    <div class="m-2 w-full sm:w-fit">
+    <div class="sm:w-fit w-full m-2">
       <div class="ml-1 font-bold">&nbsp;</div>
       <div
-        class="flex overflow-hidden flex-wrap rounded-xl border divide-x divide-y divide-solid shadow-sm border-collapse divide-gray-800/80 grow border-gray-800/50"
+        class="rounded-xl divide-solid divide-gray-800/80 grow border-gray-800/50 flex flex-wrap overflow-hidden border border-collapse divide-x divide-y shadow-sm"
       >
         <BudgetHeaderItem
           name="Needs"

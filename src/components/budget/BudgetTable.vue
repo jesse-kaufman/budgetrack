@@ -3,6 +3,7 @@
     <thead>
       <tr>
         <th scope="col"></th>
+        <th scope="col">Amount</th>
         <th class="bg-fuchsia-300/40" scope="col">Per Paycheck</th>
         <th class="bg-cyan-300/40" scope="col">Per Month</th>
       </tr>
@@ -26,7 +27,7 @@
     </tbody>
     <tfoot>
       <tr>
-        <td></td>
+        <td colspan="2"></td>
         <td class="bg-gray-700">
           <template v-if="!budgetStore.loading">
             <div class="flex flex-row items-center justify-between space-x-1">

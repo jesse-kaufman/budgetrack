@@ -3,7 +3,10 @@
     v-if="previousType && previousType !== item.type && !budgetStore.loading"
   >
     <tr class="text-[0.7em] uppercase font-semibold text-left bg-gray-800/50">
-      <td colspan="3" class="px-2 py-0.5 space-x-2">
+      <td
+        colspan="4"
+        class="px-2 py-0.5 space-x-2 border-x-1 border-gray-100/10"
+      >
         <span>{{ budgetItemTypeIconMap[item.type] }}</span>
         <span class="text-white/50">{{ validBudgetItemTypes[item.type] }}</span>
       </td>
@@ -30,6 +33,18 @@
         </div>
       </template>
     </th>
+    <td class="whitespace-nowrap min-w-30 text-right">
+      <template v-if="budgetStore.loading">
+        <div class="skeleton"></div>
+      </template>
+      <template v-else>
+        <CurrencyField
+          :model-value="item.amount"
+          :is-income="item.type === 'income'"
+          @update:model-value="(val) => updateField('amount', val)"
+        />
+      </template>
+    </td>
     <td class="whitespace-nowrap bg-fuchsia-300/20 min-w-30 text-right">
       <template v-if="budgetStore.loading">
         <div class="skeleton"></div>
@@ -61,7 +76,7 @@
   </tr>
   <!-- Edit budget item section start -->
   <tr :class="edit ? '' : 'hidden'">
-    <td colspan="3" class="border-y-1">
+    <td colspan="4" class="border-y-1">
       <div class="flex flex-row flex-wrap items-center space-x-5">
         <div class="budget-item-config">
           <strong>Amount:</strong>

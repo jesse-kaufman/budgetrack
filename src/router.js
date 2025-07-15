@@ -5,7 +5,11 @@ import BudgetView from "./views/BudgetView.vue"
 
 const routes = [
   { path: "/", redirect: "/transactions" },
-  { path: "/transactions", component: BudgetView },
+  {
+    path: "/transactions",
+    component: BudgetView,
+    meta: { title: "Budget" },
+  },
 ]
 
 const router = createRouter({

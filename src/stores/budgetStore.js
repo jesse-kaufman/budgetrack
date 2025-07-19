@@ -17,7 +17,7 @@ export const useBudgetStore = defineStore("budget", () => {
   /** Stores budget items. */
   const items = ref([])
   /** Stores original budget items before edits; used to check if form is dirty. */
-  const originalItems = ref([])
+  let originalItems = []
   /** Holds any form error messages or null for none. */
   const formErrorMsg = ref(null)
   /** Holds the loading state. */
@@ -25,7 +25,11 @@ export const useBudgetStore = defineStore("budget", () => {
 
   /** Whether the current project has unsaved changes. */
   const formIsDirty = computed(
-    () => !equal(JSON.parse(JSON.stringify(items)), originalItems.value)
+    () =>
+      !equal(
+        structuredClone(toRaw(items.value)),
+        JSON.parse(JSON.stringify(originalItems))
+      )
   )
   /** Whether the current project form is valid. */
   const formIsValid = computed(() => !formErrorMsg.value)

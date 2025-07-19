@@ -88,6 +88,15 @@ export const useBudgetStore = defineStore("budget", () => {
     loading.value = false
   }
 
+  const save = async () => {
+    try {
+      await saveBudget(toRaw(items.value))
+      originalItems = items.value
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   /**
    * Adds item to budget store.
    * @param {object} item - Item to add to the budget.
@@ -142,6 +151,7 @@ export const useBudgetStore = defineStore("budget", () => {
     wants,
     future,
     load,
+    save,
     addItem,
     updateItem,
     removeItem,

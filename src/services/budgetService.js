@@ -25,17 +25,21 @@ export const getBudget = async () => {
 
 /**
  * Saves object to repository via API.
- * @param {object} budget - Budget object to be saved.
+ * @param {object} budgetItems - Budget object to be saved.
  * @returns {object} JSON copy of saved object.
  */
-export const saveBudget = async (budget) => {
-  const url = `${API_BASE}/budget`
-  const method = "POST"
+export const saveBudget = async (budgetItems) => {
+  const lastUpdated = new Date()
+  const budgetData = {
+    lastUpdated: lastUpdated.toISOString(),
+    items: budgetItems,
+  }
 
-  const res = await fetch(url, {
-    method,
+  console.log(budgetData)
+  const res = await fetch(`${API_BASE}/budget`, {
+    method: "PUT",
     headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(budget),
+    body: JSON.stringify(budgetData),
   })
 
   if (!res.ok) throw new Error("Failed to save budget")

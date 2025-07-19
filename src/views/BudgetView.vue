@@ -14,7 +14,21 @@ import { useBudgetStore } from "@/stores/budgetStore"
 
 const budgetStore = useBudgetStore()
 
-onMounted(() => {
-  budgetStore.load()
+onMounted(async () => {
+  await budgetStore.load()
+
+  watch(
+    () => budgetStore.items,
+    async () => {
+      console.log("budget items changed")
+      if (budgetStore.formIsDirty && budgetStore.formIsValid) {
+        await budgetStore.save()
+        console.log("saved")
+      } else {
+        console.log("not saving")
+      }
+    },
+    { deep: true }
+  )
 })
 </script>

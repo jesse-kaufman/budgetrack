@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import { onMounted } from "vue"
+import { onMounted, watch } from "vue"
 import BudgetHeader from "@/components/budget/BudgetHeader.vue"
 import BudgetTable from "@/components/budget/BudgetTable.vue"
 

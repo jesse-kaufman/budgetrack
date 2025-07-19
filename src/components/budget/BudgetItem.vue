@@ -81,10 +81,10 @@
     </td>
   </tr>
   <!-- Edit budget item section start -->
-  <tr :class="edit ? '' : 'hidden'">
+  <tr v-if="item.type !== 'income'" :class="edit ? '' : 'hidden'">
     <td colspan="4" class="border-y-1">
       <div class="flex flex-row flex-wrap items-center space-x-5">
-        <div class="budget-item-config">
+        <div v-if="item.type !== 'income'" class="budget-item-config">
           <strong>Frequency:</strong>
           <div>
             <Select
@@ -104,7 +104,7 @@
             />
           </div>
         </div>
-        <div class="budget-item-config">
+        <div v-if="item.type !== 'income'" class="budget-item-config">
           <strong>Due on:</strong>
           <div>
             <TextField

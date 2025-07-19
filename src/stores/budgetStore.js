@@ -1,10 +1,10 @@
 /* eslint-disable max-lines-per-function */
 /** @file Budget store. */
 import { defineStore } from "pinia"
-import { ref, watch, computed } from "vue"
+import { ref, watch, computed, toRaw } from "vue"
 import equal from "fast-deep-equal"
 import { calculatePayPeriodAmount } from "@/utils/currencyUtils"
-import { getBudget } from "@/services/budgetService"
+import { getBudget, saveBudget } from "@/services/budgetService"
 import { getBudgetCategoryTotal } from "@/utils/budgetUtils"
 
 /**

@@ -4,7 +4,7 @@
       'flex flex-row items-center justify-between space-x-1': true,
       'cursor-pointer': !viewOnly && !editOnly,
     }"
-    @click="enableEdit"
+    @click.stop="enableEdit"
   >
     <span>$</span>
     <div>
@@ -22,6 +22,7 @@
         @blur="handleLeave"
         @keyup.enter="handleLeave"
         @keydown.escape="handleEscape"
+        @click.stop
       />
       <div
         v-show="!edit"

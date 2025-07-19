@@ -1,5 +1,5 @@
 <template>
-  <Table>
+  <Table class="w-full">
     <thead>
       <tr>
         <th scope="col"></th>

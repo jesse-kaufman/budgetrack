@@ -140,6 +140,9 @@
   }
 
   .frequency-badge {
-    @apply ml-auto text-[0.8em] bg-blue-600/70 text-white px-2 rounded-full py-0.5 text-shadow-sm;
+    @apply text-[0.8em] bg-blue-600/70 text-white px-2 rounded-full py-0.5 text-shadow-sm;
+  }
+  .unscheduled-badge {
+    @apply bg-amber-600 rounded-full size-1.5;
   }
 }

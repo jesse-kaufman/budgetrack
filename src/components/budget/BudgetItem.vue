@@ -21,14 +21,20 @@
         <div
           class="flex relative flex-row items-center ml-1 space-x-2.5 leading-tight"
         >
-          <div class="category-indicator"></div>
-          <TextField
-            class="sm:mr-15"
-            :model-value="item.name"
-            @update:model-value="(val) => updateField('name', val)"
-          />
-          <div class="frequency-badge">
-            {{ frequencyAbbrMap[item.frequency] }}
+          <div class="flex items-center gap-2">
+            <div class="category-indicator"></div>
+            <TextField
+              :model-value="item.name"
+              @update:model-value="(val) => updateField('name', val)"
+            />
+            <template v-if="!item.scheduled && item.type !== 'income'">
+              <div class="unscheduled-badge"></div>
+            </template>
+          </div>
+          <div class="flex items-center gap-2 ml-auto">
+            <div class="frequency-badge">
+              {{ frequencyAbbrMap[item.frequency] }}
+            </div>
           </div>
         </div>
       </template>
@@ -108,6 +114,16 @@
             />
           </div>
         </div>
+        <div v-if="item.type !== 'income'" class="budget-item-config items-end">
+          <strong>Scheduled:</strong>
+          <div>
+            <BaseCheckbox
+              :model-value="item.scheduled"
+              class="max-w-35"
+              @update:model-value="(val) => updateField('scheduled', val)"
+            />
+          </div>
+        </div>
       </div>
     </td>
   </tr>
@@ -119,6 +135,7 @@ import { computed, ref } from "vue"
 import Select from "@/components/base/BaseSelect.vue"
 import CurrencyField from "@/components/ui/fields/CurrencyField.vue"
 import TextField from "@/components/ui/fields/TextField.vue"
+import BaseCheckbox from "@/components/base/BaseCheckbox.vue"
 import {
   calculatePayPeriodAmount,
   formatCurrency,

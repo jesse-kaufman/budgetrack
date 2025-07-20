@@ -65,7 +65,10 @@
         </div>
       </template>
     </td>
-    <td class="whitespace-nowrap bg-cyan-300/20 min-w-30 text-right">
+    <td
+      v-if="showMonthColumn"
+      class="whitespace-nowrap bg-cyan-300/20 min-w-30 text-right"
+    >
       <template v-if="budgetStore.loading">
         <div class="skeleton"></div>
       </template>
@@ -165,6 +168,10 @@ const { item, index } = defineProps({
   previousType: {
     type: String,
     default: "",
+  },
+  showMonthColumn: {
+    type: Boolean,
+    required: true,
   },
 })
 

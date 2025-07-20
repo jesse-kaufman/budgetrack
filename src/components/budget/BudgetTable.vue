@@ -5,7 +5,9 @@
         <th scope="col"></th>
         <th scope="col">Amount</th>
         <th class="bg-fuchsia-300/40" scope="col">Per Paycheck</th>
-        <th class="bg-cyan-300/40" scope="col">Per Month</th>
+        <th v-if="showMonthColumn" class="bg-cyan-300/40" scope="col">
+          Per Month
+        </th>
       </tr>
     </thead>
     <tbody>
@@ -15,13 +17,18 @@
           :key="item.name"
           :item="item"
           :index="index"
+          :show-month-column="showMonthColumn"
           :previous-type="index > 0 ? budgetStore.items[index - 1].type : null"
           @update:item="handleUpdate"
         />
       </template>
       <template v-else>
         <template v-for="n in 10" :key="n">
-          <BudgetItem :item="{}" :index="n" />
+          <BudgetItem
+            :item="{}"
+            :index="n"
+            :show-month-column="showMonthColumn"
+          />
         </template>
       </template>
     </tbody>
@@ -47,7 +54,7 @@
             <div class="skeleton"></div>
           </template>
         </td>
-        <td class="bg-gray-700">
+        <td v-if="showMonthColumn" class="bg-gray-700">
           <template v-if="!budgetStore.loading">
             <div class="flex flex-row items-center justify-between space-x-1">
               <span>$</span>
@@ -83,6 +90,13 @@ const budgetStore = useBudgetStore()
 const totalClass = computed(() =>
   budgetStore.totalMonthlyDifference < 0 ? "text-red-400" : "text-green-400"
 )
+
+defineProps({
+  showMonthColumn: {
+    type: Boolean,
+    required: true,
+  },
+})
 
 const handleUpdate = (eventData) =>
   budgetStore.updateItem(eventData.index, eventData.data)

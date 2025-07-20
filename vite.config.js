@@ -13,6 +13,9 @@ export default defineConfig({
     },
   },
   server: {
+    watch: {
+      ignored: ["*.config.js", "node_modules", ".git", "**/db.json"],
+    },
     proxy: {
       "/api": {
         target: "http://localhost:3000",

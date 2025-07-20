@@ -9,21 +9,21 @@
       >
         <BudgetHeaderItem
           name="Income"
-          :loading="budgetStore.loading"
           class="bg-lime-300/50"
-          :value="formatCurrency(budgetStore.totalPayPeriodIncome)"
+          :loading="budgetStore.loading"
+          :value="budgetStore.totalPayPeriodIncome"
         />
         <BudgetHeaderItem
           name="Expenses"
-          :loading="budgetStore.loading"
           class="bg-purple-300/50"
-          :value="formatCurrency(budgetStore.totalPayPeriodExpenses)"
+          :loading="budgetStore.loading"
+          :value="budgetStore.totalPayPeriodExpenses"
         />
         <BudgetHeaderItem
           name="Difference"
+          class="bg-blue-300/50 font-bold"
           :loading="budgetStore.loading"
-          class="bg-blue-300/50"
-          :value="formatCurrency(budgetStore.totalPayPeriodDifference)"
+          :value="budgetStore.totalPayPeriodDifference"
         />
       </div>
     </div>
@@ -35,21 +35,21 @@
       >
         <BudgetHeaderItem
           name="Income"
-          :loading="budgetStore.loading"
           class="bg-lime-300/50"
-          :value="formatCurrency(budgetStore.totalMonthlyIncome)"
+          :loading="budgetStore.loading"
+          :value="budgetStore.totalMonthlyIncome"
         />
         <BudgetHeaderItem
           name="Expenses"
+          class="bg-purple-300/50"
           :loading="budgetStore.loading"
-          class="bg-purple-300/50 w-fit"
-          :value="formatCurrency(budgetStore.totalMonthlyExpenses)"
+          :value="budgetStore.totalMonthlyExpenses"
         />
         <BudgetHeaderItem
           name="Difference"
+          class="bg-blue-300/50 font-bold"
           :loading="budgetStore.loading"
-          class="bg-blue-300/50 w-fit"
-          :value="formatCurrency(budgetStore.totalMonthlyDifference)"
+          :value="budgetStore.totalMonthlyDifference"
         />
       </div>
     </div>
@@ -61,21 +61,21 @@
       >
         <BudgetHeaderItem
           name="Needs"
-          :loading="budgetStore.loading"
           class="bg-amber-300/50"
-          :value="formatCurrency(budgetStore.needs)"
+          :loading="budgetStore.loading"
+          :value="budgetStore.needs"
         />
         <BudgetHeaderItem
           name="Wants"
-          :loading="budgetStore.loading"
           class="bg-red-300/50"
-          :value="formatCurrency(budgetStore.wants)"
+          :loading="budgetStore.loading"
+          :value="budgetStore.wants"
         />
         <BudgetHeaderItem
           name="Future"
-          :loading="budgetStore.loading"
           class="bg-green-300/50"
-          :value="formatCurrency(budgetStore.future)"
+          :loading="budgetStore.loading"
+          :value="budgetStore.future"
         />
       </div>
     </div>
@@ -84,7 +84,6 @@
 
 <script setup>
 import BudgetHeaderItem from "./BudgetHeaderItem.vue"
-import { formatCurrency } from "@/utils/currencyUtils.js"
 import { useBudgetStore } from "@/stores/budgetStore"
 
 const budgetStore = useBudgetStore()

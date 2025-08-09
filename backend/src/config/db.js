@@ -1,7 +1,7 @@
 /** @file Database config. */
 
 /** Database type; defaults to mssql. */
-const type = process.env.DB_TYPE || "mssql"
+const type = process.env.DB_TYPE || "better-sqlite3"
 /** Database host. */
 const host = process.env.DB_HOST || ""
 /** Database port; defaults to 1433. */

@@ -1,0 +1,16 @@
+{
+  "name": "@budgetrack/shared",
+  "version": "1.0.0",
+  "description": "Shared utilities and constants for frontend and backend.",
+  "main": "index.js",
+  "type": "module",
+  "license": "MIT",
+  "private": true,
+  "exports": {
+    ".": "./index.js",
+    "./text": "./src/text/index.js"
+  },
+  "imports": {
+    "#text/*": "./src/text/*"
+  }
+}

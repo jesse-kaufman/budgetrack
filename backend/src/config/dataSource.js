@@ -1,0 +1,31 @@
+/** @file Data source config. */
+import { DataSource } from "typeorm"
+import dbConfig from "#config/db.js"
+import Project from "#models/Project.js"
+import ProjectCostItem from "#models/ProjectCostItem.js"
+import Template from "#models/Template.js"
+import TemplateItem from "#models/TemplateItem.js"
+import logger from "#utils/logger.js"
+
+/**
+ * Validates database configuration.
+ * @throws {Error} If any required configurations are missing.
+ */
+const validateConfig = () => {
+  const required = ["host", "username", "password", "database"]
+  for (const key of required) {
+    if (!dbConfig[key]) {
+      throw new Error(`Missing required DB config: ${key}`)
+    }
+  }
+}
+
+validateConfig()
+
+logger.info(`Connecting to ${dbConfig.type} server: ${dbConfig.host}...`)
+
+// Export TypeORM DataSource by default
+export default new DataSource({
+  ...dbConfig,
+  entities: [Template, TemplateItem, Project, ProjectCostItem],
+})

@@ -1,0 +1,7 @@
+{
+  "compilerOptions": {
+    "paths": {
+      "#text/*": ["./src/text/*"]
+    }
+  }
+}

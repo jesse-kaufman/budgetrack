@@ -191,6 +191,12 @@ const config = [
         { avoidEscape: true, allowTemplateLiterals: true },
       ],
       "import/order": "warn",
+      "import/enforce-node-protocol-usage": ["warn", "always"],
+      "import/extensions": [
+        "warn",
+        "ignorePackages",
+        { js: "always", vue: "always" },
+      ],
       "jsdoc/check-param-names": ["error", { enableFixer: true }],
       "jsdoc/require-description": "error",
       "jsdoc/require-hyphen-before-param-description": "warn",
@@ -298,7 +304,17 @@ const config = [
     settings: {
       "import/resolver": {
         alias: {
-          map: [["@", "./frontend/src"]],
+          map: [
+            ["@", "./frontend/src"],
+            ["#base", "./frontend/src/components/base"],
+            ["#budget", "./frontend/src/components/budget"],
+            ["#config", "./frontend/src/config"],
+            ["#services", "./frontend/src/services"],
+            ["#stores", "./frontend/src/stores"],
+            ["#ui", "./frontend/src/components/ui"],
+            ["#utils", "./frontend/src/utils"],
+            ["#views", "./frontend/src/views"],
+          ],
           extensions: [".js", ".ts", ".vue", ".jsx", ".tsx"],
         },
       },

@@ -31,7 +31,7 @@ export const logStartup = (args) => {
 
   // Print out some useful information when starting server
   logger.info("-".repeat(charWidth))
-  logger.info(`      Server started: ${startTime}`)
+  logger.info(`Server started: ${new Date().toLocaleString("en-US")}`)
   logger.info("-".repeat(charWidth))
-  logger.info(chalk.green(`${env} server listening on port ${args.port}.`))
+  logger.success(chalk.green(`${env} server listening on port ${args.port}.`))
 }

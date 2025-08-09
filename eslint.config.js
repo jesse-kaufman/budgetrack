@@ -273,15 +273,16 @@ const config = [
         alias: {
           map: [
             ["#config", "./backend/src/config"],
-            ["#modules", "./backend/src/modules"],
             ["#controllers", "./backend/src/controllers"],
-            ["#repositories", "./backend/src/repositories"],
-            ["#services", "./backend/src/services"],
             ["#errors", "./backend/src/errors"],
-            ["#utils", "./backend/src/utils"],
-            ["#models", "./backend/src/models"],
             ["#middlewares", "./backend/src/middlewares"],
+            ["#models", "./backend/src/models"],
+            ["#modules", "./backend/src/modules"],
+            ["#repositories", "./backend/src/repositories"],
             ["#routes", "./backend/src/routes"],
+            ["#services", "./backend/src/services"],
+            ["#src", "./backend/src"],
+            ["#utils", "./backend/src/utils"],
           ],
 
           extensions: [".js", ".ts", ".vue", ".jsx", ".tsx"],

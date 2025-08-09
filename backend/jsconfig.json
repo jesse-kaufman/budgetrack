@@ -13,8 +13,9 @@
       "#repositories/*": ["src/repositories/*"],
       "#routes/*": ["src/routes/*"],
       "#services/*": ["src/services/*"],
+      "#src/*": ["src/src/*"],
       "#utils/*": ["src/utils/*"]
     }
   },
-  "include": ["src/**/*"]
+  "include": ["server.js", "src/*", "src/**/*"]
 }

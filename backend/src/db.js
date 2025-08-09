@@ -25,7 +25,17 @@ validateConfig()
 logger.info(`Connecting to ${dbConfig.type} server: ${dbConfig.host}...`)
 
 // Export TypeORM DataSource by default
-export default new DataSource({
+const db = new DataSource({
   ...dbConfig,
   entities: [Template, TemplateItem, Project, ProjectCostItem],
 })
+
+db.initialize()
+  .then(() => {
+    logger.info("Data Source initialized")
+  })
+  .catch((err) => {
+    logger.error("Data Source initialization error:", err)
+  })
+
+export default db

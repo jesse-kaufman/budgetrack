@@ -3,7 +3,6 @@ import chalk from "chalk"
 import "dotenv/config"
 import app from "./src/app.js"
 import { PORT } from "#config/config.js"
-import db from "#config/dataSource.js"
 import logger from "#utils/logger.js"
 import { logStartup } from "#utils/serverUtils.js"
 
@@ -30,9 +29,6 @@ process.on("SIGTERM", () => {
   logger.info(chalk.magenta("Received SIGTERM, shutting down..."))
   process.exit(0)
 })
-
-await db.initialize()
-logger.info("DB connected")
 
 // Start the server
 app.listen(PORT, "0.0.0.0", (err) => {

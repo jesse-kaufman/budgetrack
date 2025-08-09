@@ -1,5 +1,5 @@
 /** @file Project service. */
-import db from "#config/dataSource.js"
+import db from "#src/db.js"
 import Project from "#models/Project.js"
 import ProjectRepository from "#repositories/ProjectRepository.js"
 import BaseService from "#services/BaseService.js"

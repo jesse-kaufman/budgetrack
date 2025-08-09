@@ -1,6 +1,6 @@
 /** @file Unit tests for TemplateRepository. */
 import { describe, expect, it, vi } from "vitest"
-import db from "#config/dataSource.js"
+import db from "#src/db.js"
 import BaseRepository from "#repositories/BaseRepository.js"
 import TemplateRepository from "#repositories/TemplateRepository.js"
 

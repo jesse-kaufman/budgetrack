@@ -1,5 +1,5 @@
 /** @file Template service. */
-import db from "#config/dataSource.js"
+import db from "#src/db.js"
 import Template from "#models/Template.js"
 import TemplateRepository from "#repositories/TemplateRepository.js"
 import BaseService from "#services/BaseService.js"

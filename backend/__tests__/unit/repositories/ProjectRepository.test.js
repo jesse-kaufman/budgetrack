@@ -1,6 +1,6 @@
 /** @file Unit tests for ProjectRepository. */
 import { describe, expect, it, vi } from "vitest"
-import db from "#config/dataSource.js"
+import db from "#src/db.js"
 import BaseRepository from "#repositories/BaseRepository.js"
 import ProjectRepository from "#repositories/ProjectRepository.js"
 

@@ -1,6 +1,6 @@
 /** @file Project repository. */
 import BaseRepository from "./BaseRepository.js"
-import db from "#config/dataSource.js"
+import db from "#src/db.js"
 import Project from "#models/Project.js"
 
 /**

@@ -1,7 +1,5 @@
-/* eslint-disable max-lines */
 /** @file Config for eslint. */
-/* eslint-disable no-magic-numbers */
-import { globalIgnores } from "eslint/config"
+import { globalIgnores } from "@eslint/config-helpers"
 import pluginJs from "@eslint/js"
 import jsdoc from "eslint-plugin-jsdoc"
 import importPlugin from "eslint-plugin-import"
@@ -17,55 +15,45 @@ const config = [
     files: ["**/*.{js,mjs,jsx,vue}"],
   },
 
-  globalIgnores(["**/dist/**", "**/dist-ssr/**", "**/coverage/**"]),
+  globalIgnores([
+    "**/node_modules/**",
+    "**/dist/**",
+    "**/dist-ssr/**",
+    "**/coverage/**",
+  ]),
 
   {
-    languageOptions: {
-      globals: { ...globals.browser, ...globals.node },
-    },
-  },
-  {
+    name: "app/plugins",
     plugins: {
       jsdoc,
       prettier: eslintPluginPrettier,
     },
   },
-  jsdoc.configs["flat/recommended"],
+
+  skipFormatting,
+  importPlugin.flatConfigs.recommended,
   pluginJs.configs.recommended,
+  jsdoc.configs["flat/recommended"],
+
   ...pluginVue.configs["flat/recommended"],
   ...pluginVue.configs["flat/essential"],
-  {
-    ...pluginVitest.configs.recommended,
-    files: ["src/**/__tests__/*"],
-  },
-  skipFormatting,
 
-  importPlugin.flatConfigs.recommended,
   {
+    name: "app/base-config",
+    languageOptions: {
+      ecmaVersion: "latest",
+      sourceType: "module",
+      globals: { ...globals.browser, ...globals.node },
+    },
     settings: {
       "import/resolver": {
-        alias: {
-          map: [["@", "./src"]],
-          extensions: [".js", ".ts", ".vue", ".jsx", ".tsx"],
-        },
         node: {
           extensions: [".js", ".ts", ".mjs"],
           moduleDirectory: ["node_modules", "src/"],
         },
       },
     },
-  },
-  {
-    languageOptions: {
-      ecmaVersion: "latest",
-      sourceType: "module",
-    },
     rules: {
-      "vue/no-v-html": "error", // Big NO : sensible to XSS
-      "vue/html-indent": 0,
-      "vue/singleline-html-element-content-newline": 0,
-      "vue/html-self-closing": "off",
-      "vue/max-attributes-per-line": "off",
       "prettier/prettier": "error", // Run Prettier as an ESLint rule
       "array-callback-return": "error",
       "arrow-body-style": [
@@ -257,14 +245,110 @@ const config = [
       ],
     },
   },
+
+  // Shared workspace overrides
   {
+    name: "app/shared-workspace",
+    files: ["shared/**"],
+    settings: {
+      "import/resolver": {
+        alias: {
+          map: [["#text", "./shared/src/text"]],
+          extensions: [".js", ".ts"],
+        },
+      },
+    },
+  },
+
+  // Backend workspace overrides
+  {
+    name: "app/backend-workspace",
+    files: ["backend/**"],
+    settings: {
+      "import/resolver": {
+        alias: {
+          map: [
+            ["#config", "./backend/src/config"],
+            ["#modules", "./backend/src/modules"],
+            ["#controllers", "./backend/src/controllers"],
+            ["#repositories", "./backend/src/repositories"],
+            ["#services", "./backend/src/services"],
+            ["#errors", "./backend/src/errors"],
+            ["#utils", "./backend/src/utils"],
+            ["#models", "./backend/src/models"],
+            ["#middlewares", "./backend/src/middlewares"],
+            ["#routes", "./backend/src/routes"],
+          ],
+
+          extensions: [".js", ".ts", ".vue", ".jsx", ".tsx"],
+        },
+      },
+    },
+  },
+
+  // Frontend workspace overrides
+  {
+    name: "app/frontend-workspace",
+    files: ["frontend/**"],
+    settings: {
+      "import/resolver": {
+        alias: {
+          map: [["@", "./frontend/src"]],
+          extensions: [".js", ".ts", ".vue", ".jsx", ".tsx"],
+        },
+      },
+    },
+    rules: {
+      "vue/no-v-html": "error", // Big NO : sensible to XSS
+      "vue/html-indent": 0,
+      "vue/singleline-html-element-content-newline": 0,
+      "vue/html-self-closing": "off",
+      "vue/max-attributes-per-line": "off",
+    },
+  },
+
+  // Test file overrides
+  {
+    name: "app/test-overrides",
+    files: ["**/*.test.js", "**/__tests__/**"],
+    ...pluginVitest.configs.recommended,
+    rules: {
+      "no-magic-numbers": "off",
+      "max-lines-per-function": "off",
+    },
+  },
+
+  // Config file overrides
+  {
+    name: "app/config-overrides",
+    files: ["**/*.config.js", "**/config/*.js"],
+    rules: {
+      "no-magic-numbers": "off",
+    },
+  },
+
+  // Vue component file overrides
+  {
+    name: "app/vue-component-overrides",
     files: ["**/*.vue"],
     rules: {
       "jsdoc/require-file-overview": "off",
     },
   },
+
+  // Eslint config file overrides
   {
-    files: ["vite.config.js", "vitest.config.js"],
+    name: "app/eslint-config-overrides",
+    files: ["**/eslint.config.js"],
+    rules: {
+      "max-lines": "off",
+    },
+  },
+
+  // Vite/vitest config file overrides
+  {
+    name: "app/vite-vitest-config-overrides",
+    files: ["**/vite.config.js", "**/vitest.config.js"],
     rules: {
       "import/order": "off",
       "import/namespace": "off",

@@ -12,7 +12,7 @@ import logger from "#utils/logger.js"
  * @throws {Error} If any required configurations are missing.
  */
 const validateConfig = () => {
-  if (dbConfig.type === "sqlite") {
+  if (["sqlite", "better-sqlite3"].includes(dbConfig.type)) {
     if (!dbConfig.database) {
       throw new Error("Missing required DB config: database (SQLite file path)")
     }

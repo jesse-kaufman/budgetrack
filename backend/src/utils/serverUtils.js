@@ -18,17 +18,6 @@ export const logStartup = (args) => {
   /** Colorized output of environment. */
   const env = envColor(toUpperFirst(args.env))
 
-  // Formatted current time
-  const startTime = new Date().toLocaleString("en-US", {
-    year: "numeric",
-    month: "short",
-    day: "numeric",
-    hour: "numeric",
-    minute: "2-digit",
-    second: "2-digit",
-    timeZoneName: "short",
-  })
-
   // Print out some useful information when starting server
   logger.info("-".repeat(charWidth))
   logger.info(`Server started: ${new Date().toLocaleString("en-US")}`)

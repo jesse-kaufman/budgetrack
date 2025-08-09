@@ -32,8 +32,8 @@
 
 <script setup>
 import { computed, ref, nextTick } from "vue"
-import BaseInput from "@/components/base/BaseInput.vue"
-import { useBudgetStore } from "@/stores/budgetStore"
+import BaseInput from "#base/BaseInput.vue"
+import { useBudgetStore } from "#stores/budgetStore.js"
 
 // Don't automatically apply attrs to root element in this component and only apply where using v-bind="$attrs"
 defineOptions({ inheritAttrs: false })

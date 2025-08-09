@@ -12,7 +12,7 @@
 </template>
 
 <script setup>
-import CurrencyField from "../ui/fields/CurrencyField.vue"
+import CurrencyField from "#ui/fields/CurrencyField.vue"
 
 defineProps({
   name: {

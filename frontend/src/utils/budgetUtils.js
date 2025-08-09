@@ -1,6 +1,6 @@
 /** @file Budget utils. */
 import { calculatePayPeriodAmount } from "./currencyUtils.js"
-import { categoryMap } from "@/config/budgetConfig.js"
+import { categoryMap } from "#config/budgetConfig.js"
 
 /**
  * Gets category totals for needs, wants, and savings.

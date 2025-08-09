@@ -1,6 +1,6 @@
 /** @file Loan services. */
-import { API_BASE } from "@/config/api"
-import { validBudgetItemTypes } from "@/config/budgetConfig"
+import { API_BASE } from "#config/api.js"
+import { validBudgetItemTypes } from "#config/budgetConfig.js"
 
 /**
  * Gets budget from repository.

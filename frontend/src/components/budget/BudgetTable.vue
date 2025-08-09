@@ -85,9 +85,9 @@
 <script setup>
 import { computed } from "vue"
 import BudgetItem from "./BudgetItem.vue"
-import { useBudgetStore } from "@/stores/budgetStore"
-import Table from "@/components/base/BaseTable.vue"
-import { formatCurrency } from "@/utils/currencyUtils"
+import { useBudgetStore } from "#stores/budgetStore.js"
+import Table from "#base/BaseTable.vue"
+import { formatCurrency } from "#utils/currencyUtils.js"
 
 const budgetStore = useBudgetStore()
 

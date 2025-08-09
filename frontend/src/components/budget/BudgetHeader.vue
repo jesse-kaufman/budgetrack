@@ -84,7 +84,7 @@
 
 <script setup>
 import BudgetHeaderItem from "./BudgetHeaderItem.vue"
-import { useBudgetStore } from "@/stores/budgetStore"
+import { useBudgetStore } from "#stores/budgetStore.js"
 
 const budgetStore = useBudgetStore()
 </script>

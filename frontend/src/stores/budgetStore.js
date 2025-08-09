@@ -3,9 +3,9 @@
 import { defineStore } from "pinia"
 import { ref, watch, computed, toRaw } from "vue"
 import equal from "fast-deep-equal"
-import { calculatePayPeriodAmount } from "@/utils/currencyUtils"
-import { getBudget, saveBudget } from "@/services/budgetService"
-import { getBudgetCategoryTotal } from "@/utils/budgetUtils"
+import { calculatePayPeriodAmount } from "#utils/currencyUtils.js"
+import { getBudget, saveBudget } from "#services/budgetService.js"
+import { getBudgetCategoryTotal } from "#utils/budgetUtils.js"
 
 /**
  * Budget store object.

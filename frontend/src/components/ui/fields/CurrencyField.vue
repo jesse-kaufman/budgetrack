@@ -43,9 +43,9 @@
 
 <script setup>
 import { nextTick, computed, ref } from "vue"
-import BaseInput from "@/components/base/BaseInput.vue"
-import { formatCurrency, validateCurrency } from "@/utils/currencyUtils"
-import { useBudgetStore } from "@/stores/budgetStore"
+import BaseInput from "#base/BaseInput.vue"
+import { formatCurrency, validateCurrency } from "#utils/currencyUtils.js"
+import { useBudgetStore } from "#stores/budgetStore.js"
 
 const modelValue = defineModel({
   type: [String, Number],

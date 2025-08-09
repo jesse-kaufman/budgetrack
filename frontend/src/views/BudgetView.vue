@@ -40,10 +40,10 @@
 
 <script setup>
 import { onMounted, watch, ref } from "vue"
-import BudgetHeader from "@/components/budget/BudgetHeader.vue"
-import BudgetTable from "@/components/budget/BudgetTable.vue"
-import BaseCheckbox from "@/components/base/BaseCheckbox.vue"
-import { useBudgetStore } from "@/stores/budgetStore"
+import BudgetHeader from "#budget/BudgetHeader.vue"
+import BudgetTable from "#budget/BudgetTable.vue"
+import BaseCheckbox from "#base/BaseCheckbox.vue"
+import { useBudgetStore } from "#stores/budgetStore.js"
 
 const budgetStore = useBudgetStore()
 

@@ -151,14 +151,14 @@
 
 <script setup>
 import { computed, ref } from "vue"
-import Select from "@/components/base/BaseSelect.vue"
-import CurrencyField from "@/components/ui/fields/CurrencyField.vue"
-import TextField from "@/components/ui/fields/TextField.vue"
-import BaseCheckbox from "@/components/base/BaseCheckbox.vue"
+import Select from "#base/BaseSelect.vue"
+import CurrencyField from "#ui/fields/CurrencyField.vue"
+import TextField from "#ui/fields/TextField.vue"
+import BaseCheckbox from "#base/BaseCheckbox.vue"
 import {
   calculatePayPeriodAmount,
   formatCurrency,
-} from "@/utils/currencyUtils.js"
+} from "#utils/currencyUtils.js"
 import {
   validBudgetItemFrequencies,
   validBudgetItemTypes,
@@ -166,8 +166,8 @@ import {
   frequencyAbbrMap,
   budgetItemTypeIconMap,
   accounts,
-} from "@/config/budgetConfig"
-import { useBudgetStore } from "@/stores/budgetStore"
+} from "#config/budgetConfig.js"
+import { useBudgetStore } from "#stores/budgetStore.js"
 
 // Define the emits for the component
 const emit = defineEmits(["update:item", "error"])

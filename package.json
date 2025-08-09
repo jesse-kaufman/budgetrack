@@ -17,8 +17,10 @@
     "lint:frontend": "eslint . --fix frontend",
     "lint:backend": "eslint . --fix backend",
     "lint:shared": "eslint . --fix shared",
-    "json-server": "json-server db.json --port 3000",
-    "dev": "concurrently \"npm run json-server\" \"npm run dev --workspace=frontend\""
+    "dev:backend": "npm run dev --workspace=backend",
+    "dev:frontend": "npm run dev --workspace=frontend",
+    "dev:json": "concurrently \"npm run json-server --workspace=frontend\" \"npm run dev --workspace=frontend\"",
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\""
   },
   "workspaces": [
     "backend",
@@ -40,12 +42,10 @@
     "eslint-plugin-vue": "^10.0.0",
     "globals": "^16.0.0",
     "jsdom": "^26.0.0",
-    "json-server": "^1.0.0-beta.3",
     "vitest": "^3.1.1"
   },
   "dependencies": {
     "@budgetrack/shared": "^1.0.0",
-    "dotenv": "^17.2.1",
     "http-status-codes": "^2.3.0"
   }
 }

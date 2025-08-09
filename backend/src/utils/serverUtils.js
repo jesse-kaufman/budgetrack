@@ -1,7 +1,7 @@
 /** @file Server utility functions. */
 import chalk from "chalk"
+import { toUpperFirst } from "@budgetrack/shared/text"
 import logger from "#utils/logger.js"
-import { toUpperFirst } from "#utils/textUtils.js"
 
 /** Width for dividers in logging output. */
 const charWidth = 60

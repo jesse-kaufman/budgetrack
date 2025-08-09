@@ -43,12 +43,11 @@ const db = new DataSource({
   entities: [Template, TemplateItem, Project, ProjectCostItem],
 })
 
-db.initialize()
-  .then(() => {
-    logger.info("Data Source initialized")
-  })
-  .catch((err) => {
-    logger.error("Data Source initialization error:", err)
-  })
+try {
+  db.initialize()
+  logger.success("Data Source initialized")
+} catch (e) {
+  logger.error("Data Source initialization error:", e)
+}
 
 export default db

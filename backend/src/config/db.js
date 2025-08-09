@@ -1,4 +1,5 @@
 /** @file Database config. */
+import { getDbName } from "#utils/dbUtils.js"
 
 /** Database type; defaults to mssql. */
 const type = process.env.DB_TYPE || "better-sqlite3"
@@ -11,7 +12,7 @@ const username = process.env.DB_USER || ""
 /** Database password. */
 const password = process.env.DB_PASS || ""
 /** Database name. */
-const database = process.env.DB_NAME || ""
+const database = getDbName(process.env.DB_NAME || "database", type)
 /** Whether to enable database logging. */
 const logging = process.env.DB_LOGGING === "true"
 /** Whether to enable TypeORM's database sync. */

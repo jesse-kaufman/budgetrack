@@ -16,16 +16,21 @@ const validateConfig = () => {
     if (!dbConfig.database) {
       throw new Error("Missing required DB config: database (SQLite file path)")
     }
-  } else if (dbConfig.type === "mssql") {
+    return
+  }
+
+  if (dbConfig.type === "mssql") {
     const required = ["hostname", "username", "password", "database"]
     for (const key of required) {
       if (!dbConfig[key]) {
         throw new Error(`Missing required DB config: ${key}`)
       }
     }
-  } else {
-    throw new Error(`Unsupported DB type: ${dbConfig.type}`)
+    return
   }
+
+  // Throw if DB not in list
+  throw new Error(`Unsupported DB type: ${dbConfig.type}`)
 }
 
 validateConfig()

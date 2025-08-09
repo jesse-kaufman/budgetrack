@@ -22,19 +22,23 @@ const config = [
     "**/coverage/**",
   ]),
 
+  // Add global plugins
   {
     name: "app/plugins",
     plugins: {
-      jsdoc,
       prettier: eslintPluginPrettier,
     },
   },
 
+  // Let Prettier handle formatting
   skipFormatting,
+
+  // Various plugin configs
   importPlugin.flatConfigs.recommended,
   pluginJs.configs.recommended,
   jsdoc.configs["flat/recommended"],
 
+  // Add config for Vue (required at top-level instead of with overrides)
   ...pluginVue.configs["flat/recommended"],
   ...pluginVue.configs["flat/essential"],
 

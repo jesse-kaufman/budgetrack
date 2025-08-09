@@ -10,7 +10,7 @@ vi.mock("#repositories/BaseRepository.js", () => ({
 }))
 
 // Mock db.getRepository to return a dummy repository object
-vi.mock("#config/dataSource.js", () => ({
+vi.mock("#src/db.js", () => ({
   default: {
     getRepository: vi.fn(),
   },

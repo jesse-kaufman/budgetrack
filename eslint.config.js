@@ -20,6 +20,7 @@ const config = [
     "**/dist/**",
     "**/dist-ssr/**",
     "**/coverage/**",
+    "**/migrations/**",
   ]),
 
   // Add global plugins

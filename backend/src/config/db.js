@@ -16,6 +16,9 @@ const database = process.env.DB_NAME || ""
 const logging = process.env.DB_LOGGING === "true"
 /** Whether to enable TypeORM's database sync. */
 const synchronize = process.env.DB_SYNCHRONIZE === "true"
+/** Where to store migrations. */
+const migrations = ["migrations/*.{js,ts}"]
+
 /** Additional TypeORM database options. */
 const options = {
   encrypt: true,
@@ -32,5 +35,6 @@ export default {
   database,
   logging,
   synchronize,
+  migrations,
   options,
 }

@@ -1,6 +1,5 @@
 /** @file Vite configuration. */
 import path from "node:path"
-import { fileURLToPath, URL } from "node:url"
 import { defineConfig } from "vite"
 import vue from "@vitejs/plugin-vue"
 import vueDevTools from "vite-plugin-vue-devtools"
@@ -10,13 +9,13 @@ export default defineConfig({
   plugins: [vue(), vueDevTools(), tailwindcss()],
   resolve: {
     alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)),
       "#base": path.resolve(__dirname, "./src/components/base"),
       "#budget": path.resolve(__dirname, "./src/components/budget"),
       "#config": path.resolve(__dirname, "./src/config"),
-      "#services": path.resolve(__dirname, "./src/services"),
-      "#stores": path.resolve(__dirname, "./src/stores"),
       "#layouts": path.resolve(__dirname, "./src/layouts"),
+      "#services": path.resolve(__dirname, "./src/services"),
+      "#shared": path.resolve(__dirname, "../shared/src"),
+      "#stores": path.resolve(__dirname, "./src/stores"),
       "#ui": path.resolve(__dirname, "./src/components/ui"),
       "#utils": path.resolve(__dirname, "./src/utils"),
       "#views": path.resolve(__dirname, "./src/views"),

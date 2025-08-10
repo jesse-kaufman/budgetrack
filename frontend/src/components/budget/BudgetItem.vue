@@ -7,8 +7,10 @@
         :colspan="columnCount"
         class="px-2 py-0.5 space-x-2 border-x-1 border-gray-100/10"
       >
-        <span>{{ budgetItemTypeIconMap[item.type] }}</span>
-        <span class="text-white/50">{{ validBudgetItemTypes[item.type] }}</span>
+        <span>{{ itemTypes.getIcon(item.type) }}</span>
+        <span class="text-white/50">
+          {{ itemTypes.getName(item.type) }}
+        </span>
       </td>
     </tr>
   </template>
@@ -151,6 +153,7 @@
 
 <script setup>
 import { computed, ref } from "vue"
+import itemTypes from "#shared/budget/budgetItemTypes.js"
 import Select from "#base/BaseSelect.vue"
 import CurrencyField from "#ui/fields/CurrencyField.vue"
 import TextField from "#ui/fields/TextField.vue"
@@ -162,9 +165,7 @@ import {
 import {
   validBudgetItemFrequencies,
   validBudgetItemTypes,
-  categoryMap,
   frequencyAbbrMap,
-  budgetItemTypeIconMap,
   accounts,
 } from "#config/budgetConfig.js"
 import { useBudgetStore } from "#stores/budgetStore.js"
@@ -211,11 +212,15 @@ const perPayPeriodAmount = computed(() =>
   calculatePayPeriodAmount(item.amount, item.frequency)
 )
 const monthlyAmount = computed(() => perPayPeriodAmount.value * 2)
-const category = computed(() => categoryMap[item.type])
+const category = computed(() => itemTypes.getCategory(item.type))
 
 // When the item item is updated, emit the update event with the new item object
 const updateField = (field, value) =>
   emit("update:item", { index, data: { ...item, [field]: value } })
 
+/**
+ * Toggles edit mode for budget item.
+ * @returns {void}
+ */
 const toggleEdit = () => (edit.value = !edit.value)
 </script>

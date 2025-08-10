@@ -1,8 +1,8 @@
 /** @file Project routes. */
 import { Router } from "express"
-import ProjectController from "#controllers/ProjectController.js"
+import BudgetController from "#controllers/BudgetController.js"
 
-const controller = new ProjectController()
+const controller = new BudgetController()
 const projectRoutes = new Router()
 
 projectRoutes

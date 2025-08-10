@@ -5,9 +5,8 @@ import express from "express"
 import cors from "./middlewares/cors.js"
 import parseJson from "./middlewares/parseJson.js"
 import { API_PREFIX } from "#config/config.js"
-import projectRoutes from "#routes/projectRoutes.js"
 import statusRoutes from "#routes/statusRoutes.js"
-import templateRoutes from "#routes/templateRoutes.js"
+import budgetRoutes from "#routes/budgetRoutes.js"
 
 const app = express()
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -24,10 +23,7 @@ app.use(express.static(path.join(__dirname, "../public")))
 // Status route
 app.use(`${API_PREFIX}/status`, statusRoutes)
 
-// Project routes
-app.use(`${API_PREFIX}/projects`, projectRoutes)
-
-// Template routes
-app.use(`${API_PREFIX}/templates`, templateRoutes)
+// Budget routes
+app.use(`${API_PREFIX}/templates`, budgetRoutes)
 
 export default app

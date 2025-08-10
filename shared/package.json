@@ -8,9 +8,11 @@
   "private": true,
   "exports": {
     ".": "./index.js",
-    "./text": "./src/text/index.js"
+    "./text": "./src/text/index.js",
+    "./budget": "./src/budget/index.js"
   },
   "imports": {
-    "#text/*": "./src/text/*"
+    "#text/*": "./src/text/*",
+    "#shared/*": "./src/*"
   }
 }

@@ -23,6 +23,7 @@ export default defineConfig({
       "#repositories": path.resolve(__dirname, "./src/repositories"),
       "#routes": path.resolve(__dirname, "./src/routes"),
       "#services": path.resolve(__dirname, "./src/services"),
+      "#shared": path.resolve(__dirname, "../shared/src"),
       "#src": path.resolve(__dirname, "./src"),
       "#utils": path.resolve(__dirname, "./src/utils"),
     },

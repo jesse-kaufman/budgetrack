@@ -19,6 +19,7 @@
     "#config/*": "./src/config/*",
     "#layouts/*": "./src/layouts/*",
     "#services/*": "./src/services/*",
+    "#shared/*": "../shared/src/*",
     "#stores/*": "./src/stores/*",
     "#ui/*": "./src/components/ui/*",
     "#utils/*": "./src/utils/*",

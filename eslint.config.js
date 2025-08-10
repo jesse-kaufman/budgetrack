@@ -54,7 +54,7 @@ const config = [
       "import/resolver": {
         node: {
           extensions: [".js", ".ts", ".mjs"],
-          moduleDirectory: ["node_modules", "src/"],
+          moduleDirectory: ["node_modules"],
         },
       },
     },
@@ -290,6 +290,7 @@ const config = [
             ["#services", "./backend/src/services"],
             ["#src", "./backend/src"],
             ["#utils", "./backend/src/utils"],
+            ["#shared", "./shared/src"],
           ],
 
           extensions: [".js", ".ts", ".vue", ".jsx", ".tsx"],
@@ -306,7 +307,6 @@ const config = [
       "import/resolver": {
         alias: {
           map: [
-            ["@", "./frontend/src"],
             ["#base", "./frontend/src/components/base"],
             ["#budget", "./frontend/src/components/budget"],
             ["#config", "./frontend/src/config"],
@@ -315,6 +315,7 @@ const config = [
             ["#ui", "./frontend/src/components/ui"],
             ["#utils", "./frontend/src/utils"],
             ["#views", "./frontend/src/views"],
+            ["#shared", "./shared/src"],
           ],
           extensions: [".js", ".ts", ".vue", ".jsx", ".tsx"],
         },

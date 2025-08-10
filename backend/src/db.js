@@ -1,11 +1,9 @@
 /** @file Data source config. */
 import { DataSource } from "typeorm"
 import dbConfig from "#config/db.js"
-import Project from "#models/Project.js"
-import ProjectCostItem from "#models/ProjectCostItem.js"
-import Template from "#models/Template.js"
-import TemplateItem from "#models/TemplateItem.js"
 import logger from "#utils/logger.js"
+import Budget from "#models/Budget.js"
+import BudgetItems from "#models/BudgetItems.js"
 
 /**
  * Validates database configuration.
@@ -42,7 +40,7 @@ logger.info(`Connecting to ${dbConfig.type} server: ${dbConfig.host}...`)
 // Export TypeORM DataSource by default
 const db = new DataSource({
   ...dbConfig,
-  entities: [Template, TemplateItem, Project, ProjectCostItem],
+  entities: [Budget, BudgetItems],
 })
 
 try {

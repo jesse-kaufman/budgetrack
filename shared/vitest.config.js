@@ -8,6 +8,7 @@ export default defineConfig({
   resolve: {
     alias: {
       "#text": path.resolve(__dirname, "./src/text"),
+      "#shared": path.resolve(__dirname, "./src"),
     },
   },
   test: {

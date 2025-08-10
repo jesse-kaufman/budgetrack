@@ -1,49 +1,45 @@
 /** @file Project cost item model. */
 import { EntitySchema } from "typeorm"
+import { itemTypes, frequencies } from "shared/budget"
+import { getBooleanType } from "#utils/dbUtils.js"
+
+console.log(frequencies.getKeys())
 
 export default new EntitySchema({
-  name: "ProjectCostItem",
-  tableName: "projectCostItems",
+  name: "BudgetItems",
+  tableName: "budgetItems",
   columns: {
     id: {
       primary: true,
       type: "int",
       generated: true,
     },
-    order: {
-      type: "int",
-    },
     name: {
       type: "varchar",
     },
-    percentOfProjectedTotal: {
-      type: "int",
+    type: {
+      type: "varchar",
+      enum: itemTypes.getKeys(),
     },
-    actualCost: {
+    amount: {
       type: "decimal",
       precision: 18,
       scale: 2,
       nullable: true,
     },
-    drawnAmount: {
-      type: "decimal",
-      precision: 18,
-      scale: 2,
-      nullable: true,
+    frequency: {
+      type: "varchar",
+      enum: frequencies.getKeys(),
     },
-    inspectedOn: {
-      type: "datetime",
-      nullable: true,
-    },
-    drawRequestedOn: {
-      type: "datetime",
+    scheduled: {
+      type: getBooleanType(),
       nullable: true,
     },
   },
   relations: {
-    project: {
+    budget: {
       type: "many-to-one",
-      target: "Project",
+      target: "Budget",
       joinColumn: true,
       inverseSide: "costs",
     },

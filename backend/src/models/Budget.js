@@ -1,0 +1,32 @@
+/** @file Project model. */
+import { EntitySchema } from "typeorm"
+import dbConfig from "#config/db.js"
+import { getDatetimeType } from "#utils/dbUtils.js"
+
+const datetimeType = getDatetimeType(dbConfig.type)
+
+export default new EntitySchema({
+  name: "Budget",
+  tableName: "budgets",
+  columns: {
+    id: {
+      primary: true,
+      type: "int",
+      generated: true,
+    },
+    updatedOn: {
+      type: datetimeType,
+      updateDate: true,
+      nullable: true,
+    },
+  },
+  relations: {
+    items: {
+      type: "one-to-many",
+      target: "BudgetItems",
+      inverseSide: "budget",
+      cascade: true,
+      orphanedRowAction: "delete",
+    },
+  },
+})

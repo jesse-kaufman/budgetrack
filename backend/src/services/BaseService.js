@@ -76,7 +76,7 @@ export default class BaseService {
   /**
    * Finds all entities with optional filtering.
    * @param {object} options - Find options for querying.
-   * @returns {Array} - Array of found entities.
+   * @returns {Promise<Array>} - Array of found entities.
    */
   async findAll(options = {}) {
     try {
@@ -91,7 +91,7 @@ export default class BaseService {
    * Finds an entity by its ID.
    * @param {number} id - Entity ID.
    * @param {object} options - Additional find options.
-   * @returns {object|null} - Found entity or null if not found.
+   * @returns {Promise<object|null>} - Found entity or null if not found.
    * @throws {Error} - If ID is not provided.
    */
   async findById(id, options = {}) {
@@ -108,7 +108,7 @@ export default class BaseService {
   /**
    * Creates a new entity.
    * @param {object} data - Data to create a new entity.
-   * @returns {object} - Created entity.
+   * @returns {Promise<object>} - Created entity.
    * @throws {Error} - If data is not provided.
    */
   async create(data) {
@@ -125,7 +125,7 @@ export default class BaseService {
    * Updates an existing entity.
    * @param {number} id - Entity ID to update.
    * @param {object} data - Data to update the entity.
-   * @returns {object} - Updated entity.
+   * @returns {Promise<object>} - Updated entity.
    * @throws {Error} - If ID or data is not provided.
    * @throws {NotFoundError} - If entity with the given ID is not found.
    */

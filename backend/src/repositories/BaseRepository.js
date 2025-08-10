@@ -4,14 +4,20 @@
  * BaseRepository class providing common database operations.
  */
 export default class BaseRepository {
+  #repository = null
+  #defaultRelations = null
+  #skipActiveFilter = null
+
   /**
    * Creates an instance of BaseRepository.
    * @param {object} repository - TypeORM repository instance.
+   * @param {object} config - Config options for class.
    */
-  constructor(repository) {
+  constructor(repository, config) {
     if (!repository) throw new Error("Repository instance is required")
-    this.repository = repository
-    this.defaultRelations = []
+    this.#repository = repository
+    this.#defaultRelations = config?.defaultRelations || []
+    this.#skipActiveFilter = config?.skipActiveFilter || false
   }
 
   /**
@@ -22,6 +28,10 @@ export default class BaseRepository {
   #applyActiveFilter(options = {}) {
     // Destructure 'show' from options, leaving the rest intact in _options
     const { show, ..._options } = options
+
+    // Return options as-is if skipActiveFilter is true
+    if (this.#skipActiveFilter) return _options
+
     // Initialize where clause with existing conditions or empty object
     const where = { ...(_options.where || {}) }
 
@@ -42,7 +52,7 @@ export default class BaseRepository {
    * @returns {Array} - Array of found entities.
    */
   findAll(options = {}) {
-    return this.repository.find(this.#applyActiveFilter(options))
+    return this.#repository.find(this.#applyActiveFilter(options))
   }
 
   /**
@@ -53,14 +63,14 @@ export default class BaseRepository {
    */
   findById(id, options = {}) {
     // Find the entity by ID with isActive filter applied
-    return this.repository.findOne(
+    return this.#repository.findOne(
       this.#applyActiveFilter({
         // Spread existing options
         ...options,
         // Merge with where clause to find by ID
         where: { ...options?.where, id },
         // Include relations by default
-        relations: options.relations ?? this.defaultRelations,
+        relations: options.relations ?? this.#defaultRelations,
       })
     )
   }
@@ -71,7 +81,7 @@ export default class BaseRepository {
    * @returns {object} - Created entity.
    */
   async create(data) {
-    return await this.repository.save(this.repository.create(data))
+    return await this.#repository.save(this.#repository.create(data))
   }
 
   /**
@@ -88,7 +98,7 @@ export default class BaseRepository {
     // Update the entity with the provided data
     Object.assign(entity, data)
     // Save the updated entity to the database and return it
-    return this.repository.save(entity)
+    return this.#repository.save(entity)
   }
 
   /**

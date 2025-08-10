@@ -11,6 +11,9 @@ export default class BudgetRepository extends BaseRepository {
    * Creates an instance of BudgetRepository.
    */
   constructor() {
-    super(db.getRepository(Budget))
+    super(db.getRepository(Budget), {
+      skipActiveFilter: true,
+      defaultRelations: ["items"],
+    })
   }
 }

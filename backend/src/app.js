@@ -24,6 +24,6 @@ app.use(express.static(path.join(__dirname, "../public")))
 app.use(`${API_PREFIX}/status`, statusRoutes)
 
 // Budget routes
-app.use(`${API_PREFIX}/templates`, budgetRoutes)
+app.use(`${API_PREFIX}/budget`, budgetRoutes)
 
 export default app

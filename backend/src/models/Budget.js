@@ -18,6 +18,7 @@ export default new EntitySchema({
       type: datetimeType,
       updateDate: true,
       nullable: true,
+      default: () => "CURRENT_TIMESTAMP",
     },
   },
   relations: {

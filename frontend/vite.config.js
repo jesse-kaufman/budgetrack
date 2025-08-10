@@ -26,10 +26,9 @@ export default defineConfig({
       ignored: ["*.config.js", "node_modules", ".git", "**/db.json"],
     },
     proxy: {
-      "/api": {
-        target: "http://localhost:3000",
+      "/api/v1": {
+        target: "http://localhost:3033",
         changeOrigin: true,
-        rewrite: (p) => p.replace(/^\/api/, ""),
       },
     },
   },

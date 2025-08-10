@@ -1,5 +1,5 @@
 /** @file Base service class. */
-import NotFoundError from "#errors/NotFoundError.js"
+import { BadRequestError, NotFoundError } from "#utils/errors.js"
 
 /**
  * BaseService class providing common service operations.
@@ -30,9 +30,11 @@ export default class BaseService {
    * @returns {object|null} - Found entity or null if not found.
    * @throws {Error} - If ID is not provided.
    */
-  findById(id, options = {}) {
-    if (!id) throw new Error("ID is required")
-    return this.repository.findById(id, options)
+  async findById(id, options = {}) {
+    if (!id) throw new BadRequestError("ID is required")
+    const result = await this.repository.findById(id, options)
+    if (!result) throw new NotFoundError(`Entity with ID ${id} not found`)
+    return result
   }
 
   /**
@@ -42,7 +44,7 @@ export default class BaseService {
    * @throws {Error} - If data is not provided.
    */
   create(data) {
-    if (!data) throw new Error("Data is required")
+    if (!data) throw new BadRequestError("Data is required")
     return this.repository.create(data)
   }
 
@@ -55,9 +57,9 @@ export default class BaseService {
    * @throws {NotFoundError} - If entity with the given ID is not found.
    */
   async update(id, data) {
-    if (!id) throw new Error("ID is required")
+    if (!id) throw new BadRequestError("ID is required")
     if (!data || Object.keys(data).length === 0) {
-      throw new Error("Data is required")
+      throw new BadRequestError("Data is required")
     }
 
     // Attempt to update the entity

@@ -1,6 +1,5 @@
 /** @file Base controller class. */
 import { StatusCodes } from "http-status-codes"
-import NotFoundError from "#errors/NotFoundError.js"
 
 /**
  * BaseController class providing common controller operations.
@@ -21,9 +20,10 @@ export default class BaseController {
    * @returns {void}
    */
   #handleError = (e, res) => {
-    if (e instanceof NotFoundError) {
+    if (e.statusCode) {
       return res.status(e.statusCode).json({ error: e.message })
     }
+
     res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({ error: e.message })
   }
 

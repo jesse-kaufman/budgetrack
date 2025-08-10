@@ -29,6 +29,26 @@ export default class BaseService {
   }
 
   /**
+   * Handle errors and throw normalized errors.
+   * @param {object} e - Error object.
+   * @returns {void}
+   */
+  #handleError = (e) => {
+    logger.error(e.message)
+
+    // Handle SQL constraint errors
+    if (e.code.startsWith("SQLITE_CONSTRAINT")) {
+      const msg = e.driverError?.message || ""
+      const match = msg.match(/constraint failed: .*\.([^\s]+)/)
+      const field = match ? match[1] : "unknown field"
+      throw new BadRequestError(`Missing ${field}`)
+    }
+
+    // Fall back to generic error
+    throw new Error(`Failed to update ${this.#name}`)
+  }
+
+  /**
    * Finds all entities with optional filtering.
    * @param {object} options - Find options for querying.
    * @returns {Array} - Array of found entities.
@@ -37,7 +57,7 @@ export default class BaseService {
     try {
       return await this.#repository.findAll(options)
     } catch (e) {
-      logger.error(e)
+      logger.error(e.message)
       throw new Error(`Failed to fetch all ${this.#pluralName}`)
     }
   }
@@ -56,7 +76,7 @@ export default class BaseService {
       if (!result) throw new NotFoundError(this.#notFoundMessage)
       return result
     } catch (e) {
-      logger.error(e)
+      logger.error(e.message)
       throw new Error(`Failed finding ${this.#name}`)
     }
   }
@@ -72,7 +92,7 @@ export default class BaseService {
     try {
       return await this.#repository.create(data)
     } catch (e) {
-      logger.error(e)
+      logger.error(e.message)
       throw new Error(`Failed to create new ${this.#name}`)
     }
   }
@@ -99,8 +119,7 @@ export default class BaseService {
       // Return the updated entity
       return updated
     } catch (e) {
-      logger.error(e)
-      throw new Error(`Failed to update ${this.#name}`)
+      this.#handleError(e)
     }
   }
 
@@ -117,7 +136,7 @@ export default class BaseService {
       // If no entity was deleted, throw NotFoundError
       if (!deleted) throw new NotFoundError(this.#notFoundMessage)
     } catch (e) {
-      logger.error(e)
+      logger.error(e.message)
       throw new Error(`Failed to delete ${this.#name}`)
     }
   }

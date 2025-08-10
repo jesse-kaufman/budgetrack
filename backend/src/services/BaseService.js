@@ -9,6 +9,7 @@ import logger from "#utils/logger.js"
 export default class BaseService {
   #repository = null
   #name = ""
+  #skipUpdatedOnRefresh = false
   #pluralName = ""
   #notFoundMessage = `${toUpperFirst(this.#name)} not found`
 
@@ -137,6 +138,13 @@ export default class BaseService {
       const updated = await this.#repository.update(id, data)
       // If no entity was updated, throw NotFoundError
       if (!updated) throw new NotFoundError(this.#notFoundMessage)
+
+      if (!this.#skipUpdatedOnRefresh) {
+        await this.#repository.update(id, {
+          updatedOn: () => "CURRENT_TIMESTAMP",
+        })
+      }
+
       // Return the updated entity
       return this.findById(id)
     } catch (e) {

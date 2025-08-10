@@ -11,8 +11,8 @@
     "lint": "cd .. && npm run lint:backend",
     "dev": " NODE_ENV=development node --watch server.js",
     "start": "FORCE_COLOR=1 NODE_ENV=production node server.js",
-    "migrations:generate": "typeorm migration:generate --esm --outputJs --dataSource ./src/db.js migrations/migration",
-    "migrations:run": "typeorm migration:run --dataSource ./src/db.js"
+    "migration:generate": "typeorm migration:generate --esm --outputJs --dataSource ./src/db.js migrations/migration",
+    "migration:run": "typeorm migration:run --dataSource ./src/db.js"
   },
   "imports": {
     "#config/*": "./src/config/*",

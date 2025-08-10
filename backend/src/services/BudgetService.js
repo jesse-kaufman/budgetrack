@@ -17,4 +17,14 @@ export default class BudgetService extends BaseService {
 
     super(BudgetRepo, config)
   }
+
+  /**
+   * Returns the budget object instead of array of objects.
+   * @returns {object} Budget object.
+   */
+  async findAll() {
+    const results = await super.findAll()
+    console.log(results)
+    return results.length > 0 ? results[0] : null
+  }
 }

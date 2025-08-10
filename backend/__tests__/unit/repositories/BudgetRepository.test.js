@@ -27,6 +27,7 @@ describe("BudgetRepository", () => {
     db.getRepository.mockReturnValue(fakeRepo)
 
     // Instantiate BudgetRepository (which calls BaseRepository constructor)
+    // eslint-disable-next-line no-unused-vars
     const tmp = new BudgetRepository()
 
     // BaseRepository constructor should be called once with correct args

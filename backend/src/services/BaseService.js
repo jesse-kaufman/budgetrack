@@ -29,19 +29,40 @@ export default class BaseService {
   }
 
   /**
+   * Handles SQLite-specific errors.
+   * @param {object} e - Error object.
+   * @returns {void}
+   */
+  #getSqliteError = (e) => {
+    const msg = e.driverError?.message || ""
+
+    // Handle SQL NULL constraint errors
+    if (e.code === "SQLITE_CONSTRAINT_NOTNULL") {
+      const match = msg.match(/constraint failed: (.*)\.([^\s]+)/)
+      const field = match ? match[2] : "unknown"
+      const table = match[1] === "budgetItems" ? "budget item" : this.#name
+      return `Missing ${field} field on ${table}`
+    }
+
+    // Handle SQL NULL constraint errors
+    if (e.code === "SQLITE_CONSTRAINT_CHECK") {
+      const match = msg.match(/constraint failed: ([^\s]+)/)
+      const field = match ? match[1] : "unknown"
+      return `Invalid value for ${field}`
+    }
+  }
+
+  /**
    * Handle errors and throw normalized errors.
    * @param {object} e - Error object.
    * @returns {void}
    */
   #handleError = (e) => {
-    logger.error(e.message)
+    logger.error(`${e.code} - ${e.message}`)
 
-    // Handle SQL constraint errors
-    if (e.code.startsWith("SQLITE_CONSTRAINT")) {
-      const msg = e.driverError?.message || ""
-      const match = msg.match(/constraint failed: .*\.([^\s]+)/)
-      const field = match ? match[1] : "unknown field"
-      throw new BadRequestError(`Missing ${field}`)
+    // Handle SQLite errors
+    if (e.code.startsWith("SQLITE_CONSTRAINT_")) {
+      throw new Error(this.#getSqliteError(e))
     }
 
     // Fall back to generic error

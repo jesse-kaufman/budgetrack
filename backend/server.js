@@ -34,8 +34,8 @@ process.on("SIGTERM", () => {
 })
 
 // Start the server
-app.listen(PORT, "0.0.0.0", (err) => {
+app.listen(PORT, "0.0.0.0", (e) => {
   // Handle startup errors
-  if (err) return logger.error("Error starting server:", err.message)
+  if (e) return logger.error(e, "Error starting server:")
   logStartup({ port: PORT, env: process.env.NODE_ENV })
 })

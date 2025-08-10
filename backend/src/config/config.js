@@ -1,7 +1,7 @@
 /** @file Configuration options. */
 
 /** API URL prefix. */
-export const API_PREFIX = "/api/v1/construction"
+export const API_PREFIX = "/api/v1"
 
 /** Default number of documents per page. */
 export const DEFAULT_PAGE_SIZE = 10

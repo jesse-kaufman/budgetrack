@@ -6,7 +6,7 @@ import { getBooleanType } from "#utils/dbUtils.js"
 console.log(frequencies.getKeys())
 
 export default new EntitySchema({
-  name: "BudgetItems",
+  name: "BudgetItem",
   tableName: "budgetItems",
   columns: {
     id: {
@@ -25,7 +25,6 @@ export default new EntitySchema({
       type: "decimal",
       precision: 18,
       scale: 2,
-      nullable: true,
     },
     frequency: {
       type: "varchar",
@@ -33,7 +32,7 @@ export default new EntitySchema({
     },
     scheduled: {
       type: getBooleanType(),
-      nullable: true,
+      default: false,
     },
   },
   relations: {
@@ -41,7 +40,7 @@ export default new EntitySchema({
       type: "many-to-one",
       target: "Budget",
       joinColumn: true,
-      inverseSide: "costs",
+      inverseSide: "items",
     },
   },
 })

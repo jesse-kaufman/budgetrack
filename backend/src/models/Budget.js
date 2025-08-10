@@ -23,10 +23,10 @@ export default new EntitySchema({
   relations: {
     items: {
       type: "one-to-many",
-      target: "BudgetItems",
+      target: "BudgetItem",
       inverseSide: "budget",
-      cascade: true,
       orphanedRowAction: "delete",
+      cascade: true,
     },
   },
 })

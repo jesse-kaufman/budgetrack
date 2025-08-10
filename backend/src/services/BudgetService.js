@@ -24,7 +24,6 @@ export default class BudgetService extends BaseService {
    */
   async findAll() {
     const results = await super.findAll()
-    console.log(results)
     return results.length > 0 ? results[0] : null
   }
 }

@@ -1,17 +1,31 @@
 /** @file Base service class. */
+import { toUpperFirst } from "shared/text"
 import { BadRequestError, NotFoundError } from "#utils/errors.js"
+import logger from "#utils/logger.js"
 
 /**
  * BaseService class providing common service operations.
  */
 export default class BaseService {
+  #repository = null
+  #name = ""
+  #pluralName = ""
+  #notFoundMessage = `${toUpperFirst(this.#name)} not found`
+
   /**
    * Creates an instance of BaseService.
    * @param {object} repository - Repository instance to handle data operations.
+   * @param {object} config - Configuration options.
    */
-  constructor(repository) {
-    if (!repository) throw new Error("Repository instance is required")
-    this.repository = repository
+  constructor(repository, config) {
+    if (!repository) {
+      logger.error("Repository instance is required")
+      throw new Error("Repository instance is required")
+    }
+
+    this.#repository = repository
+    this.#name = config.name
+    this.#pluralName = config.pluralName
   }
 
   /**
@@ -19,8 +33,13 @@ export default class BaseService {
    * @param {object} options - Find options for querying.
    * @returns {Array} - Array of found entities.
    */
-  findAll(options = {}) {
-    return this.repository.findAll(options)
+  async findAll(options = {}) {
+    try {
+      return await this.#repository.findAll(options)
+    } catch (e) {
+      logger.error(e)
+      throw new Error(`Failed to fetch all ${this.#pluralName}`)
+    }
   }
 
   /**
@@ -32,9 +51,14 @@ export default class BaseService {
    */
   async findById(id, options = {}) {
     if (!id) throw new BadRequestError("ID is required")
-    const result = await this.repository.findById(id, options)
-    if (!result) throw new NotFoundError(`Entity with ID ${id} not found`)
-    return result
+    try {
+      const result = await this.#repository.findById(id, options)
+      if (!result) throw new NotFoundError(this.#notFoundMessage)
+      return result
+    } catch (e) {
+      logger.error(e)
+      throw new Error(`Failed finding ${this.#name}`)
+    }
   }
 
   /**
@@ -43,9 +67,14 @@ export default class BaseService {
    * @returns {object} - Created entity.
    * @throws {Error} - If data is not provided.
    */
-  create(data) {
+  async create(data) {
     if (!data) throw new BadRequestError("Data is required")
-    return this.repository.create(data)
+    try {
+      return await this.#repository.create(data)
+    } catch (e) {
+      logger.error(e)
+      throw new Error(`Failed to create new ${this.#name}`)
+    }
   }
 
   /**
@@ -63,12 +92,16 @@ export default class BaseService {
     }
 
     // Attempt to update the entity
-    const updated = await this.repository.update(id, data)
-    // If no entity was updated, throw NotFoundError
-    if (!updated) throw new NotFoundError(`Entity with ID ${id} not found`)
-
-    // Return the updated entity
-    return updated
+    try {
+      const updated = await this.#repository.update(id, data)
+      // If no entity was updated, throw NotFoundError
+      if (!updated) throw new NotFoundError(this.#notFoundMessage)
+      // Return the updated entity
+      return updated
+    } catch (e) {
+      logger.error(e)
+      throw new Error(`Failed to update ${this.#name}`)
+    }
   }
 
   /**
@@ -79,7 +112,13 @@ export default class BaseService {
    */
   async delete(id) {
     if (!id) throw new Error("ID is required")
-    const deleted = await this.repository.delete(id)
-    if (!deleted) throw new NotFoundError(`Entity with ID ${id} not found`)
+    try {
+      const deleted = await this.#repository.delete(id)
+      // If no entity was deleted, throw NotFoundError
+      if (!deleted) throw new NotFoundError(this.#notFoundMessage)
+    } catch (e) {
+      logger.error(e)
+      throw new Error(`Failed to delete ${this.#name}`)
+    }
   }
 }

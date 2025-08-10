@@ -13,6 +13,8 @@ export default class BudgetService extends BaseService {
    */
   constructor() {
     const BudgetRepo = new BudgetRepository(db.getRepository(Budget))
-    super(BudgetRepo)
+    const config = { name: "budget", pluralName: "budgets" }
+
+    super(BudgetRepo, config)
   }
 }

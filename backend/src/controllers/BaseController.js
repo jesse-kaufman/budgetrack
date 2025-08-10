@@ -52,9 +52,6 @@ export default class BaseController {
       const item = await this.service.findById(req.params.id, {
         show: req.query.show,
       })
-      if (!item) {
-        return res.status(StatusCodes.NOT_FOUND).json({ error: "Not found" })
-      }
       res.json(item)
     } catch (e) {
       this.#handleError(e, res)

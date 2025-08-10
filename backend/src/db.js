@@ -3,7 +3,7 @@ import { DataSource } from "typeorm"
 import dbConfig from "#config/db.js"
 import logger from "#utils/logger.js"
 import Budget from "#models/Budget.js"
-import BudgetItems from "#models/BudgetItems.js"
+import BudgetItems from "#models/BudgetItem.js"
 
 /**
  * Validates database configuration.

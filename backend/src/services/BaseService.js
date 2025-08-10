@@ -117,7 +117,7 @@ export default class BaseService {
       // If no entity was updated, throw NotFoundError
       if (!updated) throw new NotFoundError(this.#notFoundMessage)
       // Return the updated entity
-      return updated
+      return this.findById(id)
     } catch (e) {
       this.#handleError(e)
     }

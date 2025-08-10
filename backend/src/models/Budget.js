@@ -28,6 +28,7 @@ export default new EntitySchema({
       inverseSide: "budget",
       orphanedRowAction: "delete",
       cascade: true,
+      eager: true,
     },
   },
 })

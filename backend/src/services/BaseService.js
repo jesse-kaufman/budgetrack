@@ -24,9 +24,10 @@ export default class BaseService {
       throw new Error("Repository instance is required")
     }
 
-    this.#repository = repository
-    this.#name = config.name
-    this.#pluralName = config.pluralName
+    this.#repository = repository ?? null
+    this.#name = config.name ?? ""
+    this.#skipUpdatedOnRefresh = config.skipUpdatedOnRefresh ?? false
+    this.#pluralName = config.pluralName ?? ""
   }
 
   /**
@@ -60,6 +61,8 @@ export default class BaseService {
    */
   #handleError = (e) => {
     logger.error(`${e.code} - ${e.message}`)
+
+    if (e instanceof NotFoundError) throw e
 
     // Handle SQLite errors
     if (e.code.startsWith("SQLITE_CONSTRAINT_")) {
@@ -98,8 +101,7 @@ export default class BaseService {
       if (!result) throw new NotFoundError(this.#notFoundMessage)
       return result
     } catch (e) {
-      logger.error(e.message)
-      throw new Error(`Failed finding ${this.#name}`)
+      this.#handleError(e)
     }
   }
 
@@ -136,6 +138,7 @@ export default class BaseService {
     // Attempt to update the entity
     try {
       const updated = await this.#repository.update(id, data)
+
       // If no entity was updated, throw NotFoundError
       if (!updated) throw new NotFoundError(this.#notFoundMessage)
 
@@ -165,8 +168,7 @@ export default class BaseService {
       // If no entity was deleted, throw NotFoundError
       if (!deleted) throw new NotFoundError(this.#notFoundMessage)
     } catch (e) {
-      logger.error(e.message)
-      throw new Error(`Failed to delete ${this.#name}`)
+      this.#handleError(e)
     }
   }
 }

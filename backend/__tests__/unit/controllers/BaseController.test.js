@@ -2,7 +2,7 @@
 import { StatusCodes } from "http-status-codes"
 import { beforeEach, describe, expect, it, vi } from "vitest"
 import BaseController from "#controllers/BaseController.js"
-import NotFoundError from "#errors/NotFoundError.js"
+import { NotFoundError } from "#utils/errors.js"
 
 describe("BaseController", () => {
   let controller = null,
@@ -40,12 +40,24 @@ describe("BaseController", () => {
     expect(resMock.json).toHaveBeenCalledWith(items)
   })
 
-  it("getById responds with 404 if item not found", async () => {
-    serviceMock.findById.mockResolvedValue(null)
-    reqMock.params.id = 1
-    await controller.getById(reqMock, resMock)
-    expect(resMock.status).toHaveBeenCalledWith(StatusCodes.NOT_FOUND)
-    expect(resMock.json).toHaveBeenCalledWith({ error: "Not found" })
+  it("responds with 404 if item not found", async () => {
+    const req = { params: { id: 1 } }
+    const res = {
+      status: vi.fn().mockReturnThis(),
+      json: vi.fn(),
+    }
+    const next = vi.fn()
+
+    // Mock service.findById to throw NotFoundError
+    const service = {
+      findById: vi.fn().mockRejectedValue(new NotFoundError("Not found")),
+    }
+    const c = new BaseController(service)
+
+    await c.getById(req, res, next)
+
+    expect(res.status).toHaveBeenCalledWith(404)
+    expect(res.json).toHaveBeenCalledWith({ error: "Not found" })
   })
 
   it("getById responds with found item", async () => {

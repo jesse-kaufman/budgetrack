@@ -54,12 +54,19 @@ describe("BaseRepository", () => {
 
   describe("findById", () => {
     it("calls repository.findOne with correct params", () => {
-      baseRepo.defaultRelations = ["rel1"]
+      // Pass defaultRelations in constructor
+      baseRepo = new BaseRepository(repoMock, { defaultRelations: ["rel1"] })
+
       const options = { where: { foo: "bar" } }
       baseRepo.findById(123, options)
+
       expect(repoMock.findOne).toHaveBeenCalledWith(
         expect.objectContaining({
-          where: expect.objectContaining({ foo: "bar", id: 123 }),
+          where: expect.objectContaining({
+            foo: "bar",
+            id: 123,
+            isActive: true,
+          }),
           relations: ["rel1"],
         })
       )

@@ -50,7 +50,7 @@ export default class BaseController {
   getById = async (req, res) => {
     try {
       const item = await this.service.findById(req.params.id, {
-        show: req.query.show,
+        show: req.query?.show,
       })
       res.json(item)
     } catch (e) {

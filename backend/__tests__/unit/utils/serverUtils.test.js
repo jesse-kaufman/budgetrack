@@ -27,23 +27,13 @@ describe("logStartup", () => {
     const charWidth = 60
     const repeatedDash = "-".repeat(charWidth)
     const expectedEnv = chalk.green.bold("Production")
-    const expectedStartTime = new Date().toLocaleString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-      hour: "numeric",
-      minute: "2-digit",
-      second: "2-digit",
-      timeZoneName: "short",
-    })
+    const expectedStartTime = new Date().toLocaleString("en-US")
 
     expect(infoSpy).toHaveBeenCalledWith(repeatedDash)
-    expect(infoSpy).toHaveBeenCalledWith(
-      `      Server started: ${expectedStartTime}`
-    )
+    expect(infoSpy).toHaveBeenCalledWith(`Server started: ${expectedStartTime}`)
     expect(infoSpy).toHaveBeenCalledWith(repeatedDash)
     expect(infoSpy).toHaveBeenCalledWith(
-      chalk.green(`${expectedEnv} server listening on port 3000.`)
+      chalk.green(`🟢${expectedEnv} server listening on port 3000.`)
     )
   })
 
@@ -53,23 +43,13 @@ describe("logStartup", () => {
     const charWidth = 60
     const repeatedDash = "-".repeat(charWidth)
     const expectedEnv = chalk.yellow("Development")
-    const expectedStartTime = new Date().toLocaleString("en-US", {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-      hour: "numeric",
-      minute: "2-digit",
-      second: "2-digit",
-      timeZoneName: "short",
-    })
+    const expectedStartTime = new Date().toLocaleString("en-US")
 
     expect(infoSpy).toHaveBeenCalledWith(repeatedDash)
-    expect(infoSpy).toHaveBeenCalledWith(
-      `      Server started: ${expectedStartTime}`
-    )
+    expect(infoSpy).toHaveBeenCalledWith(`Server started: ${expectedStartTime}`)
     expect(infoSpy).toHaveBeenCalledWith(repeatedDash)
     expect(infoSpy).toHaveBeenCalledWith(
-      chalk.green(`${expectedEnv} server listening on port 8080.`)
+      chalk.green(`🟢${expectedEnv} server listening on port 8080.`)
     )
   })
 })

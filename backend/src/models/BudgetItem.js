@@ -3,8 +3,6 @@ import { EntitySchema } from "typeorm"
 import { itemTypes, frequencies } from "shared/budget"
 import { getBooleanType } from "#utils/dbUtils.js"
 
-console.log(frequencies.getKeys())
-
 export default new EntitySchema({
   name: "BudgetItem",
   tableName: "budgetItems",

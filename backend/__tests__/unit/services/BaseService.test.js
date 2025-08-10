@@ -1,6 +1,6 @@
 /** @file Unit tests for BaseService. */
 import { beforeEach, describe, expect, it, vi } from "vitest"
-import NotFoundError from "#errors/NotFoundError.js"
+import { NotFoundError } from "#utils/errors.js"
 import BaseService from "#services/BaseService.js"
 
 describe("BaseService", () => {
@@ -15,37 +15,51 @@ describe("BaseService", () => {
       update: vi.fn(),
       delete: vi.fn(),
     }
-    service = new BaseService(repoMock)
+    service = new BaseService(repoMock, { name: "item", pluralName: "items" })
   })
 
-  it("throws if repository not provided", () => {
-    expect(() => new BaseService()).toThrow("Repository instance is required")
+  describe("constructor", () => {
+    it("throws if repository not provided", () => {
+      expect(() => new BaseService()).toThrow("Repository instance is required")
+    })
   })
 
-  it("findAll calls repository.findAll with options", () => {
-    const options = { foo: "bar" }
-    service.findAll(options)
-    expect(repoMock.findAll).toHaveBeenCalledWith(options)
+  describe("findAll", () => {
+    it("calls repository.findAll with options", async () => {
+      const options = { foo: "bar" }
+      await service.findAll(options)
+      expect(repoMock.findAll).toHaveBeenCalledWith(options)
+    })
   })
 
-  it("findById throws if id not provided", () => {
-    expect(() => service.findById()).toThrow("ID is required")
+  describe("findById", () => {
+    it("throws if id not provided", async () => {
+      await expect(service.findById()).rejects.toThrow("ID is required")
+    })
+
+    it("calls repository.findById and returns result", async () => {
+      const options = { show: "all" }
+      const fakeItem = { id: 1, name: "foo" }
+      repoMock.findById.mockResolvedValue(fakeItem)
+
+      const result = await service.findById(1, options)
+
+      expect(repoMock.findById).toHaveBeenCalledWith(1, options)
+      expect(result).toBe(fakeItem)
+    })
   })
 
-  it("findById calls repository.findById with id and options", () => {
-    const options = { show: "all" }
-    service.findById(1, options)
-    expect(repoMock.findById).toHaveBeenCalledWith(1, options)
-  })
+  describe("create", () => {
+    it("throws if data not provided", async () => {
+      await expect(service.create()).rejects.toThrow("Data is required")
+    })
 
-  it("create throws if data not provided", () => {
-    expect(() => service.create()).toThrow("Data is required")
-  })
-
-  it("create calls repository.create with data", () => {
-    const data = { foo: "bar" }
-    service.create(data)
-    expect(repoMock.create).toHaveBeenCalledWith(data)
+    it("calls repository.create with data", async () => {
+      const data = { foo: "bar" }
+      repoMock.create.mockResolvedValue(data)
+      await service.create(data)
+      expect(repoMock.create).toHaveBeenCalledWith(data)
+    })
   })
 
   describe("update", () => {
@@ -65,10 +79,46 @@ describe("BaseService", () => {
       )
     })
 
-    it("returns updated entity if successful", async () => {
+    it("calls update twice and findById, returns updated entity", async () => {
+      service = new BaseService(repoMock, {
+        name: "item",
+        pluralName: "items",
+        skipUpdatedOnRefresh: false,
+      })
+
       const updatedEntity = { id: 1, foo: "bar" }
-      repoMock.update.mockResolvedValue(updatedEntity)
+
+      repoMock.update.mockResolvedValueOnce(updatedEntity)
+      repoMock.update.mockResolvedValueOnce(updatedEntity)
+      repoMock.findById.mockResolvedValue(updatedEntity)
+
       const result = await service.update(1, { foo: "bar" })
+
+      expect(repoMock.update).toHaveBeenNthCalledWith(1, 1, { foo: "bar" })
+      expect(repoMock.update).toHaveBeenNthCalledWith(2, 1, {
+        updatedOn: expect.any(Function),
+      })
+      expect(repoMock.findById).toHaveBeenCalledWith(1, {}) // <-- THIS FIXES IT
+      expect(result).toBe(updatedEntity)
+    })
+
+    it("skips updatedOn refresh if skipUpdatedOnRefresh is true", async () => {
+      service = new BaseService(repoMock, {
+        name: "item",
+        pluralName: "items",
+        skipUpdatedOnRefresh: true,
+      })
+
+      const updatedEntity = { id: 1, foo: "bar" }
+
+      repoMock.update.mockResolvedValue(updatedEntity)
+      repoMock.findById.mockResolvedValue(updatedEntity)
+
+      const result = await service.update(1, { foo: "bar" })
+
+      expect(repoMock.update).toHaveBeenCalledTimes(1)
+      expect(repoMock.update).toHaveBeenCalledWith(1, { foo: "bar" })
+      expect(repoMock.findById).toHaveBeenCalledWith(1, {})
       expect(result).toBe(updatedEntity)
     })
   })
@@ -78,7 +128,7 @@ describe("BaseService", () => {
       await expect(service.delete()).rejects.toThrow("ID is required")
     })
 
-    it("throws NotFoundError if repository.delete returns falsy", async () => {
+    it("throws NotFoundError if delete returns falsy", async () => {
       repoMock.delete.mockResolvedValue(null)
       await expect(service.delete(1)).rejects.toBeInstanceOf(NotFoundError)
     })

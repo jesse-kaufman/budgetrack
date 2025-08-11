@@ -53,6 +53,17 @@
   td {
     @apply px-3 py-2 border-gray-800/80 border-r-1 last:border-r-0;
   }
+  tbody :not(.category-row) th,
+  tbody :not(.category-row) td {
+    @apply h-12;
+  }
+
+  tr.category-row {
+    @apply text-[0.7em] uppercase font-semibold text-left bg-gray-800/50!;
+  }
+  tr.category-row td {
+    @apply px-2 py-0.5 space-x-2 border-x-1 border-gray-100/10;
+  }
 
   /** 
    * Table header styles

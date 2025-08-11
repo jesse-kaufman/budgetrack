@@ -2,11 +2,8 @@
   <template
     v-if="previousType && previousType !== item.type && !budgetStore.loading"
   >
-    <tr class="text-[0.7em] uppercase font-semibold text-left bg-gray-800/50">
-      <td
-        :colspan="columnCount"
-        class="px-2 py-0.5 space-x-2 border-x-1 border-gray-100/10"
-      >
+    <tr class="category-row">
+      <td :colspan="columnCount" class="">
         <span>{{ itemTypes.getIcon(item.type) }}</span>
         <span class="text-white/50">
           {{ itemTypes.getName(item.type) }}

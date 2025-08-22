@@ -2,8 +2,7 @@
 import { DataSource } from "typeorm"
 import dbConfig from "#config/db.js"
 import logger from "#utils/logger.js"
-import Budget from "#models/Budget.js"
-import BudgetItems from "#models/BudgetItem.js"
+import models from "#registries/model.js"
 
 /**
  * Validates database configuration.
@@ -40,7 +39,7 @@ logger.info(`Connecting to ${dbConfig.type} server: ${dbConfig.host}...`)
 // Export TypeORM DataSource by default
 const db = new DataSource({
   ...dbConfig,
-  entities: [Budget, BudgetItems],
+  entities: Object.values(models),
 })
 
 try {

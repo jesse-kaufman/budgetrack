@@ -9,13 +9,14 @@
       "#controllers/*": ["src/controllers/*"],
       "#errors/*": ["src/errors/*"],
       "#middlewares/*": ["src/middlewares/*"],
-      "#models/*": ["src/models/*"],
       "#repositories/*": ["src/repositories/*"],
       "#routes/*": ["src/routes/*"],
       "#services/*": ["src/services/*"],
       "#src/*": ["src/src/*"],
       "#utils/*": ["src/utils/*"],
-      "#shared/*": ["../shared/src/*"]
+      "#shared/*": ["../shared/src/*"],
+      "#schemas/*": ["src/schemas/*"],
+      "#registries/*": ["src/registries/*"]
     }
   },
   "include": ["server.js", "src/*", "src/**/*"]

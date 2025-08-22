@@ -6,8 +6,8 @@ export default {
   name: "BudgetItem",
   tableName: "budgetItems",
 
-  registerRepository: false,
-  registerService: false,
+  registerRepository: false, // Do not register repository for schema
+  registerService: false, // Do not register service for schema
 
   columns: {
     id: {

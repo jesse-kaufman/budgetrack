@@ -10,12 +10,11 @@ import db from "#src/db.js"
  */
 const repositories = {}
 
-/**
- * Creates repository instance.
- * @param {object} schema - Schema config.
- * @returns {BaseRepository} Instance of BaseRepository or a subclass.
- */
-const createRepo = (schema) => {
+// Walk through schemas, creating a repository for each
+for (const schema of Object.values(schemas)) {
+  // Do not register repository if registerRepository is explicitly false
+  if (schema.registerRepository === false) continue
+
   // Get model from model registry
   const model = models[schema.name]
   // Get TypeORM repository
@@ -24,19 +23,13 @@ const createRepo = (schema) => {
   const CustomRepository = schema.customRepository
 
   // If custom repository is set, create an instance of that class
-  if (CustomRepository) return new CustomRepository(typeOrmRepo, schema)
-
-  // Otherwise, create instance of BaseRepository
-  return new BaseRepository(typeOrmRepo, schema)
-}
-
-// Walk through schemas, creating a repository for each
-for (const schema of Object.values(schemas)) {
-  // Do not register repository if registerRepository is explicitly false
-  if (schema.registerRepository !== false) {
-    // Create the repository and add to the registry
-    repositories[schema.name] = createRepo(schema)
+  if (CustomRepository) {
+    repositories[schema.name] = new CustomRepository(typeOrmRepo, schema)
+    continue
   }
+
+  // Create the repository and add to the registry
+  repositories[schema.name] = new BaseRepository(typeOrmRepo, schema)
 }
 
 export default repositories

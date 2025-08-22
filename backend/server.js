@@ -13,11 +13,8 @@ process.on("uncaughtException", (err) => {
 })
 
 // Handle unhandled promise rejections
-process.on("unhandledRejection", (reason, promise) => {
-  logger.error(
-    { reason, promise },
-    chalk.magenta("Unhandled Promise Rejection")
-  )
+process.on("unhandledRejection", (reason) => {
+  logger.error(reason, chalk.magenta("Unhandled Promise Rejection"))
   process.exit(1)
 })
 

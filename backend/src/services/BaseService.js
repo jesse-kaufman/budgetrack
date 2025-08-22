@@ -16,18 +16,18 @@ export default class BaseService {
   /**
    * Creates an instance of BaseService.
    * @param {object} repository - Repository instance to handle data operations.
-   * @param {object} config - Configuration options.
+   * @param {object} schema - Configuration options.
    */
-  constructor(repository, config) {
+  constructor(repository, schema) {
     if (!repository) {
       logger.error("Repository instance is required")
       throw new Error("Repository instance is required")
     }
 
     this.#repository = repository ?? null
-    this.#name = config.name ?? ""
-    this.#skipUpdatedOnRefresh = config.skipUpdatedOnRefresh ?? false
-    this.#pluralName = config.pluralName ?? ""
+    this.#name = schema.name ?? this.#repository.constructor.name
+    this.#skipUpdatedOnRefresh = schema.skipUpdatedOnRefresh ?? false
+    this.#pluralName = schema.pluralName ?? `${schema.name}s`
   }
 
   /**

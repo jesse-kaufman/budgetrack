@@ -7,6 +7,7 @@ export default {
   tableName: "budgetItems",
 
   registerRepository: false,
+  registerService: false,
 
   columns: {
     id: {

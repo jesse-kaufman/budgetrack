@@ -59,11 +59,8 @@ const prettyConfig = {
   },
 }
 
-/** Instance of pino-pretty or null if in production. */
-const pinoPretty = nodeEnv === "production" ? null : pretty(prettyConfig)
-
 /** Instance of pino. */
-const logger = pino(pinoConfig, pinoPretty)
+const logger = pino(pinoConfig, pretty(prettyConfig))
 
 /** Internal copy of logger.fatal for use later. */
 const _fatal = logger.fatal.bind(logger)

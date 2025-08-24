@@ -1,0 +1,23 @@
+name: budget
+services:
+  budget:
+    container_name: ${SVC}
+    env_file:
+      - .env
+    networks:
+      - proxy
+    build:
+      context: .
+      dockerfile: Dockerfile
+    user: ${PUID}:${PGID}
+    restart: always
+    labels:
+      - traefik.enable=true
+      - traefik.docker.network=proxy
+      - traefik.http.routers.budget.entryPoints=https
+      - traefik.http.routers.budget.tls=true
+      - traefik.http.routers.budget.middlewares=default@file
+
+networks:
+  proxy:
+    external: true

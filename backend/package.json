@@ -28,13 +28,14 @@
     "#utils/*": "./src/utils/*"
   },
   "dependencies": {
-    "shared": "file:../shared",
+    "@dotenvx/dotenvx": "^1.49.0",
     "better-sqlite3": "^11.10.0",
     "dotenv": "^17.2.1",
     "express": "^5.1.0",
     "mssql": "^11.0.1",
     "pino": "^9.8.0",
     "pino-pretty": "^13.1.1",
+    "shared": "file:../shared",
     "typeorm": "^0.3.25"
   }
 }

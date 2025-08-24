@@ -35,5 +35,6 @@ dist
 
 # Potentially secret data
 .env
+.env.keys
 
 image.tar

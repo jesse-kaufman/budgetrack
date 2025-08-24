@@ -30,6 +30,14 @@ RUN npm ci --omit=dev
 COPY backend ./backend
 COPY shared ./shared
 
+# Clean up
+RUN rm -Rf backend/__tests__ \
+  backend/.env.test \
+  backend/coverage \
+  shared/__tests__ \
+  shared/coverage
+
+
 ###
 ### Stage 3: Production image
 ###

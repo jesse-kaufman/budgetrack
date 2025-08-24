@@ -16,7 +16,7 @@ const baseLevel = () => {
   // Show DEBUG level for development
   if (!nodeEnv || nodeEnv === "development") return 20
   // Default to INFO
-  return 30
+  return Number(process.env.LOG_LEVEL || 30)
 }
 
 /** Configuration for pino. */

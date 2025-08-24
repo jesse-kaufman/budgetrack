@@ -129,7 +129,7 @@
    * Skeleton styles
    */
   .skeleton {
-    @apply h-2 mt-2.5 mb-2 bg-gray-400/40 rounded-md animate-pulse block;
+    @apply h-3 mt-2.5 mb-2 bg-gray-400/40 rounded-md animate-pulse block;
   }
 
   /**
@@ -154,7 +154,7 @@
   }
 
   .frequency-badge {
-    @apply text-[0.8em] bg-blue-600/70 text-white px-2 rounded-full py-0.5 text-shadow-sm;
+    @apply text-[0.8em] bg-blue-600/70 text-white px-2 rounded-full py-0.5 text-shadow-sm shadow-sm/20;
   }
   .unscheduled-badge {
     @apply bg-amber-600 rounded-full size-1.5;

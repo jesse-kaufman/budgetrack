@@ -54,6 +54,9 @@ export const schemaDefinition = {
   //
   // Optional properties
   //
+  relations: {
+    type: Object,
+  },
   pluralName: {
     type: String,
     default: (schema) => `${schema.name}s`,
@@ -65,9 +68,6 @@ export const schemaDefinition = {
   endpoint: {
     type: String,
     default: (schema) => schema.tableName,
-  },
-  relations: {
-    type: Object,
   },
   registerRepository: {
     type: Boolean,

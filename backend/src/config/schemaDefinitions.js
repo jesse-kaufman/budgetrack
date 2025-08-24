@@ -32,6 +32,23 @@ export const routeDefinition = {
   middleware: {
     type: Function,
   },
+
+  registerRepository: {
+    type: Boolean,
+    default: true,
+  },
+  registerService: {
+    type: Boolean,
+    default: (schema) => schema.registerRepository,
+  },
+  registerController: {
+    type: Boolean,
+    default: (schema) => schema.registerService && schema.registerRepository,
+  },
+  registerRoutes: {
+    type: Boolean,
+    default: (schema) => schema.registerController,
+  },
 }
 
 /** @type {object} Definition of schema structure. */

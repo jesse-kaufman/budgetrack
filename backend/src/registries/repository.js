@@ -33,7 +33,6 @@ for (const schema of Object.values(schemas)) {
 
   // Create the repository and add to the registry
   repositories[schema.name] = new BaseRepository(typeOrmRepo, schema)
-  console.log("repo", repositories[schema.name])
   logger.debug(`- registered ${schema.name} repository`)
 }
 

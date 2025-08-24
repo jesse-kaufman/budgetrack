@@ -28,7 +28,6 @@ const imports = await Promise.all(
 for (const _import of imports) {
   // Extract schema name from import
   const { name } = _import.default
-  console.log("name", name)
   // Try to initialize schema object from definition and add to registry
   try {
     schemas[name] = initSchema(_import.default)

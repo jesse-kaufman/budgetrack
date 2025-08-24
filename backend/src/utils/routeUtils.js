@@ -43,8 +43,6 @@ const initRoutes = (schema, controller) => {
       continue
     }
 
-    console.log(method, path)
-    console.log(controller[handler])
     // Otherwise, register route without middleware
     router[method](path, controller[handler])
     logRegistration(endpoint, route)

@@ -7,7 +7,7 @@ services:
     networks:
       - proxy
     volumes:
-      - ./backend/data:/app/data
+      - ./backend/data:/app/backend/data
     build:
       context: .
       dockerfile: Dockerfile

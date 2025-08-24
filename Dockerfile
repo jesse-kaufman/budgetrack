@@ -48,7 +48,7 @@ ARG APP_UID=1001
 ARG APP_GID=1001
 
 WORKDIR /app
-VOLUME /app/data
+VOLUME /app/backend/data
 
 # Copy root package.json for scripts
 COPY package*.json ./

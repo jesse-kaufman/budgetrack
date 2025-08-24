@@ -1,11 +1,11 @@
 /* eslint-disable max-lines-per-function */
 /** @file Budget store. */
-import { defineStore } from "pinia"
-import { ref, watch, computed, toRaw } from "vue"
 import equal from "fast-deep-equal"
-import { calculatePayPeriodAmount } from "#utils/currencyUtils.js"
+import { defineStore } from "pinia"
+import { computed, ref, toRaw, watch } from "vue"
 import { getBudget, saveBudget } from "#services/budgetService.js"
 import { getBudgetCategoryTotal } from "#utils/budgetUtils.js"
+import { calculatePayPeriodAmount } from "#utils/currencyUtils.js"
 
 /**
  * Budget store object.
@@ -84,6 +84,9 @@ export const useBudgetStore = defineStore("budget", () => {
 
   // ACTIONS
 
+  /**
+   *
+   */
   const load = async () => {
     loading.value = true
     const data = await getBudget()
@@ -92,6 +95,9 @@ export const useBudgetStore = defineStore("budget", () => {
     loading.value = false
   }
 
+  /**
+   *
+   */
   const save = async () => {
     try {
       await saveBudget(toRaw(items.value))
@@ -135,6 +141,10 @@ export const useBudgetStore = defineStore("budget", () => {
    */
   const clearItems = () => (items.value = [])
 
+  /**
+   *
+   * @param msg
+   */
   const setErrorMsg = (msg) => (formErrorMsg.value = msg)
 
   return {

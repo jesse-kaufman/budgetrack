@@ -7,11 +7,8 @@ import { validBudgetItemTypes } from "#config/budgetConfig.js"
  * @returns {object} Object containing budget.
  */
 export const getBudget = async () => {
-  // eslint-disable-next-line no-magic-numbers
-  await new Promise((r) => setTimeout(r, 1000))
-
   // Get budget from API
-  const res = await fetch(`${API_BASE}/budget`)
+  const res = await fetch(`${API_BASE}/budgets`)
 
   // Throw error if request failed
   if (!res.ok) throw new Error("Failed to fetch budget")
@@ -36,7 +33,7 @@ export const saveBudget = async (budgetItems) => {
   }
 
   console.log(budgetData)
-  const res = await fetch(`${API_BASE}/budget`, {
+  const res = await fetch(`${API_BASE}/budgets`, {
     method: "PUT",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(budgetData),

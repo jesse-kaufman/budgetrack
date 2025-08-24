@@ -1,7 +1,7 @@
 <template>
   <div
+    class="flex flex-row items-center justify-between space-x-1"
     :class="{
-      'flex flex-row items-center justify-between space-x-1': true,
       'cursor-pointer': !viewOnly && !editOnly,
     }"
     @click.stop="enableEdit"
@@ -16,9 +16,9 @@
         type="number"
         step="0.01"
         min="0"
-        :is-valid="isValid"
-        :model-value="modelValue"
-        @update:model-value="handleModelUpdate"
+        :isValid="isValid"
+        :modelValue="modelValue"
+        @update:modelValue="handleModelUpdate"
         @blur="handleLeave"
         @keyup.enter="handleLeave"
         @keydown.escape="handleEscape"
@@ -26,8 +26,8 @@
       />
       <div
         v-show="!edit"
+        class="text-right"
         :class="{
-          'text-right ': true,
           'font-bold underline cursor-pointer': !viewOnly,
         }"
       >
@@ -42,10 +42,10 @@
 </template>
 
 <script setup>
-import { nextTick, computed, ref } from "vue"
+import { computed, nextTick, ref } from "vue"
 import BaseInput from "#base/BaseInput.vue"
-import { formatCurrency, validateCurrency } from "#utils/currencyUtils.js"
 import { useBudgetStore } from "#stores/budgetStore.js"
+import { formatCurrency, validateCurrency } from "#utils/currencyUtils.js"
 
 const modelValue = defineModel({
   type: [String, Number],

@@ -9,9 +9,9 @@
       v-show="edit && !viewOnly"
       v-bind="$attrs"
       ref="inputRef"
-      :model-value="modelValue"
-      :is-valid="isValid"
-      @update:model-value="handleModelUpdate"
+      :modelValue="modelValue"
+      :isValid="isValid"
+      @update:modelValue="handleModelUpdate"
       @blur="handleLeave"
       @keyup.enter="handleLeave"
       @keydown.escape="handleEscape"
@@ -20,8 +20,8 @@
     <div
       v-show="!edit"
       v-bind="$attrs"
+      class="text-left"
       :class="{
-        'text-left': true,
         'font-bold underline cursor-pointer': !viewOnly,
       }"
     >
@@ -31,7 +31,7 @@
 </template>
 
 <script setup>
-import { computed, ref, nextTick } from "vue"
+import { computed, nextTick, ref } from "vue"
 import BaseInput from "#base/BaseInput.vue"
 import { useBudgetStore } from "#stores/budgetStore.js"
 

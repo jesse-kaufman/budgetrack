@@ -1,6 +1,6 @@
 <template>
   <AppLayout :title="$route.meta.title || ''">
-    <router-view />
+    <RouterView />
   </AppLayout>
 </template>
 

@@ -2,7 +2,7 @@
   <Table class="w-full mt-2">
     <thead>
       <tr>
-        <th scope="col"></th>
+        <th scope="col" />
         <th scope="col">Amount</th>
         <th v-if="showAccountColumn" scope="col">Savings Account</th>
         <th class="bg-fuchsia-300/40" scope="col">Per Paycheck</th>
@@ -12,6 +12,7 @@
         </th>
       </tr>
     </thead>
+
     <tbody>
       <template v-if="!budgetStore.loading">
         <BudgetItem
@@ -19,9 +20,9 @@
           :key="item.name"
           :item="item"
           :index="index"
-          :show-month-column="showMonthColumn"
-          :show-account-column="showAccountColumn"
-          :previous-type="index > 0 ? budgetStore.items[index - 1].type : null"
+          :showMonthColumn="showMonthColumn"
+          :showAccountColumn="showAccountColumn"
+          :previousType="index > 0 ? budgetStore.items[index - 1].type : null"
           @update:item="handleUpdate"
         />
       </template>
@@ -30,15 +31,16 @@
           <BudgetItem
             :item="{}"
             :index="n"
-            :show-month-column="showMonthColumn"
-            :show-account-column="showAccountColumn"
+            :showMonthColumn="showMonthColumn"
+            :showAccountColumn="showAccountColumn"
           />
         </template>
       </template>
     </tbody>
+
     <tfoot>
       <tr>
-        <td :colspan="columnCount"></td>
+        <td :colspan="columnCount" />
         <td class="bg-gray-700">
           <template v-if="!budgetStore.loading">
             <div class="flex flex-row items-center justify-between space-x-1">
@@ -55,7 +57,7 @@
             </div>
           </template>
           <template v-else>
-            <div class="skeleton"></div>
+            <div class="skeleton" />
           </template>
         </td>
         <td v-if="showMonthColumn" class="bg-gray-700">
@@ -74,7 +76,7 @@
             </div>
           </template>
           <template v-else>
-            <div class="skeleton"></div>
+            <div class="skeleton" />
           </template>
         </td>
       </tr>
@@ -84,12 +86,10 @@
 
 <script setup>
 import { computed } from "vue"
-import BudgetItem from "./BudgetItem.vue"
-import { useBudgetStore } from "#stores/budgetStore.js"
 import Table from "#base/BaseTable.vue"
+import { useBudgetStore } from "#stores/budgetStore.js"
 import { formatCurrency } from "#utils/currencyUtils.js"
-
-const budgetStore = useBudgetStore()
+import BudgetItem from "./BudgetItem.vue"
 
 const { showMonthColumn, showAccountColumn } = defineProps({
   showMonthColumn: {
@@ -102,6 +102,8 @@ const { showMonthColumn, showAccountColumn } = defineProps({
   },
 })
 
+const budgetStore = useBudgetStore()
+
 const columnCount = computed(() => {
   let count = 2
   if (showAccountColumn) count++
@@ -111,6 +113,10 @@ const totalClass = computed(() =>
   budgetStore.totalMonthlyDifference < 0 ? "text-red-400" : "text-green-400"
 )
 
+/**
+ *
+ * @param eventData
+ */
 const handleUpdate = (eventData) =>
   budgetStore.updateItem(eventData.index, eventData.data)
 </script>

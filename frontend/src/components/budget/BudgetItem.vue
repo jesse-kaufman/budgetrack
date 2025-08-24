@@ -14,20 +14,20 @@
   <tr :class="[item.type, category]" @click="toggleEdit">
     <th scope="row" class="pl-2 text-left">
       <template v-if="budgetStore.loading">
-        <div class="sm:mr-15 skeleton w-50"></div>
+        <div class="sm:mr-15 skeleton w-50" />
       </template>
       <template v-else>
         <div
           class="flex relative flex-row items-center ml-1 space-x-2.5 leading-tight"
         >
           <div class="flex items-center gap-2">
-            <div class="category-indicator"></div>
+            <div class="category-indicator" />
             <TextField
-              :model-value="item.name"
-              @update:model-value="(val) => updateField('name', val)"
+              :modelValue="item.name"
+              @update:modelValue="(val) => updateField('name', val)"
             />
             <template v-if="!item.scheduled && item.type !== 'income'">
-              <div class="unscheduled-badge"></div>
+              <div class="unscheduled-badge" />
             </template>
           </div>
           <div class="flex items-center gap-2 ml-auto">
@@ -40,25 +40,25 @@
     </th>
     <td class="whitespace-nowrap min-w-30 text-right">
       <template v-if="budgetStore.loading">
-        <div class="skeleton"></div>
+        <div class="skeleton" />
       </template>
       <template v-else>
         <CurrencyField
-          :model-value="item.amount"
-          :is-income="item.type === 'income'"
-          @update:model-value="(val) => updateField('amount', val)"
+          :modelValue="item.amount"
+          :isIncome="item.type === 'income'"
+          @update:modelValue="(val) => updateField('amount', val)"
         />
       </template>
     </td>
     <td v-if="showAccountColumn" class="whitespace-nowrap">
       <template v-if="budgetStore.loading">
-        <div class="skeleton"></div>
+        <div class="skeleton" />
       </template>
       <template v-else>{{ item.account }}</template>
     </td>
     <td class="whitespace-nowrap bg-fuchsia-300/20 min-w-30 text-right">
       <template v-if="budgetStore.loading">
-        <div class="skeleton"></div>
+        <div class="skeleton" />
       </template>
       <template v-else>
         <div class="flex flex-row items-center justify-between space-x-1">
@@ -75,7 +75,7 @@
       class="whitespace-nowrap bg-cyan-300/20 min-w-30 text-right"
     >
       <template v-if="budgetStore.loading">
-        <div class="skeleton"></div>
+        <div class="skeleton" />
       </template>
       <template v-else>
         <div class="flex flex-row items-center justify-between space-x-1">
@@ -96,9 +96,9 @@
           <strong>Frequency:</strong>
           <div>
             <Select
-              :model-value="item.frequency"
+              :modelValue="item.frequency"
               :options="validBudgetItemFrequencies"
-              @update:model-value="(val) => updateField('frequency', val)"
+              @update:modelValue="(val) => updateField('frequency', val)"
             />
           </div>
         </div>
@@ -106,9 +106,9 @@
           <strong>Type:</strong>
           <div>
             <Select
-              :model-value="item.type"
+              :modelValue="item.type"
               :options="validBudgetItemTypes"
-              @update:model-value="(val) => updateField('type', val)"
+              @update:modelValue="(val) => updateField('type', val)"
             />
           </div>
         </div>
@@ -116,9 +116,9 @@
           <strong>Due on:</strong>
           <div>
             <TextField
-              :model-value="item.dueOn"
+              :modelValue="item.dueOn"
               class="max-w-35"
-              @update:model-value="(val) => updateField('dueOn', val)"
+              @update:modelValue="(val) => updateField('dueOn', val)"
             />
           </div>
         </div>
@@ -126,9 +126,9 @@
           <strong>Account:</strong>
           <div>
             <Select
-              :model-value="item.account"
+              :modelValue="item.account"
               :options="accounts"
-              @update:model-value="(val) => updateField('account', val)"
+              @update:modelValue="(val) => updateField('account', val)"
             />
           </div>
         </div>
@@ -136,9 +136,9 @@
           <strong>Scheduled:</strong>
           <div>
             <BaseCheckbox
-              :model-value="item.scheduled"
+              :modelValue="item.scheduled"
               class="max-w-35"
-              @update:model-value="(val) => updateField('scheduled', val)"
+              @update:modelValue="(val) => updateField('scheduled', val)"
             />
           </div>
         </div>
@@ -149,23 +149,23 @@
 </template>
 
 <script setup>
-import { computed, ref } from "vue"
 import itemTypes from "#shared/budget/budgetItemTypes.js"
+import { computed, ref } from "vue"
+import BaseCheckbox from "#base/BaseCheckbox.vue"
 import Select from "#base/BaseSelect.vue"
+import {
+  accounts,
+  frequencyAbbrMap,
+  validBudgetItemFrequencies,
+  validBudgetItemTypes,
+} from "#config/budgetConfig.js"
+import { useBudgetStore } from "#stores/budgetStore.js"
 import CurrencyField from "#ui/fields/CurrencyField.vue"
 import TextField from "#ui/fields/TextField.vue"
-import BaseCheckbox from "#base/BaseCheckbox.vue"
 import {
   calculatePayPeriodAmount,
   formatCurrency,
 } from "#utils/currencyUtils.js"
-import {
-  validBudgetItemFrequencies,
-  validBudgetItemTypes,
-  frequencyAbbrMap,
-  accounts,
-} from "#config/budgetConfig.js"
-import { useBudgetStore } from "#stores/budgetStore.js"
 
 // Define the emits for the component
 const emit = defineEmits(["update:item", "error"])
@@ -212,6 +212,11 @@ const monthlyAmount = computed(() => perPayPeriodAmount.value * 2)
 const category = computed(() => itemTypes.getCategory(item.type))
 
 // When the item item is updated, emit the update event with the new item object
+/**
+ *
+ * @param field
+ * @param value
+ */
 const updateField = (field, value) =>
   emit("update:item", { index, data: { ...item, [field]: value } })
 

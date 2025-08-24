@@ -43,7 +43,6 @@ export const calculatePercent = (itemCost, totalCost) => {
 
   if (isNaN(itemNum) || isNaN(totalNum)) return ""
 
-  // eslint-disable-next-line no-magic-numbers
   const percentage = ((itemNum / totalNum) * 100).toFixed(1)
   return `${percentage}%`
 }

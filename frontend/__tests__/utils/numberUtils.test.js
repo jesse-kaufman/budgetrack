@@ -1,6 +1,6 @@
 /** @file Unit tests for number utilities. */
 
-import { describe, it, expect } from "vitest"
+import { describe, expect, it } from "vitest"
 import { formatNumber } from "#utils/numberUtils.js"
 
 describe("numberUtils", () => {

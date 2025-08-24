@@ -5,8 +5,8 @@
     class="fixed top-0 flex justify-between w-full h-12 select-none z-900 drop-shadow-sm start-0"
   >
     <div
+      class="flex items-center justify-around w-full p-1 px-4"
       :class="{
-        'flex items-center justify-around w-full p-1 px-4': true,
         'bg-linear-to-t from-red-900 to-red-800/90 text-white':
           type === 'error',
         'bg-yellow-500 text-yellow-900': type !== 'error',

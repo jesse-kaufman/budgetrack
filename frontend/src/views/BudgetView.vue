@@ -12,8 +12,8 @@
       <div>
         <BaseCheckbox
           id="show-month-column"
-          :model-value="showMonthColumn"
-          @update:model-value="toggleMonth"
+          :modelValue="showMonthColumn"
+          @update:modelValue="toggleMonth"
         />
         <label class="inline-block pl-2" for="show-month-column">
           Show month column
@@ -23,8 +23,8 @@
       <div>
         <BaseCheckbox
           id="show-account-column"
-          :model-value="showAccountColumn"
-          @update:model-value="toggleAccount"
+          :modelValue="showAccountColumn"
+          @update:modelValue="toggleAccount"
         />
         <label class="inline-block pl-2" for="show-account-column">
           Show account column
@@ -32,18 +32,18 @@
       </div>
     </div>
     <BudgetTable
-      :show-month-column="showMonthColumn"
-      :show-account-column="showAccountColumn"
+      :showMonthColumn="showMonthColumn"
+      :showAccountColumn="showAccountColumn"
     />
   </div>
 </template>
 
 <script setup>
-import { onMounted, watch, ref } from "vue"
-import BudgetHeader from "#budget/BudgetHeader.vue"
-import BudgetTable from "#budget/BudgetTable.vue"
+import { onMounted, ref, watch } from "vue"
 import BaseCheckbox from "#base/BaseCheckbox.vue"
 import { useBudgetStore } from "#stores/budgetStore.js"
+import BudgetHeader from "#budget/BudgetHeader.vue"
+import BudgetTable from "#budget/BudgetTable.vue"
 
 const budgetStore = useBudgetStore()
 
@@ -51,8 +51,19 @@ const showMonthColumn = ref(false)
 const showAccountColumn = ref(false)
 const showSettings = ref(false)
 
+/**
+ *
+ * @param val
+ */
 const toggleMonth = (val) => (showMonthColumn.value = val)
+/**
+ *
+ * @param val
+ */
 const toggleAccount = (val) => (showAccountColumn.value = val)
+/**
+ *
+ */
 const toggleSettings = () => (showSettings.value = !showSettings.value)
 
 onMounted(async () => {

@@ -4,7 +4,7 @@
       v-bind="$attrs"
       class="border-gray-800/80 border-spacing-0 border border-separate rounded-lg shadow-lg"
     >
-      <slot></slot>
+      <slot />
     </table>
   </div>
 </template>

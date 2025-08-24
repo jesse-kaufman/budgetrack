@@ -4,6 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
+    "start": "dotenvx run -- npm start --workspace=backend",
     "build": "npm run build --workspace=frontend",
     "test": "npm run test --workspaces",
     "test:frontend": "npm run test:watch --workspace=frontend",
@@ -17,7 +18,7 @@
     "lint:frontend": "eslint . --fix frontend",
     "lint:backend": "eslint . --fix backend",
     "lint:shared": "eslint . --fix shared",
-    "dev:backend": "npm run dev --workspace=backend",
+    "dev:backend": "dotenvx run -- npm run dev --workspace=backend",
     "dev:frontend": "npm run dev --workspace=frontend",
     "dev:json": "concurrently \"npm run json-server --workspace=frontend\" \"npm run dev --workspace=frontend\"",
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\""

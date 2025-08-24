@@ -14,7 +14,7 @@
   <tr :class="[item.type, category]" @click="toggleEdit">
     <th scope="row" class="pl-2 text-left">
       <template v-if="budgetStore.loading">
-        <div class="sm:mr-15 skeleton w-40"></div>
+        <div class="sm:mr-15 skeleton w-50"></div>
       </template>
       <template v-else>
         <div

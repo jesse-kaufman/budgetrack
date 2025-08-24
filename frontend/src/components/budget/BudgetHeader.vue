@@ -1,9 +1,9 @@
 <template>
   <div
-    class="flex flex-row flex-wrap mt-8 mb-4 align-items-start sm:flex-nowrap leading-4.5 space-x-3"
+    class="flex flex-row flex-wrap mt-8 mb-4 align-items-start sm:flex-nowrap leading-4.5 sm:space-x-3"
   >
     <div class="sm:w-fit w-full my-2">
-      <div class="ml-1 font-bold">Per Paycheck</div>
+      <div class="w-full ml-1 font-bold">Per Paycheck</div>
       <div
         class="rounded-xl divide-solid divide-gray-800/80 grow border-gray-800/50 flex flex-wrap overflow-hidden border border-collapse divide-x divide-y shadow-sm"
       >

@@ -1,20 +1,10 @@
 /** @file Budget service. */
-import repositories from "#registries/repository.js"
 import BaseService from "#services/BaseService.js"
-import schema from "#schemas/budgetSchema.js"
 
-console.log("budget service loaded")
 /**
  * BudgetService class extending BaseService for Budget entity.
  */
 export default class BudgetService extends BaseService {
-  /**
-   * Creates an instance of BudgetService.
-   */
-  constructor() {
-    super(repositories[schema.name], schema)
-  }
-
   /**
    * Returns the budget object instead of array of objects.
    * @returns {object} Budget object.

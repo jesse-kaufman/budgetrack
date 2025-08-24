@@ -1,8 +1,8 @@
 /** @file Data source config. */
 import { DataSource } from "typeorm"
 import dbConfig from "#config/db.js"
-import logger from "#utils/logger.js"
 import models from "#registries/model.js"
+import logger from "#utils/logger.js"
 
 /**
  * Validates database configuration.

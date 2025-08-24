@@ -1,65 +1,68 @@
 /** @file Config for eslint. */
-import { globalIgnores } from "@eslint/config-helpers"
-import pluginJs from "@eslint/js"
-import jsdoc from "eslint-plugin-jsdoc"
-import importPlugin from "eslint-plugin-import"
-import globals from "globals"
-import eslintPluginPrettier from "eslint-plugin-prettier"
-import pluginVue from "eslint-plugin-vue"
+import js from "@eslint/js"
+import stylistic from "@stylistic/eslint-plugin"
 import pluginVitest from "@vitest/eslint-plugin"
 import skipFormatting from "@vue/eslint-config-prettier/skip-formatting"
+import importPlugin from "eslint-plugin-import"
+import jsdoc from "eslint-plugin-jsdoc"
+import eslintPluginPrettier from "eslint-plugin-prettier"
+import vue from "eslint-plugin-vue"
+import globals from "globals"
 
 const config = [
+  // Global ignores
   {
-    name: "app/files-to-lint",
-    files: ["**/*.{js,mjs,jsx,vue}"],
+    name: "app/global-ignores",
+    ignores: [
+      "**/node_modules/**",
+      "**/dist/**",
+      "**/dist-ssr/**",
+      "**/coverage/**",
+      "**/migrations/**",
+    ],
   },
 
-  globalIgnores([
-    "**/node_modules/**",
-    "**/dist/**",
-    "**/dist-ssr/**",
-    "**/coverage/**",
-    "**/migrations/**",
-  ]),
-
-  // Add global plugins
-  {
-    name: "app/plugins",
-    plugins: {
-      prettier: eslintPluginPrettier,
-    },
-  },
-
-  // Let Prettier handle formatting
+  // Plugin recommended configs (do not need spreading)
+  js.configs.recommended,
+  jsdoc.configs["flat/recommended"],
+  pluginVitest.configs.recommended,
+  importPlugin.flatConfigs.recommended,
   skipFormatting,
 
-  // Various plugin configs
-  importPlugin.flatConfigs.recommended,
-  pluginJs.configs.recommended,
-  jsdoc.configs["flat/recommended"],
+  // Plugin recommended configs (arrays that need spreading)
+  ...vue.configs["flat/recommended"],
 
-  // Add config for Vue (required at top-level instead of with overrides)
-  ...pluginVue.configs["flat/recommended"],
-  ...pluginVue.configs["flat/essential"],
-
+  // Base config
   {
     name: "app/base-config",
+    files: ["**/*.{js,mjs,jsx,vue}"],
     languageOptions: {
       ecmaVersion: "latest",
       sourceType: "module",
       globals: { ...globals.browser, ...globals.node },
     },
-    settings: {
-      "import/resolver": {
-        node: {
-          extensions: [".js", ".ts", ".mjs"],
-          moduleDirectory: ["node_modules"],
-        },
-      },
+    plugins: {
+      jsdoc,
+      prettier: eslintPluginPrettier,
+      vitest: pluginVitest,
+      vue,
+      "@stylistic": stylistic,
     },
     rules: {
-      "prettier/prettier": "error", // Run Prettier as an ESLint rule
+      "eol-last": ["warn", "always"],
+      "@stylistic/max-len": [
+        "warn",
+        {
+          code: 120,
+          comments: 100,
+          ignoreUrls: true,
+          ignoreTemplateLiterals: true,
+          ignoreRegExpLiterals: true,
+        },
+      ],
+      "comma-dangle": ["error", "only-multiline"],
+      "@stylistic/brace-style": ["error", "1tbs"],
+      "prettier/prettier": "warn", // Run Prettier as an ESLint rule
       "array-callback-return": "error",
       "arrow-body-style": [
         "warn",
@@ -75,13 +78,12 @@ const config = [
           ignoreInlineComments: true,
         },
       ],
-      semi: ["error", "never"],
-      complexity: ["warn", { max: 8 }],
+      "@stylistic/semi": ["error", "never"],
+      complexity: ["warn", { max: 10 }],
       curly: ["error", "multi-line", "consistent"],
       "default-case-last": "error",
       "default-param-last": "error",
       "dot-notation": "error",
-      "multiline-comment-style": ["error", "starred-block"],
       eqeqeq: ["error", "smart"],
       "func-names": ["error", "as-needed"],
       "func-style": [
@@ -98,7 +100,7 @@ const config = [
       "max-depth": "error",
       "max-nested-callbacks": ["error", 5],
       "max-lines": [
-        "error",
+        "warn",
         {
           max: 250,
           skipBlankLines: true,
@@ -123,7 +125,11 @@ const config = [
       "no-loop-func": "error",
       "no-magic-numbers": [
         "warn",
-        { ignoreArrayIndexes: true, ignore: [-1, 0, 1, 2], enforceConst: true },
+        {
+          ignoreArrayIndexes: true,
+          ignore: [-1, 0, 1, 2, 100],
+          enforceConst: true,
+        },
       ],
       "no-multi-assign": "error",
       "no-multi-str": "error",
@@ -144,6 +150,7 @@ const config = [
       "no-unneeded-ternary": "error",
       "no-unreachable-loop": "error",
       "no-unused-expressions": "warn",
+      "no-unused-vars": "warn",
       "no-use-before-define": [
         "warn",
         {
@@ -191,23 +198,66 @@ const config = [
         "double",
         { avoidEscape: true, allowTemplateLiterals: true },
       ],
-      "import/order": "warn",
-      "import/enforce-node-protocol-usage": ["warn", "always"],
       "import/extensions": [
         "warn",
         "ignorePackages",
-        { js: "always", vue: "always" },
+        {
+          js: "always",
+          vue: "always",
+        },
       ],
+      "import/first": "warn",
+      "import/no-mutable-exports": "warn",
+      "import/no-useless-path-segments": "warn",
+      "import/enforce-node-protocol-usage": ["warn", "always"],
+      "import/no-absolute-path": "warn",
+      "import/no-cycle": "warn",
+      "import/newline-after-import": "warn",
+      "import/order": [
+        "warn",
+        {
+          groups: [
+            "builtin",
+            "external",
+            "internal",
+            "parent",
+            "sibling",
+            "index",
+            "object",
+            "type",
+          ],
+          named: {
+            enabled: true,
+          },
+          alphabetize: {
+            order: "asc",
+            caseInsensitive: true,
+          },
+        },
+      ],
+      "jsdoc/check-indentation": "warn",
+      "jsdoc/check-line-alignment": "warn",
       "jsdoc/check-param-names": ["error", { enableFixer: true }],
-      "jsdoc/require-description": "error",
-      "jsdoc/require-hyphen-before-param-description": "warn",
-      "jsdoc/require-description-complete-sentence": "warn",
-      "jsdoc/check-line-alignment": "error",
       "jsdoc/check-syntax": "error",
+      "jsdoc/check-types": "error",
       "jsdoc/check-values": "warn",
       "jsdoc/informative-docs": "warn",
+      "jsdoc/lines-before-block": [
+        "error" | "warn",
+        {
+          lines: 2,
+          ignoreSameLine: false,
+          checkBlockStarts: false,
+          ignoreSingleLines: true,
+        },
+      ],
       "jsdoc/no-undefined-types": "error",
-      "jsdoc/require-file-overview": ["error"],
+      "jsdoc/require-description-complete-sentence": "warn",
+      "jsdoc/require-description": "warn",
+      "jsdoc/require-file-overview": ["warn"],
+      "jsdoc/require-hyphen-before-param-description": "warn",
+      "jsdoc/require-asterisk-prefix": "warn",
+      "jsdoc/require-throws": "warn",
       "jsdoc/sort-tags": [
         "warn",
         {
@@ -224,36 +274,74 @@ const config = [
           linesBetween: 0,
         },
       ],
-      "eol-last": ["error", "always"],
       "jsdoc/require-jsdoc": [
-        "error",
+        "warn",
         {
-          publicOnly: true, // Only report exports
+          publicOnly: false,
           require: {
-            ArrowFunctionExpression: true,
-            ClassDeclaration: true,
-            ClassExpression: true,
             FunctionDeclaration: true,
             FunctionExpression: true,
+            ArrowFunctionExpression: false,
             MethodDefinition: true,
+            ClassDeclaration: true,
+            ClassExpression: true,
           },
           contexts: [
-            "ArrowFunctionExpression",
+            // Top-level function declarations
+            "FunctionDeclaration",
+
+            // Arrow and function expressions assigned to variables
+            "VariableDeclarator > ArrowFunctionExpression",
+            "VariableDeclarator > FunctionExpression",
+
+            // Exported functions and variables assigned to functions
+            "ExportNamedDeclaration > FunctionDeclaration",
+            "ExportNamedDeclaration > VariableDeclaration > VariableDeclarator > ArrowFunctionExpression",
+            "ExportNamedDeclaration > VariableDeclaration > VariableDeclarator > FunctionExpression",
+            "ExportDefaultDeclaration > FunctionDeclaration",
+            "ExportDefaultDeclaration > VariableDeclaration > VariableDeclarator > ArrowFunctionExpression",
+            "ExportDefaultDeclaration > VariableDeclaration > VariableDeclarator > FunctionExpression",
+
+            // Class stuff
+            "MethodDefinition",
             "ClassDeclaration",
             "ClassExpression",
-            "ClassProperty",
-            "FunctionDeclaration", // Function
-            "FunctionExpression",
-            "MethodDefinition",
-            "TSDeclareFunction", // Function without body
-            "TSEnumDeclaration",
-            "TSInterfaceDeclaration",
-            "TSModuleDeclaration", // Namespace
-            "TSTypeAliasDeclaration",
-            "VariableDeclaration",
           ],
         },
       ],
+    },
+  },
+
+  // Backend config
+  {
+    name: "app/backend-overrides",
+    files: ["backend/**/*.{js,ts}"],
+    settings: {
+      "import/resolver": {
+        alias: {
+          map: [
+            ["#config", "./backend/src/config"],
+            ["#controllers", "./backend/src/controllers"],
+            ["#errors", "./backend/src/errors"],
+            ["#middlewares", "./backend/src/middlewares"],
+            ["#models", "./backend/src/models"],
+            ["#modules", "./backend/src/modules"],
+            ["#registries", "./backend/src/registries"],
+            ["#repositories", "./backend/src/repositories"],
+            ["#routes", "./backend/src/routes"],
+            ["#schemas", "./backend/src/schemas"],
+            ["#services", "./backend/src/services"],
+            ["#shared", "./shared/src"],
+            ["#src", "./backend/src"],
+            ["#utils", "./backend/src/utils"],
+          ],
+          extensions: [".js", ".ts", ".vue", ".jsx", ".tsx"],
+        },
+        node: {
+          extensions: [".js", ".ts", ".mjs"],
+          moduleDirectory: ["node_modules", "src/"],
+        },
+      },
     },
   },
 
@@ -271,107 +359,148 @@ const config = [
     },
   },
 
-  // Backend workspace overrides
+  // Frontend config
   {
-    name: "app/backend-workspace",
-    files: ["backend/**"],
-    settings: {
-      "import/resolver": {
-        alias: {
-          map: [
-            ["#config", "./backend/src/config"],
-            ["#controllers", "./backend/src/controllers"],
-            ["#errors", "./backend/src/errors"],
-            ["#middlewares", "./backend/src/middlewares"],
-            ["#models", "./backend/src/models"],
-            ["#registries", "./backend/src/registries"],
-            ["#repositories", "./backend/src/repositories"],
-            ["#routes", "./backend/src/routes"],
-            ["#schemas", "./backend/src/schemas"],
-            ["#services", "./backend/src/services"],
-            ["#src", "./backend/src"],
-            ["#utils", "./backend/src/utils"],
-            ["#shared", "./shared/src"],
-          ],
-
-          extensions: [".js", ".ts", ".vue", ".jsx", ".tsx"],
+    name: "app/frontend-overrides",
+    files: ["frontend/**/*.{js,vue,ts}"],
+    rules: {
+      "vue/no-v-html": "error", // Big NO : sensible to XSS
+      "vue/html-indent": 0,
+      "vue/singleline-html-element-content-newline": 0,
+      "vue/define-macros-order": [
+        "warn",
+        {
+          order: ["defineOptions", "defineEmits", "defineModel", "defineProps"],
+          defineExposeLast: true,
         },
-      },
+      ],
+      "vue/v-on-event-hyphenation": ["warn", "never", { autofix: true }],
+      "vue/next-tick-style": ["warn", "promise"],
+      "vue/match-component-file-name": [
+        "error",
+        { extensions: ["vue"], shouldMatchCase: true },
+      ],
+      "vue/match-component-import-name": ["error"],
+      "vue/no-useless-mustaches": ["warn"],
+      "vue/no-undef-properties": ["error"],
+      "vue/no-unused-emit-declarations": ["warn"],
+      "vue/no-v-text": ["error"],
+      "vue/no-unused-properties": ["warn"],
+      "vue/no-useless-v-bind": ["warn"],
+      "vue/padding-line-between-blocks": ["warn"],
+      "vue/prefer-prop-type-boolean-first": ["warn"],
+      "vue/prefer-use-template-ref": ["warn"],
+      "vue/padding-line-between-tags": [
+        "warn",
+        [
+          { blankLine: "always", prev: "tr", next: "tr" },
+          { blankLine: "always", prev: "thead", next: "tbody" },
+          { blankLine: "always", prev: "tbody", next: "tfoot" },
+        ],
+      ],
+      "vue/no-unused-refs": ["warn"],
+      "vue/no-undef-components": [
+        "error",
+        { ignorePatterns: ["RouterLink", "RouterView"] },
+      ],
+      "vue/no-duplicate-attr-inheritance": [
+        "error",
+        { checkMultiRootNodes: true },
+      ],
+      "vue/no-import-compiler-macros": ["error"],
+      "vue/no-multiple-objects-in-class": ["warn"],
+      "vue/no-static-inline-styles": ["error"],
+      "vue/no-template-target-blank": ["error"],
+      "vue/no-this-in-before-route-enter": ["error"],
+      "vue/prop-name-casing": ["error", "camelCase"],
+      //"vue/define-props-destructuring": ["warn"], // maybe enable this?
+      "vue/custom-event-name-casing": ["warn", "camelCase"],
+      "vue/no-root-v-if": ["error"],
+      "vue/prefer-separate-static-class": ["warn"],
+      //"vue/no-setup-props-reactivity-loss": ["error"], // maybe enable this?
+      "vue/html-button-has-type": ["warn"],
+      "vue/no-restricted-call-after-await": ["warn"],
+      "vue/no-negated-v-if-condition": ["warn"],
+      "vue/html-self-closing": [
+        "warn",
+        {
+          html: { void: "always", normal: "always" },
+          svg: "always",
+          math: "always",
+        },
+      ],
+      "vue/prefer-true-attribute-shorthand": ["warn"],
+      "vue/attribute-hyphenation": [
+        "warn",
+        "never",
+        {
+          ignore: [],
+          ignoreTags: [],
+        },
+      ],
+      "vue/no-ref-object-reactivity-loss": ["warn"],
+      "vue/enforce-style-attribute": ["error", { allow: ["scoped"] }],
+      "vue/max-attributes-per-line": "off",
+      "vue/component-api-style": ["error", ["script-setup"]],
+      "vue/component-name-in-template-casing": [
+        "warn",
+        "PascalCase",
+        {
+          registeredComponentsOnly: true,
+          globals: ["RouterLink", "RouterView"],
+        },
+      ],
     },
-  },
-
-  // Frontend workspace overrides
-  {
-    name: "app/frontend-workspace",
-    files: ["frontend/**"],
     settings: {
       "import/resolver": {
         alias: {
           map: [
             ["#base", "./frontend/src/components/base"],
-            ["#budget", "./frontend/src/components/budget"],
+            ["#composables", "./frontend/src/composables"],
             ["#config", "./frontend/src/config"],
+            ["#layouts", "./frontend/src/layouts"],
+            ["#projects", "./frontend/src/components/projects"],
+            ["#sections", "./frontend/src/components/sections"],
             ["#services", "./frontend/src/services"],
+            ["#shared", "./shared/src"],
             ["#stores", "./frontend/src/stores"],
+            ["#templates", "./frontend/src/components/templates"],
             ["#ui", "./frontend/src/components/ui"],
+            ["#sections", "./frontend/src/components/sections"],
             ["#utils", "./frontend/src/utils"],
             ["#views", "./frontend/src/views"],
-            ["#shared", "./shared/src"],
           ],
           extensions: [".js", ".ts", ".vue", ".jsx", ".tsx"],
         },
+        node: {
+          extensions: [".js", ".ts", ".mjs"],
+          moduleDirectory: ["node_modules", "frontend/src/"],
+        },
       },
     },
-    rules: {
-      "vue/no-v-html": "error", // Big NO : sensible to XSS
-      "vue/html-indent": 0,
-      "vue/singleline-html-element-content-newline": 0,
-      "vue/html-self-closing": "off",
-      "vue/max-attributes-per-line": "off",
-    },
   },
 
-  // Test file overrides
+  // Overrides for *.vue files
   {
-    name: "app/test-overrides",
-    files: ["**/*.test.js", "**/__tests__/**"],
-    ...pluginVitest.configs.recommended,
-    rules: {
-      "no-magic-numbers": "off",
-      "max-lines-per-function": "off",
-    },
-  },
-
-  // Config file overrides
-  {
-    name: "app/config-overrides",
-    files: ["**/*.config.js", "**/config/*.js"],
-    rules: {
-      "no-magic-numbers": "off",
-    },
-  },
-
-  // Vue component file overrides
-  {
-    name: "app/vue-component-overrides",
+    name: "app/vue-overrides",
     files: ["**/*.vue"],
     rules: {
       "jsdoc/require-file-overview": "off",
     },
   },
 
-  // Eslint config file overrides
+  // Overrides for Icon components
   {
-    name: "app/eslint-config-overrides",
-    files: ["**/eslint.config.js"],
+    name: "app/vue-icon-overrides",
+    files: ["**/*Icon.vue", "**/Icon*.vue"],
     rules: {
-      "max-lines": "off",
+      "@stylistic/max-len": "off",
     },
   },
 
-  // Vite/vitest config file overrides
+  // Overrides for vite.config.js and vitest.config.js files
   {
-    name: "app/vite-vitest-config-overrides",
+    name: "app/vite-and-vitest-overrides",
     files: ["**/vite.config.js", "**/vitest.config.js"],
     rules: {
       "import/order": "off",
@@ -381,6 +510,36 @@ const config = [
       "import/no-named-as-default": "off",
       "import/no-named-as-default-member": "off",
       "import/no-duplicates": "off",
+      "import/no-cycle": "off",
+    },
+  },
+
+  // Overrides for test files
+  {
+    name: "app/test-overrides",
+    files: ["**/*.test.js", "**/__tests__/**"],
+    rules: {
+      "no-magic-numbers": "off",
+      "max-lines-per-function": "off",
+    },
+  },
+
+  // Eslint config file overrides
+  {
+    name: "app/eslint-config-overrides",
+    files: ["**/eslint.config.js"],
+    rules: {
+      "max-lines": "off",
+      "no-magic-numbers": "off",
+    },
+  },
+
+  // Overrides for files in config directory
+  {
+    name: "app/config-dir-overrides",
+    files: ["**/config/*.js", "**/config/**/*.js"],
+    rules: {
+      "no-magic-numbers": "off",
     },
   },
 ]

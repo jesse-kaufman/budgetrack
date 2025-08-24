@@ -4,7 +4,7 @@
   "version": "1.0.0",
   "type": "module",
   "scripts": {
-    "start": "dotenvx run -- npm start --workspace=backend",
+    "start": "npm start --workspace=backend",
     "build": "npm run build --workspace=frontend",
     "test": "npm run test --workspaces",
     "test:frontend": "npm run test:watch --workspace=frontend",
@@ -14,11 +14,15 @@
     "test:coverage:frontend": "npm run test:coverage:watch --workspace=frontend",
     "test:coverage:backend": "npm run test:coverage:watch --workspace=backend",
     "test:coverage:shared": "npm run test:coverage:watch --workspace=shared",
-    "lint": "eslint . --fix",
-    "lint:frontend": "eslint . --fix frontend",
-    "lint:backend": "eslint . --fix backend",
-    "lint:shared": "eslint . --fix shared",
-    "dev:backend": "dotenvx run -- npm run dev --workspace=backend",
+    "lint": "eslint .",
+    "lint:frontend": "eslint ./frontend",
+    "lint:backend": "eslint ./backend",
+    "lint:shared": "eslint ./shared",
+    "lint:fix": "eslint . --fix",
+    "lint:frontend:fix": "eslint ./frontend --fix",
+    "lint:backend:fix": "eslint ./backend --fix",
+    "lint:shared:fix": "eslint ./shared --fix",
+    "dev:backend": "npm run dev --workspace=backend",
     "dev:frontend": "npm run dev --workspace=frontend",
     "dev:json": "concurrently \"npm run json-server --workspace=frontend\" \"npm run dev --workspace=frontend\"",
     "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\""
@@ -43,11 +47,14 @@
     "eslint-plugin-vue": "^10.0.0",
     "globals": "^16.0.0",
     "jsdom": "^26.0.0",
+    "vite-tsconfig-paths": "^5.1.4",
     "vitest": "^3.1.1"
   },
   "dependencies": {
     "@budgetrack/shared": "^1.0.0",
+    "@stylistic/eslint-plugin": "^5.2.3",
     "chalk": "^5.6.0",
+    "dotenv": "^17.2.1",
     "http-status-codes": "^2.3.0"
   }
 }

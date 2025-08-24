@@ -1,13 +1,21 @@
 /** @file Budget schema. */
-import dbConfig from "#config/db.js"
+import { datetimeType } from "#config/db.js"
+import BudgetService from "#services/BudgetService.js"
 
 export default {
   name: "Budget",
   tableName: "budgets",
 
-  pluralName: "Budgets",
   skipActiveFilter: true,
   defaultRelations: ["items"],
+
+  customService: BudgetService,
+
+  routes: [
+    { path: "/", method: "get", handler: "getById" },
+    { path: "/:id", method: "get", handler: "getById" },
+    { path: "/", method: "post", handler: "create" },
+  ],
 
   columns: {
     id: {
@@ -16,7 +24,7 @@ export default {
       generated: true,
     },
     updatedOn: {
-      type: dbConfig.datetimeType,
+      type: datetimeType,
       updateDate: true,
       nullable: true,
       default: () => "CURRENT_TIMESTAMP",

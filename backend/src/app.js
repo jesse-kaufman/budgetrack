@@ -2,11 +2,11 @@
 import path from "node:path"
 import { fileURLToPath } from "node:url"
 import express from "express"
+import { API_PREFIX } from "#config/config.js"
+import budgetRoutes from "#routes/budgetRoutes.js"
+import statusRoutes from "#routes/statusRoutes.js"
 import cors from "./middlewares/cors.js"
 import parseJson from "./middlewares/parseJson.js"
-import { API_PREFIX } from "#config/config.js"
-import statusRoutes from "#routes/statusRoutes.js"
-import budgetRoutes from "#routes/budgetRoutes.js"
 
 const app = express()
 const __dirname = path.dirname(fileURLToPath(import.meta.url))
@@ -28,6 +28,6 @@ app.get(/^(?!\/api).*$/, (req, res) => {
 app.use(`${API_PREFIX}/status`, statusRoutes)
 
 // Budget routes
-app.use(`${API_PREFIX}/budget`, budgetRoutes)
+app.use(`${API_PREFIX}/budgets`, budgetRoutes)
 
 export default app

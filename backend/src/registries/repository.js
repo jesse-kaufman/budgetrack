@@ -1,12 +1,15 @@
 /** @file Repository registry. */
-import schemas from "./schema.js"
-import models from "./model.js"
 import BaseRepository from "#repositories/BaseRepository.js"
 import db from "#src/db.js"
+import logger from "#utils/logger.js"
+import models from "./model.js"
+import schemas from "./schema.js"
+
+logger.debug("Initializing repository registry...")
 
 /**
  * Registry that maps schema names to BaseRepository instances.
- *  @type {Record<string, BaseRepository>}
+ * @type {Record<string, BaseRepository>}
  */
 const repositories = {}
 
@@ -30,6 +33,8 @@ for (const schema of Object.values(schemas)) {
 
   // Create the repository and add to the registry
   repositories[schema.name] = new BaseRepository(typeOrmRepo, schema)
+  console.log("repo", repositories[schema.name])
+  logger.debug(`- registered ${schema.name} repository`)
 }
 
 export default repositories

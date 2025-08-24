@@ -2,21 +2,22 @@
 import { toUpperFirst } from "shared/text"
 import { BadRequestError, NotFoundError } from "#utils/errors.js"
 import logger from "#utils/logger.js"
+import validateSentData from "#utils/validationUtils.js"
 
 /**
  * BaseService class providing common service operations.
  */
 export default class BaseService {
   #repository = null
+  #schema = null
   #name = ""
-  #skipUpdatedOnRefresh = false
   #pluralName = ""
   #notFoundMessage = `${toUpperFirst(this.#name)} not found`
 
   /**
    * Creates an instance of BaseService.
    * @param {object} repository - Repository instance to handle data operations.
-   * @param {object} schema - Configuration options.
+   * @param {object} schema - Schema configuration.
    */
   constructor(repository, schema) {
     if (!repository) {
@@ -24,10 +25,10 @@ export default class BaseService {
       throw new Error("Repository instance is required")
     }
 
-    this.#repository = repository ?? null
-    this.#name = schema.name ?? this.#repository.constructor.name
-    this.#skipUpdatedOnRefresh = schema.skipUpdatedOnRefresh ?? false
-    this.#pluralName = schema.pluralName ?? `${schema.name}s`
+    this.#repository = repository
+    this.#schema = schema
+    this.#name = schema.name.toLowerCase()
+    this.#pluralName = schema.pluralName.toLowerCase()
   }
 
   /**
@@ -58,6 +59,7 @@ export default class BaseService {
    * Handle errors and throw normalized errors.
    * @param {object} e - Error object.
    * @returns {void}
+   * @throws {Error} If not found, constraint fails, or other error occurs.
    */
   #handleError = (e) => {
     logger.error(`${e.code} - ${e.message}`)
@@ -114,10 +116,14 @@ export default class BaseService {
   async create(data) {
     if (!data) throw new BadRequestError("Data is required")
     try {
+      // Validate data sent in request
+      validateSentData(data, this.#schema)
+      // Create new record in database
       return await this.#repository.create(data)
     } catch (e) {
-      logger.error(e.message)
-      throw new Error(`Failed to create new ${this.#name}`)
+      const err = `Failed to create new ${this.#name}: ${e.message}`
+      logger.error(e, err)
+      throw new Error(err)
     }
   }
 
@@ -135,23 +141,21 @@ export default class BaseService {
       throw new BadRequestError("Data is required")
     }
 
-    // Attempt to update the entity
     try {
+      // Validate data sent in request
+      validateSentData(data, this.#schema)
+      // Save the updated entity and capture the result
       const updated = await this.#repository.update(id, data)
 
       // If no entity was updated, throw NotFoundError
       if (!updated) throw new NotFoundError(this.#notFoundMessage)
 
-      if (!this.#skipUpdatedOnRefresh) {
-        await this.#repository.update(id, {
-          updatedOn: () => "CURRENT_TIMESTAMP",
-        })
-      }
-
-      // Return the updated entity
+      // Re-fetch the updated entity, to return fully updated data
       return this.findById(id)
     } catch (e) {
-      this.#handleError(e)
+      const err = `Failed to update ${this.#name}: ${e.message}`
+      logger.error(e, err)
+      throw new Error(err)
     }
   }
 

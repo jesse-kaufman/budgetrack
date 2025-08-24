@@ -31,3 +31,32 @@ export const getDbName = (name, type) => {
   // Return db name as-is
   return name
 }
+
+/**
+ * Validates database configuration.
+ * @param {object} config - Database configuration object to validate.
+ * @throws {Error} If any required configurations are missing.
+ */
+export const validateConfig = (config) => {
+  // Validate config for SQLite
+  if (["sqlite", "better-sqlite3"].includes(config.type)) {
+    if (!config.database) {
+      throw new Error("Missing required DB config: database (SQLite file path)")
+    }
+    return
+  }
+
+  // Validate config for SQL Server
+  if (config.type === "mssql") {
+    const required = ["host", "username", "password", "database"]
+    for (const key of required) {
+      if (!config[key]) {
+        throw new Error(`Missing required DB config: ${key}`)
+      }
+    }
+    return
+  }
+
+  // Throw if DB not in list
+  throw new Error(`Unsupported DB type: ${config.type}`)
+}

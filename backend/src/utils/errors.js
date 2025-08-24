@@ -28,7 +28,7 @@ export class BadRequestError extends Error {
    * Creates an instance of BadRequestError.
    * @param {string} message - Error message to throw.
    */
-  constructor(message = "Not Found") {
+  constructor(message = "Bad Request") {
     super(message)
     this.name = "BadRequestError"
     this.statusCode = StatusCodes.BAD_REQUEST

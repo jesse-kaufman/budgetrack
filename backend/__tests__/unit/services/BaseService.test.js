@@ -1,7 +1,7 @@
 /** @file Unit tests for BaseService. */
 import { beforeEach, describe, expect, it, vi } from "vitest"
-import { NotFoundError } from "#utils/errors.js"
 import BaseService from "#services/BaseService.js"
+import { NotFoundError } from "#utils/errors.js"
 
 describe("BaseService", () => {
   let repoMock = null

@@ -1,22 +1,23 @@
 {
   "compilerOptions": {
-    "target": "ES2022",
+    "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "Node",
     "baseUrl": ".",
+    "checkJs": false,
     "paths": {
       "#config/*": ["src/config/*"],
       "#controllers/*": ["src/controllers/*"],
       "#errors/*": ["src/errors/*"],
       "#middlewares/*": ["src/middlewares/*"],
+      "#models/*": ["src/models/*"],
+      "#registries/*": ["src/registries/*"],
       "#repositories/*": ["src/repositories/*"],
       "#routes/*": ["src/routes/*"],
       "#services/*": ["src/services/*"],
       "#src/*": ["src/src/*"],
       "#utils/*": ["src/utils/*"],
-      "#shared/*": ["../shared/src/*"],
-      "#schemas/*": ["src/schemas/*"],
-      "#registries/*": ["src/registries/*"]
+      "#shared/*": ["../shared/src/*"]
     }
   },
   "include": ["server.js", "src/*", "src/**/*"]

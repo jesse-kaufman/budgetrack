@@ -1,4 +1,5 @@
 /** @file Database config. */
+import { nodeEnv } from "#config/config.js"
 import { getDbName } from "#utils/dbUtils.js"
 
 /** Database type; defaults to mssql. */
@@ -18,11 +19,12 @@ const logging = process.env.DB_LOGGING === "true"
 /** Whether to enable TypeORM's database sync. */
 const synchronize = process.env.DB_SYNCHRONIZE === "true"
 /** Where to store migrations. */
-const migrations = ["migrations/*.{js,ts}"]
-/** Boolean column type based on the type of database. */
-const booleanType = type === "mssql" ? "bit" : "boolean"
-/** Datetime column type for current database type. */
-const datetimeType = type === "mssql" ? "datetime2" : "datetime"
+const migrations = [`migrations/${nodeEnv}/*.{js,ts}`]
+
+/** Boolean column type for configured database type. */
+export const booleanType = type === "mssql" ? "bit" : "boolean"
+/** Datetime column type for the configured database type. */
+export const datetimeType = type === "mssql" ? "datetime2" : "datetime"
 
 /** Additional TypeORM database options. */
 const options = {

@@ -16,7 +16,7 @@ export default class BaseController {
   /**
    * Handle errors and send appropriate HTTP responses.
    * @param {object} e - Error object.
-   * @param {*} res - Response object.
+   * @param {object} res - Response object.
    * @returns {void}
    */
   #handleError = (e, res) => {

@@ -1,6 +1,9 @@
 /** @file Model registry. */
 import { EntitySchema } from "typeorm"
+import logger from "#utils/logger.js"
 import schemas from "./schema.js"
+
+logger.debug("Initializing model registry...")
 
 /**
  * Registry that maps schema names to TypeORM EntitySchema instances.
@@ -16,6 +19,8 @@ for (const schema of Object.values(schemas)) {
     columns: schema.columns,
     relations: schema.relations,
   })
+
+  logger.debug(`- registered ${schema.name} model`)
 }
 
 export default models

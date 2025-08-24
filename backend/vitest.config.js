@@ -1,5 +1,4 @@
 /** @file Vitest config. */
-import path from "node:path"
 import { defineConfig } from "vitest/config"
 
 const exclude = [
@@ -13,22 +12,6 @@ const exclude = [
 ]
 
 export default defineConfig({
-  resolve: {
-    alias: {
-      "#config": path.resolve(__dirname, "./src/config"),
-      "#controllers": path.resolve(__dirname, "./src/controllers"),
-      "#errors": path.resolve(__dirname, "./src/errors"),
-      "#middlewares": path.resolve(__dirname, "./src/middlewares"),
-      "#registries": path.resolve(__dirname, "./src/registries"),
-      "#repositories": path.resolve(__dirname, "./src/repositories"),
-      "#routes": path.resolve(__dirname, "./src/routes"),
-      "#services": path.resolve(__dirname, "./src/services"),
-      "#shared": path.resolve(__dirname, "../shared/src"),
-      "#schemas": path.resolve(__dirname, "./src/schemas"),
-      "#src": path.resolve(__dirname, "./src"),
-      "#utils": path.resolve(__dirname, "./src/utils"),
-    },
-  },
   test: {
     environment: "node",
     globals: true,

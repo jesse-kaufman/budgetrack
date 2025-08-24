@@ -1,7 +1,11 @@
 /** @file Schema registry. */
 import fs from "node:fs"
 import path from "node:path"
-import { fileURLToPath } from "node:url"
+import { getAbsolutePath } from "#utils/fsUtils.js"
+import logger from "#utils/logger.js"
+import { initSchema } from "#utils/schemaUtils.js"
+
+logger.debug("Initializing schema registry...")
 
 /**
  * Registry that maps schema names to schema configuration objects.
@@ -9,9 +13,8 @@ import { fileURLToPath } from "node:url"
  */
 const schemas = {}
 
-const __filename = fileURLToPath(import.meta.url)
-const __dirname = path.dirname(__filename)
-const schemasDir = path.resolve(__dirname, "../schemas")
+/** @type {string} Absolute path to schemas directory. */
+const schemasDir = getAbsolutePath(import.meta.url, "../schemas")
 
 // Walk through *Schema.js files and import each
 const imports = await Promise.all(
@@ -21,10 +24,18 @@ const imports = await Promise.all(
     .map((f) => import(path.join(schemasDir, f)))
 )
 
-// Walk through imported modules
+// Walk through imported modules, adding each to registry
 for (const _import of imports) {
-  console.log(`adding ${_import.default.name} to schema registry`)
-  schemas[_import.default.name] = _import.default
+  // Extract schema name from import
+  const { name } = _import.default
+  console.log("name", name)
+  // Try to initialize schema object from definition and add to registry
+  try {
+    schemas[name] = initSchema(_import.default)
+    logger.debug(` - registered ${name} schema`)
+  } catch (e) {
+    logger.fatal(`Failed to initialize ${name} schema - ${e.message}`)
+  }
 }
 
 export default schemas

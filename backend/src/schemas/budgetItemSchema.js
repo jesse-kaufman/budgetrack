@@ -1,6 +1,6 @@
 /** @file Budget item schema. */
-import { itemTypes, frequencies } from "shared/budget"
-import dbConfig from "#config/db.js"
+import { frequencies, itemTypes } from "shared/budget"
+import { booleanType } from "#config/db.js"
 
 export default {
   name: "BudgetItem",
@@ -8,6 +8,7 @@ export default {
 
   registerRepository: false, // Do not register repository for schema
   registerService: false, // Do not register service for schema
+  registerRoutes: false, // Do not register routes for schema
 
   columns: {
     id: {
@@ -32,7 +33,7 @@ export default {
       enum: frequencies.getKeys(),
     },
     scheduled: {
-      type: dbConfig.booleanType,
+      type: booleanType,
       default: false,
     },
   },

@@ -1,10 +1,10 @@
-/** @file Hello routes. */
+/** @file API Status routes. */
 import { Router } from "express"
-import StatusController from "#controllers/StatusController.js"
 
+/** @type {Router} Routers for status endpoint. */
 const statusRoutes = new Router()
-const controller = new StatusController()
 
-statusRoutes.use("/", controller.status)
+// Add endpoint for API status
+statusRoutes.get("/", (req, res) => res.json({ message: "The API is up!" }))
 
 export default statusRoutes

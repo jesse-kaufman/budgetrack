@@ -26,7 +26,7 @@ export const getDbName = (name, type) => {
   const isSqlite = ["sqlite", "better-sqlite3"].includes(type)
 
   // Append .sqlite to SQLite databases if not already included
-  if (isSqlite && !name.endsWith(".sqlite")) return `${name}.sqlite`
+  if (isSqlite && !name.endsWith(".sqlite")) return `data/${name}.sqlite`
 
   // Return db name as-is
   return name

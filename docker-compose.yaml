@@ -6,6 +6,8 @@ services:
       - .env
     networks:
       - proxy
+    volumes:
+      - ./backend/data:/app/data
     build:
       context: .
       dockerfile: Dockerfile

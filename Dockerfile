@@ -25,7 +25,7 @@ WORKDIR /app
 COPY package*.json ./
 COPY backend/package*.json ./backend/
 COPY shared/package*.json ./shared/
-RUN npm ci --omit=dev
+RUN npm ci --omit=dev --workspace=backend --workspace=shared
 
 # Copy backend + shared code
 COPY backend ./backend

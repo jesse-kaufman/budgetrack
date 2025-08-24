@@ -14,7 +14,11 @@ const controllers = {}
 
 // Walk through each schema, create a BaseService instance, and add to registry
 for (const schema of Object.values(schemas)) {
+  // Skip registration if registerController is false
+  if (schema.registerController === false) continue
+
   controllers[schema.name] = new BaseController(services[schema.name])
+
   logger.debug(`- registered ${schema.name} controller`)
 }
 

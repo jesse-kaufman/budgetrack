@@ -15,6 +15,7 @@ services:
     restart: always
     labels:
       - traefik.enable=true
+      - traefik.http.routers.budgetrack.rule=HostRegexp(`^budget\.`)
       - traefik.http.routers.budgetrack.entryPoints=https
       - traefik.http.routers.budgetrack.tls=true
       - traefik.http.routers.budgetrack.middlewares=default@file

@@ -14,5 +14,9 @@
   "imports": {
     "#text/*": "./src/text/*",
     "#shared/*": "./src/*"
+  },
+  "dependencies": {
+    "chalk": "^5.6.0",
+    "http-status-codes": "^2.3.0"
   }
 }

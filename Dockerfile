@@ -14,6 +14,7 @@ COPY shared ./shared
 WORKDIR /app/frontend
 RUN npm run build
 
+
 ###
 ### Stage 2: Backend dependencies
 ###
